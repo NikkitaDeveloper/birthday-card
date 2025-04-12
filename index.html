@@ -1,64 +1,321 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Garv ji's Hand-Drawn Birthday Card</title>
+    <title>LoveSpark - Discover Your Love Compatibility</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
         body {
-            font-family: 'Courier New', Courier, monospace;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f9f3e6;
-        }
-
-        .card {
-            width: 300px;
-            padding: 20px;
-            border: 2px solid #a7a7a7;
-            border-radius: 10px;
-            background-color: #ffffe0;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            position: relative;
             overflow: hidden;
         }
 
-        .handwriting {
-            font-family: 'Brush Script MT', cursive;
-            font-size: 18px;
-            line-height: 1.6;
-            color: #333;
-            padding: 10px;
-            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            animation: fadeIn 1s ease-in;
         }
 
-        .colorful-line {
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            color: #ff6b6b;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #ff6b6b; }
+            to { text-shadow: 0 0 20px #ff6b6b, 0 0 30px #ff9a9e; }
+        }
+
+        .form-group {
+            margin: 15px 0;
+        }
+
+        label {
+            display: block;
+            color: #333;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ff6b6b;
+            border-radius: 10px;
+            font-size: 1em;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #ff9a9e;
+        }
+
+        button {
+            background: #ff6b6b;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background: #ff9a9e;
+            transform: scale(1.05);
+        }
+
+        #result {
+            margin-top: 30px;
+            font-size: 1.5em;
+            color: #333;
+            opacity: 0;
+        }
+
+        .heart {
             position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ff6b6b;
+            transform: rotate(45deg);
+            animation: float 5s infinite;
+            pointer-events: none;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ff6b6b;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -10px;
+            left: 0;
+        }
+
+        .heart::after {
+            left: -10px;
+            top: 0;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(45deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(45deg); opacity: 0; }
+        }
+
+        .stars {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            pointer-events: none;
             z-index: -1;
-            background-image: url('colorful_lines.png');
-            background-size: cover;
-            mix-blend-mode: overlay;
-            opacity: 0.5;
+        }
+
+        .star {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
         }
     </style>
 </head>
 <body>
-    <div class="card">
-        <div class="handwriting">
-            <h1>Garv ji's Birthday Card</h1>
-            <p>Dear Garv ji,</p>
-            <p>Wishing you a fantastic year ahead filled with joy and success!</p>
+    <div class="stars"></div>
+    <div class="container">
+        <h1>LoveSpark</h1>
+        <p>Discover the magic of your love connection!</p>
+        <div class="form-group">
+            <label for="maleName">Male Name</label>
+            <input type="text" id="maleName" placeholder="Enter male name" required>
         </div>
-        <div class="colorful-line"></div>
+        <div class="form-group">
+            <label for="maleDob">Male Birth Date</label>
+            <input type="date" id="maleDob" required>
+        </div>
+        <div class="form-group">
+            <label for="femaleName">Female Name</label>
+            <input type="text" id="femaleName" placeholder="Enter female name" required>
+        </div>
+        <div class="form-group">
+            <label for="femaleDob">Female Birth Date</label>
+            <input type="date" id="femaleDob" required>
+        </div>
+        <button onclick="calculateLove()">Calculate Love</button>
+        <div id="result"></div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script>
+        // Create twinkling stars
+        function createStars() {
+            const starsContainer = document.querySelector('.stars');
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 3}s`;
+                starsContainer.appendChild(star);
+            }
+        }
+        createStars();
+
+        // Create floating hearts on click
+        function createHearts() {
+            for (let i = 0; i < 10; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.style.left = `${Math.random() * 100}%`;
+                heart.style.animationDelay = `${Math.random() * 2}s`;
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 5000);
+            }
+        }
+
+        // Calculate Zodiac Sign
+        function getZodiacSign(day, month) {
+            const zodiacSigns = [
+                { sign: "Capricorn", start: [12, 22], end: [1, 19] },
+                { sign: "Aquarius", start: [1, 20], end: [2, 18] },
+                { sign: "Pisces", start: [2, 19], end: [3, 20] },
+                { sign: "Aries", start: [3, 21], end: [4, 19] },
+                { sign: "Taurus", start: [4, 20], end: [5, 20] },
+                { sign: "Gemini", start: [5, 21], end: [6, 20] },
+                { sign: "Cancer", start: [6, 21], end: [7, 22] },
+                { sign: "Leo", start: [7, 23], end: [8, 22] },
+                { sign: "Virgo", start: [8, 23], end: [9, 22] },
+                { sign: "Libra", start: [9, 23], end: [10, 22] },
+                { sign: "Scorpio", start: [10, 23], end: [11, 21] },
+                { sign: "Sagittarius", start: [11, 22], end: [12, 21] }
+            ];
+
+            for (let zodiac of zodiacSigns) {
+                const [startMonth, startDay] = zodiac.start;
+                const [endMonth, endDay] = zodiac.end;
+                if ((month === startMonth && day >= startDay) || (month === endMonth && day <= endDay)) {
+                    return zodiac.sign;
+                }
+            }
+            return "Capricorn"; // Default for edge cases
+        }
+
+        // Zodiac Compatibility Score
+        function getZodiacCompatibility(sign1, sign2) {
+            const compatibility = {
+                "Aries": { "Leo": 90, "Sagittarius": 90, "Aries": 80, "Gemini": 85, "Aquarius": 85 },
+                "Taurus": { "Virgo": 90, "Capricorn": 90, "Taurus": 80, "Cancer": 85, "Pisces": 85 },
+                "Gemini": { "Libra": 90, "Aquarius": 90, "Gemini": 80, "Aries": 85, "Leo": 85 },
+                "Cancer": { "Scorpio": 90, "Pisces": 90, "Cancer": 80, "Taurus": 85, "Virgo": 85 },
+                "Leo": { "Aries": 90, "Sagittarius": 90, "Leo": 80, "Gemini": 85, "Libra": 85 },
+                "Virgo": { "Taurus": 90, "Capricorn": 90, "Virgo": 80, "Cancer": 85, "Scorpio": 85 },
+                "Libra": { "Gemini": 90, "Aquarius": 90, "Libra": 80, "Leo": 85, "Sagittarius": 85 },
+                "Scorpio": { "Cancer": 90, "Pisces": 90, "Scorpio": 80, "Virgo": 85, "Capricorn": 85 },
+                "Sagittarius": { "Aries": 90, "Leo": 90, "Sagittarius": 80, "Libra": 85, "Aquarius": 85 },
+                "Capricorn": { "Taurus": 90, "Virgo": 90, "Capricorn": 80, "Scorpio": 85, "Pisces": 85 },
+                "Aquarius": { "Gemini": 90, "Libra": 90, "Aquarius": 80, "Aries": 85, "Sagittarius": 85 },
+                "Pisces": { "Cancer": 90, "Scorpio": 90, "Pisces": 80, "Taurus": 85, "Capricorn": 85 }
+            };
+            return compatibility[sign1]?.[sign2] || 70; // Default compatibility
+        }
+
+        // Numerology Calculation
+        function getNumerologyNumber(name, dob) {
+            // Name number (sum of character codes)
+            const nameValue = name.toLowerCase().split('')
+                .reduce((sum, char) => sum + (char.charCodeAt(0) - 96), 0) % 9 || 9;
+
+            // Birth number
+            const dobValue = dob.split('-')
+                .join('')
+                .split('')
+                .reduce((sum, num) => sum + parseInt(num), 0) % 9 || 9;
+
+            return (nameValue + dobValue) % 9 || 9;
+        }
+
+        // Calculate Love Percentage
+        function calculateLove() {
+            const maleName = document.getElementById('maleName').value.trim();
+            const maleDob = document.getElementById('maleDob').value;
+            const femaleName = document.getElementById('femaleName').value.trim();
+            const femaleDob = document.getElementById('femaleDob').value;
+            const resultDiv = document.getElementById('result');
+
+            if (!maleName || !maleDob || !femaleName || !femaleDob) {
+                resultDiv.textContent = "Please fill in all fields!";
+                return;
+            }
+
+            // Get Zodiac Signs
+            const maleDate = new Date(maleDob);
+            const femaleDate = new Date(femaleDob);
+            const maleZodiac = getZodiacSign(maleDate.getDate(), maleDate.getMonth() + 1);
+            const femaleZodiac = getZodiacSign(femaleDate.getDate(), femaleDate.getMonth() + 1);
+
+            // Zodiac Compatibility
+            const zodiacScore = getZodiacCompatibility(maleZodiac, femaleZodiac);
+
+            // Numerology
+            const maleNumber = getNumerologyNumber(maleName, maleDob);
+            const femaleNumber = getNumerologyNumber(femaleName, femaleDob);
+            const numerologyScore = (maleNumber === femaleNumber) ? 90 : (Math.abs(maleNumber - femaleNumber) < 3 ? 85 : 75);
+
+            // Name Compatibility (simple sum for demo)
+            const nameScore = (maleName.length + femaleName.length) % 100;
+
+            // Random factor for other theories/religions
+            const randomFactor = Math.random() * 10 + 80; // Between 80-90 for optimism
+
+            // Final Love Percentage
+            const lovePercentage = Math.min(100, Math.round((zodiacScore + numerologyScore + nameScore + randomFactor) / 4));
+
+            // Animate Result
+            resultDiv.textContent = `${maleName} & ${femaleName}: ${lovePercentage}% Love Compatibility!`;
+            gsap.to(resultDiv, { opacity: 1, y: -20, duration: 1, ease: "bounce" });
+
+            // Trigger Hearts
+            createHearts();
+        }
+    </script>
 </body>
-  </html>
-  
+<html>
