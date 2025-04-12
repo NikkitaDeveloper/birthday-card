@@ -1,493 +1,377 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LoveSpark - Discover Your Cosmic Love</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Religions & Castes: Focus on Meena</title>
+  <style>
+    /* Reset for consistency */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            transition: background 2s ease;
-        }
+    /* General styling */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      background: #f4f4f9;
+      color: #333;
+      min-height: 100vh;
+      padding: 20px;
+      overflow-x: hidden;
+    }
 
-        .background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-            z-index: -2;
-            transition: background 2s ease;
-        }
+    /* Container */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
 
-        .container {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            max-width: 600px;
-            width: 90%;
-            animation: fadeIn 1.5s ease-in;
-        }
+    /* Text-based loader (no images) */
+    .loader {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60px;
+      height: 60px;
+      border: 6px solid #d0d0d0;
+      border-top: 6px solid #2c3e50;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      z-index: 1000;
+      display: block;
+    }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    @keyframes spin {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
 
-        h1 {
-            color: #ff6b6b;
-            font-size: 2.8em;
-            margin-bottom: 20px;
-            animation: pulseGlow 2s infinite alternate;
-        }
+    .loader.hidden {
+      display: none;
+    }
 
-        @keyframes pulseGlow {
-            from { text-shadow: 0 0 10px #ff6b6b; }
-            to { text-shadow: 0 0 20px #ff6b6b, 0 0 30px #ff9a9e; }
-        }
+    /* Content styling */
+    .content {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
 
-        .form-group {
-            position: relative;
-            margin: 20px 0;
-        }
+    .content.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-        label {
-            position: absolute;
-            top: 50%;
-            left: 15px;
-            transform: translateY(-50%);
-            color: #666;
-            font-size: 1.1em;
-            transition: all 0.3s ease;
-            pointer-events: none;
-        }
+    .content.hidden {
+      display: none;
+    }
 
-        input:focus + label,
-        input:not(:placeholder-shown) + label {
-            top: -10px;
-            left: 10px;
-            font-size: 0.9em;
-            color: #ff6b6b;
-            background: white;
-            padding: 0 5px;
-        }
+    /* Header */
+    header {
+      text-align: center;
+      padding: 20px 0;
+      border-bottom: 2px solid #3498db;
+    }
 
-        input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #ff6b6b;
-            border-radius: 10px;
-            font-size: 1em;
-            outline: none;
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
+    h1 {
+      font-size: 2.2em;
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
 
-        input:focus {
-            border-color: #ff9a9e;
-            box-shadow: 0 0 10px rgba(255, 106, 106, 0.3);
-        }
+    /* Search bar */
+    #search {
+      width: 100%;
+      padding: 10px;
+      margin: 15px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1em;
+    }
 
-        button {
-            background: #ff6b6b;
-            color: white;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.2em;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
+    /* Sections */
+    section {
+      margin: 20px 0;
+      padding: 15px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
 
-        button:hover {
-            background: #ff9a9e;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 106, 106, 0.4);
-        }
+    h2 {
+      font-size: 1.6em;
+      color: #3498db;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
 
-        button::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.6s ease, height 0.6s ease;
-        }
+    h2:hover {
+      color: #2980b9;
+    }
 
-        button:hover::before {
-            width: 200px;
-            height: 200px;
-        }
+    p, ul {
+      font-size: 1em;
+      margin-bottom: 10px;
+    }
 
-        #result {
-            margin-top: 30px;
-            font-size: 1.6em;
-            color: #333;
-            opacity: 0;
-            transform: translateY(20px);
-        }
+    ul {
+      list-style: none;
+      padding-left: 20px;
+    }
 
-        .heart {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: #ff6b6b;
-            transform: rotate(45deg);
-            animation: float 6s infinite;
-            pointer-events: none;
-            z-index: -1;
-        }
+    li::before {
+      content: "• ";
+      color: #3498db;
+    }
 
-        .heart::before,
-        .heart::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: #ff6b6b;
-            border-radius: 50%;
-        }
+    /* Expandable sections */
+    .details {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
 
-        .heart::before {
-            top: -10px;
-            left: 0;
-        }
+    .details.expanded {
+      max-height: 1000px; /* Adjust as needed */
+    }
 
-        .heart::after {
-            left: -10px;
-            top: 0;
-        }
+    /* Buttons */
+    button {
+      padding: 10px 20px;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.9em;
+      transition: transform 0.2s ease, background 0.2s ease;
+      margin: 10px 0;
+    }
 
-        @keyframes float {
-            0% { transform: translateY(0) rotate(45deg); opacity: 1; }
-            100% { transform: translateY(-100vh) rotate(45deg); opacity: 0; }
-        }
+    button:hover {
+      background: #2980b9;
+      transform: scale(1.03);
+    }
 
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
+    button:focus {
+      outline: 2px solid #2c3e50;
+      outline-offset: 2px;
+    }
 
-        .star {
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            background: #fff;
-            border-radius: 50%;
-            animation: twinkle 3s infinite;
-        }
+    /* Error message */
+    .error {
+      color: #c0392b;
+      font-size: 0.9em;
+      text-align: center;
+      margin: 10px 0;
+      display: none;
+    }
 
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.2; }
-            50% { opacity: 1; }
-        }
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px 0;
+      font-size: 0.9em;
+      color: #7f8c8d;
+    }
 
-        .sparkle {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: #ffd700;
-            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            animation: sparkle 4s infinite;
-            pointer-events: none;
-        }
+    /* Responsive design */
+    @media (max-width: 600px) {
+      .loader {
+        width: 40px;
+        height: 40px;
+      }
 
-        @keyframes sparkle {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
-        }
-    </style>
+      h1 {
+        font-size: 1.8em;
+      }
+
+      h2 {
+        font-size: 1.4em;
+      }
+
+      .container {
+        padding: 10px;
+      }
+    }
+
+    /* Accessibility: Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .loader {
+        animation: none;
+        border: 6px solid #3498db;
+      }
+
+      .content, button, h2 {
+        transition: none;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="background"></div>
-    <div class="stars"></div>
+  <!-- Loader -->
+  <div id="loader" class="loader" role="status" aria-label="Loading content"></div>
+
+  <!-- Content -->
+  <div id="content" class="content hidden">
     <div class="container">
-        <h1>LoveSpark</h1>
-        <p>Unveil the cosmic connection of your love!</p>
-        <div class="form-group">
-            <input type="text" id="maleName" placeholder=" " required>
-            <label for="maleName">Male Name</label>
+      <header>
+        <h1>Exploring Religions and Castes</h1>
+        <p>A journey through social structures, with a focus on the Meena community</p>
+        <input type="text" id="search" placeholder="Search religions or castes..." aria-label="Search content">
+      </header>
+
+      <div id="error" class="error"></div>
+
+      <!-- Religions Overview -->
+      <section id="religions">
+        <h2 onclick="toggleSection(this)">Major Religions and Social Hierarchies</h2>
+        <div class="details">
+          <p>Religions shape social structures worldwide. Below is an overview of how caste or similar hierarchies appear in major faiths.</p>
+          <ul>
+            <li><strong>Hinduism</strong>: Organized into four varnas (Brahmins, Kshatriyas, Vaishyas, Shudras) and thousands of jatis. Tribes like the Meenas are Scheduled Tribes (STs).</li>
+            <li><strong>Islam</strong>: South Asian Muslims have Ashraf (elite), Ajlaf (artisans), and Arzal (lowest) groups, despite equality in scripture.</li>
+            <li><strong>Christianity</strong>: In India, converts from higher castes hold more status than Dalit or tribal converts.</li>
+            <li><strong>Sikhism</strong>: Jat Sikhs dominate over Mazhabi or Ravidasi Sikhs, despite casteless teachings.</li>
+            <li><strong>Buddhism</strong>: Casteless in India, but Sri Lankan Buddhists have Govi (high) and Karava (low) ranks.</li>
+            <li><strong>Jainism</strong>: Mostly higher-caste Vaishyas (e.g., Oswals), with social practices mirroring Hinduism.</li>
+          </ul>
         </div>
-        <div class="form-group">
-            <input type="date" id="maleDob" placeholder=" ">
-            <label for="maleDob">Male Birth Date (Optional)</label>
+      </section>
+
+      <!-- Hindu Caste System -->
+      <section id="hindu-caste">
+        <h2 onclick="toggleSection(this)">Hindu Caste System</h2>
+        <div class="details">
+          <p>The Hindu caste system, rooted in ancient texts like the Manusmriti, divides society into varnas and jatis. It became rigid under colonial rule but remains influential today.</p>
+          <ul>
+            <li><strong>Varnas</strong>: Brahmins (priests), Kshatriyas (warriors), Vaishyas (merchants), Shudras (laborers).</li>
+            <li><strong>Jatis</strong>: Thousands of sub-castes tied to region and occupation.</li>
+            <li><strong>Scheduled Tribes</strong>: Indigenous groups like the Meenas, outside varnas, with unique cultures.</li>
+            <li><strong>Modern Reforms</strong>: Reservations for SCs, STs, and OBCs aim to uplift marginalized groups.</li>
+          </ul>
         </div>
-        <div class="form-group">
-            <input type="text" id="femaleName" placeholder=" " required>
-            <label for="femaleName">Female Name</label>
+      </section>
+
+      <!-- Meena Caste -->
+      <section id="meena">
+        <h2 onclick="toggleSection(this)">The Meena Community</h2>
+        <div class="details">
+          <p>The Meena caste, a Scheduled Tribe in Rajasthan, has a rich history and vibrant culture.</p>
+          <ul>
+            <li><strong>Origins</strong>: Linked to the Matsya Kingdom, possibly from “meen” (fish). Historically hunters and warriors.</li>
+            <li><strong>Population</strong>: ~5-7 million, mainly in Rajasthan and Madhya Pradesh.</li>
+            <li><strong>Culture</strong>: Organized into clans (adakhs), with festivals like Teej and oral traditions.</li>
+            <li><strong>Status</strong>: ST reservations have boosted education and jobs, but tensions with other groups persist.</li>
+            <li><strong>Challenges</strong>: Benefits often favor an elite minority; rural Meenas face poverty.</li>
+          </ul>
+          <button onclick="loadMoreMeena()">Learn More About Meenas</button>
         </div>
-        <div class="form-group">
-            <input type="date" id="femaleDob" placeholder=" ">
-            <label for="femaleDob">Female Birth Date (Optional)</label>
+      </section>
+
+      <!-- Sociology of Caste -->
+      <section id="sociology">
+        <h2 onclick="toggleSection(this)">Sociology of Caste</h2>
+        <div class="details">
+          <p>Caste shapes identity, opportunity, and social dynamics in India and beyond.</p>
+          <ul>
+            <li><strong>Privilege</strong>: Upper castes inherit social capital, while lower castes face systemic barriers.</li>
+            <li><strong>Mobility</strong>: Reservations help groups like the Meenas, but rural-urban divides remain.</li>
+            <li><strong>Globalization</strong>: Caste issues affect diaspora communities, sparking anti-caste movements abroad.</li>
+          </ul>
         </div>
-        <button onclick="calculateLove()">Ignite the Spark</button>
-        <div id="result"></div>
+      </section>
+
+      <footer>
+        <p>Built with care to explore culture and identity | 2025</p>
+      </footer>
     </div>
+  </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
-    <script>
-        // Dynamic Background Based on Love Percentage
-        function setBackground(percentage) {
-            const bg = document.querySelector('.background');
-            if (percentage < 30) {
-                bg.style.background = 'linear-gradient(135deg, #ff6b6b, #ff9a9e)';
-            } else if (percentage < 70) {
-                bg.style.background = 'linear-gradient(135deg, #ffd700, #ffec8b)';
-            } else {
-                bg.style.background = 'linear-gradient(135deg, #98fb98, #00ff7f)';
-            }
-        }
+  <script>
+    // Debounce utility
+    function debounce(func, wait) {
+      let timeout;
+      return function executedFunction(...args) {
+        const later = () => {
+          clearTimeout(timeout);
+          func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+      };
+    }
 
-        // Create Twinkling Stars and Sparkles
-        function createStarsAndSparkles() {
-            const starsContainer = document.querySelector('.stars');
-            for (let i = 0; i < 50; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.left = `${Math.random() * 100}%`;
-                star.style.top = `${Math.random() * 100}%`;
-                star.style.animationDelay = `${Math.random() * 3}s`;
-                starsContainer.appendChild(star);
-            }
-            for (let i = 0; i < 20; i++) {
-                const sparkle = document.createElement('div');
-                sparkle.className = 'sparkle';
-                sparkle.style.left = `${Math.random() * 100}%`;
-                sparkle.style.top = `${Math.random() * 100}%`;
-                sparkle.style.animationDelay = `${Math.random() * 4}s`;
-                document.body.appendChild(sparkle);
-                setTimeout(() => sparkle.remove(), 4000);
-            }
-        }
-        createStarsAndSparkles();
-        setInterval(createStarsAndSparkles, 4000);
+    // Toggle loader
+    function toggleLoader(show) {
+      const loader = document.getElementById('loader');
+      const content = document.getElementById('content');
+      loader.classList.toggle('hidden', !show);
+      content.classList.toggle('hidden', show);
+      content.classList.toggle('visible', !show);
+    }
 
-        // Create Floating Hearts
-        function createHearts() {
-            for (let i = 0; i < 15; i++) {
-                const heart = document.createElement('div');
-                heart.className = 'heart';
-                heart.style.left = `${Math.random() * 100}%`;
-                heart.style.animationDelay = `${Math.random() * 2}s`;
-                document.body.appendChild(heart);
-                setTimeout(() => heart.remove(), 6000);
-            }
-        }
+    // Show error
+    function showError(message) {
+      const errorDiv = document.getElementById('error');
+      errorDiv.textContent = message;
+      errorDiv.style.display = 'block';
+    }
 
-        // Calculate Zodiac Sign
-        function getZodiacSign(day, month) {
-            const zodiacSigns = [
-                { sign: "Capricorn", start: [12, 22], end: [1, 19] },
-                { sign: "Aquarius", start: [1, 20], end: [2, 18] },
-                { sign: "Pisces", start: [2, 19], end: [3, 20] },
-                { sign: "Aries", start: [3, 21], end: [4, 19] },
-                { sign: "Taurus", start: [4, 20], end: [5, 20] },
-                { sign: "Gemini", start: [5, 21], end: [6, 20] },
-                { sign: "Cancer", start: [6, 21], end: [7, 22] },
-                { sign: "Leo", start: [7, 23], end: [8, 22] },
-                { sign: "Virgo", start: [8, 23], end: [9, 22] },
-                { sign: "Libra", start: [9, 23], end: [10, 22] },
-                { sign: "Scorpio", start: [10, 23], end: [11, 21] },
-                { sign: "Sagittarius", start: [11, 22], end: [12, 21] }
-            ];
+    // Toggle expandable sections
+    function toggleSection(header) {
+      const details = header.nextElementSibling;
+      details.classList.toggle('expanded');
+    }
 
-            for (let zodiac of zodiacSigns) {
-                const [startMonth, startDay] = zodiac.start;
-                const [endMonth, endDay] = zodiac.end;
-                if ((month === startMonth && day >= startDay) || (month === endMonth && day <= endDay)) {
-                    return zodiac.sign;
-                }
-            }
-            return "Capricorn";
-        }
+    // Simulate async data load for Meena section
+    async function loadMoreMeena() {
+      toggleLoader(true);
+      try {
+        await new Promise(resolve => setTimeout(resolve, 800));
+        if (Math.random() > 0.9) throw new Error('Simulated error');
+        const meenaSection = document.getElementById('meena').querySelector('.details');
+        const newContent = document.createElement('p');
+        newContent.textContent = 'The Meenas are known for their resilience, transitioning from nomadism to modern professions while preserving traditions.';
+        meenaSection.appendChild(newContent);
+        toggleLoader(false);
+      } catch (error) {
+        toggleLoader(false);
+        showError('Failed to load more: ' + error.message);
+      }
+    }
 
-        // Zodiac Compatibility
-        function getZodiacCompatibility(sign1, sign2) {
-            const compatibility = {
-                "Aries": { "Leo": 90, "Sagittarius": 90, "Aries": 80, "Gemini": 85, "Aquarius": 85, default: 70 },
-                "Taurus": { "Virgo": 90, "Capricorn": 90, "Taurus": 80, "Cancer": 85, "Pisces": 85, default: 70 },
-                "Gemini": { "Libra": 90, "Aquarius": 90, "Gemini": 80, "Aries": 85, "Leo": 85, default: 70 },
-                "Cancer": { "Scorpio": 90, "Pisces": 90, "Cancer": 80, "Taurus": 85, "Virgo": 85, default: 70 },
-                "Leo": { "Aries": 90, "Sagittarius": 90, "Leo": 80, "Gemini": 85, "Libra": 85, default: 70 },
-                "Virgo": { "Taurus": 90, "Capricorn": 90, "Virgo": 80, "Cancer": 85, "Scorpio": 85, default: 70 },
-                "Libra": { "Gemini": 90, "Aquarius": 90, "Libra": 80, "Leo": 85, "Sagittarius": 85, default: 70 },
-                "Scorpio": { "Cancer": 90, "Pisces": 90, "Scorpio": 80, "Virgo": 85, "Capricorn": 85, default: 70 },
-                "Sagittarius": { "Aries": 90, "Leo": 90, "Sagittarius": 80, "Libra": 85, "Aquarius": 85, default: 70 },
-                "Capricorn": { "Taurus": 90, "Virgo": 90, "Capricorn": 80, "Scorpio": 85, "Pisces": 85, default: 70 },
-                "Aquarius": { "Gemini": 90, "Libra": 90, "Aquarius": 80, "Aries": 85, "Sagittarius": 85, default: 70 },
-                "Pisces": { "Cancer": 90, "Scorpio": 90, "Pisces": 80, "Taurus": 85, "Capricorn": 85, default: 70 }
-            };
-            return compatibility[sign1]?.[sign2] || compatibility[sign1]?.default || 70;
-        }
+    // Search functionality
+    document.getElementById('search').addEventListener('input', debounce(function(e) {
+      const query = e.target.value.toLowerCase();
+      const sections = document.querySelectorAll('section');
+      sections.forEach(section => {
+        const text = section.textContent.toLowerCase();
+        section.style.display = text.includes(query) ? 'block' : 'none';
+      });
+    }, 300));
 
-        // Chinese Zodiac
-        function getChineseZodiac(year) {
-            const animals = ["Rat", "Ox", "Tiger", "Rabbit", "Dragon", "Snake", "Horse", "Goat", "Monkey", "Rooster", "Dog", "Pig"];
-            return animals[(year - 4) % 12];
-        }
+    // Initial load
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        toggleLoader(false);
+        // Expand first section by default
+        document.querySelector('.details').classList.add('expanded');
+      }, 600);
+    });
 
-        function getChineseZodiacCompatibility(animal1, animal2) {
-            const compatibility = {
-                "Rat": { "Dragon": 90, "Monkey": 90, "Rat": 80, "Ox": 85, default: 70 },
-                "Ox": { "Snake": 90, "Rooster": 90, "Ox": 80, "Rat": 85, default: 70 },
-                "Tiger": { "Horse": 90, "Dog": 90, "Tiger": 80, "Pig": 85, default: 70 },
-                "Rabbit": { "Goat": 90, "Pig": 90, "Rabbit": 80, "Dog": 85, default: 70 },
-                "Dragon": { "Rat": 90, "Monkey": 90, "Dragon": 80, "Rooster": 85, default: 70 },
-                "Snake": { "Ox": 90, "Rooster": 90, "Snake": 80, "Monkey": 85, default: 70 },
-                "Horse": { "Tiger": 90, "Dog": 90, "Horse": 80, "Goat": 85, default: 70 },
-                "Goat": { "Rabbit": 90, "Pig": 90, "Goat": 80, "Horse": 85, default: 70 },
-                "Monkey": { "Rat": 90, "Dragon": 90, "Monkey": 80, "Snake": 85, default: 70 },
-                "Rooster": { "Ox": 90, "Snake": 90, "Rooster": 80, "Dragon": 85, default: 70 },
-                "Dog": { "Tiger": 90, "Horse": 90, "Dog": 80, "Rabbit": 85, default: 70 },
-                "Pig": { "Rabbit": 90, "Goat": 90, "Pig": 80, "Tiger": 85, default: 70 }
-            };
-            return compatibility[animal1]?.[animal2] || compatibility[animal1]?.default || 70;
-        }
+    // Optimize resize
+    window.addEventListener('resize', debounce(() => {
+      console.log('Resized');
+    }, 100));
 
-        // Numerology: Life Path Number
-        function getLifePathNumber(dob) {
-            if (!dob) return null;
-            const digits = dob.replace(/-/g, '').split('').reduce((sum, num) => sum + parseInt(num), 0);
-            return digits % 9 || 9;
-        }
-
-        function getLifePathCompatibility(num1, num2) {
-            if (!num1 || !num2) return 70;
-            const compatibility = {
-                1: { 1: 100, 2: 60, 3: 80, 4: 50, 5: 90, 6: 70, 7: 85, 8: 65, 9: 75 },
-                2: { 1: 60, 2: 100, 3: 65, 4: 90, 5: 55, 6: 85, 7: 70, 8: 80, 9: 60 },
-                3: { 1: 80, 2: 65, 3: 100, 4: 60, 5: 85, 6: 75, 7: 90, 8: 70, 9: 80 },
-                4: { 1: 50, 2: 90, 3: 60, 4: 100, 5: 65, 6: 80, 7: 85, 8: 90, 9: 70 },
-                5: { 1: 90, 2: 55, 3: 85, 4: 65, 5: 100, 6: 60, 7: 80, 8: 75, 9: 85 },
-                6: { 1: 70, 2: 85, 3: 75, 4: 80, 5: 60, 6: 100, 7: 65, 8: 90, 9: 80 },
-                7: { 1: 85, 2: 70, 3: 90, 4: 85, 5: 80, 6: 65, 7: 100, 8: 60, 9: 90 },
-                8: { 1: 65, 2: 80, 3: 70, 4: 90, 5: 75, 6: 90, 7: 60, 8: 100, 9: 85 },
-                9: { 1: 75, 2: 60, 3: 80, 4: 70, 5: 85, 6: 80, 7: 90, 8: 85, 9: 100 }
-            };
-            return compatibility[num1][num2] || 70;
-        }
-
-        // Numerology: Destiny Number
-        function getDestinyNumber(name) {
-            const value = name.toLowerCase().split('')
-                .reduce((sum, char) => {
-                    if (/[a-z]/.test(char)) {
-                        return sum + (char.charCodeAt(0) - 96);
-                    }
-                    return sum;
-                }, 0);
-            return value % 9 || 9;
-        }
-
-        function getDestinyCompatibility(num1, num2) {
-            const compatibility = {
-                1: { 1: 100, 2: 60, 3: 80, 4: 50, 5: 90, 6: 70, 7: 85, 8: 65, 9: 75 },
-                2: { 1: 60, 2: 100, 3: 65, 4: 90, 5: 55, 6: 85, 7: 70, 8: 80, 9: 60 },
-                3: { 1: 80, 2: 65, 3: 100, 4: 60, 5: 85, 6: 75, 7: 90, 8: 70, 9: 80 },
-                4: { 1: 50, 2: 90, 3: 60, 4: 100, 5: 65, 6: 80, 7: 85, 8: 90, 9: 70 },
-                5: { 1: 90, 2: 55, 3: 85, 4: 65, 5: 100, 6: 60, 7: 80, 8: 75, 9: 85 },
-                6: { 1: 70, 2: 85, 3: 75, 4: 80, 5: 60, 6: 100, 7: 65, 8: 90, 9: 80 },
-                7: { 1: 85, 2: 70, 3: 90, 4: 85, 5: 80, 6: 65, 7: 100, 8: 60, 9: 90 },
-                8: { 1: 65, 2: 80, 3: 70, 4: 90, 5: 75, 6: 90, 7: 60, 8: 100, 9: 85 },
-                9: { 1: 75, 2: 60, 3: 80, 4: 70, 5: 85, 6: 80, 7: 90, 8: 85, 9: 100 }
-            };
-            return compatibility[num1][num2] || 70;
-        }
-
-        // Name Compatibility (Vowel/Consonant Balance)
-        function getNameCompatibility(name1, name2) {
-            const vowels = /[aeiou]/gi;
-            const countVowels = name => (name.match(vowels) || []).length;
-            const vowelRatio1 = countVowels(name1) / name1.length;
-            const vowelRatio2 = countVowels(name2) / name2.length;
-            const diff = Math.abs(vowelRatio1 - vowelRatio2);
-            return Math.round(100 - (diff * 100));
-        }
-
-        // Calculate Love Percentage
-        function calculateLove() {
-            const maleName = document.getElementById('maleName').value.trim();
-            const maleDob = document.getElementById('maleDob').value;
-            const femaleName = document.getElementById('femaleName').value.trim();
-            const femaleDob = document.getElementById('femaleDob').value;
-            const resultDiv = document.getElementById('result');
-
-            if (!maleName || !femaleName) {
-                resultDiv.textContent = "Please enter both names!";
-                gsap.to(resultDiv, { opacity: 1, y: 0, duration: 0.5 });
-                return;
-            }
-
-            const scores = [];
-
-            // Always calculate Destiny Number compatibility
-            const maleDestiny = getDestinyNumber(maleName);
-            const femaleDestiny = getDestinyNumber(femaleName);
-            scores.push(getDestinyCompatibility(maleDestiny, femaleDestiny));
-
-            // Name compatibility (vowel/consonant balance)
-            scores.push(getNameCompatibility(maleName, femaleName));
-
-            // If birth-dates are provided, calculate additional compatibilities
-            if (maleDob && femaleDob) {
-                const maleDate = new Date(maleDob);
-                const femaleDate = new Date(femaleDob);
-
-                // Zodiac Compatibility
-                const maleZodiac = getZodiacSign(maleDate.getDate(), maleDate.getMonth() + 1);
-                const femaleZodiac = getZodiacSign(femaleDate.getDate(), femaleDate.getMonth() + 1);
-                scores.push(getZodiacCompatibility(maleZodiac, femaleZodiac));
-
-                // Chinese Zodiac Compatibility
-                const maleChinese = getChineseZodiac(maleDate.getFullYear());
-                const femaleChinese = getChineseZodiac(femaleDate.getFullYear());
-                scores.push(getChineseZodiacCompatibility(maleChinese, femaleChinese));
-
-                // Life Path Number Compatibility
-                const maleLifePath = getLifePathNumber(maleDob);
-                const femaleLifePath = getLifePathNumber(femaleDob);
-                scores.push(getLifePathCompatibility(maleLifePath, femaleLifePath));
-            }
-
-            // Calculate final love percentage
-            const lovePercentage = Math.round(scores.reduce((sum, score) => sum + score, 0) / scores.length);
-
-            // Update background based on percentage
-            setBackground(lovePercentage);
-
-            // Display result with animation
-            resultDiv.textContent = `${maleName} & ${femaleName}: ${lovePercentage}% Love Compatibility!`;
-            gsap.to(resultDiv, { opacity: 1, y: 0, duration: 1, ease: "bounce.out" });
-
-            // Trigger hearts and sparkles
-            createHearts();
-            createStarsAndSparkles();
-        }
-    </script>
+    // Progressive enhancement
+    document.documentElement.classList.add('js-enabled');
+  </script>
 </body>
 </html>
