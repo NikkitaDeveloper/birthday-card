@@ -1,44 +1,44 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Religions & Castes: Focus on Meena</title>
+  <title>Love Spark - Perfect Love Compatibility</title>
   <style>
-    /* Reset for consistency */
+    /* Reset */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
-    /* General styling */
+    /* General */
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       line-height: 1.6;
-      background: #f4f4f9;
+      background: linear-gradient(135deg, #ffccd5, #d4e4ff);
       color: #333;
       min-height: 100vh;
       padding: 20px;
       overflow-x: hidden;
     }
 
-    /* Container */
     .container {
       max-width: 900px;
       margin: 0 auto;
     }
 
-    /* Text-based loader (no images) */
+    /* Loader */
     .loader {
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 60px;
-      height: 60px;
-      border: 6px solid #d0d0d0;
-      border-top: 6px solid #2c3e50;
+      width: 50px;
+      height: 50px;
+      border: 5px solid #f0f0f0;
+      border-top: 5px solid #ff4081;
       border-radius: 50%;
       animation: spin 0.7s linear infinite;
       z-index: 1000;
@@ -54,11 +54,11 @@
       display: none;
     }
 
-    /* Content styling */
+    /* Content */
     .content {
       opacity: 0;
       transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
+      transition: opacity 0.5s ease, transform 0.5s ease;
     }
 
     .content.visible {
@@ -73,50 +73,120 @@
     /* Header */
     header {
       text-align: center;
-      padding: 20px 0;
-      border-bottom: 2px solid #3498db;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 10px;
+      margin-bottom: 20px;
     }
 
     h1 {
-      font-size: 2.2em;
-      color: #2c3e50;
-      margin-bottom: 10px;
+      font-size: 2.3em;
+      color: #ff4081;
     }
 
-    /* Search bar */
+    /* Search */
     #search {
       width: 100%;
       padding: 10px;
       margin: 15px 0;
-      border: 1px solid #ccc;
+      border: 1px solid #ddd;
       border-radius: 5px;
       font-size: 1em;
+    }
+
+    /* Form */
+    .form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 1em;
+      margin: 10px 0 5px;
+      color: #555;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #ff4081;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+      margin-top: 15px;
+    }
+
+    button:hover {
+      background: #d81b60;
+      transform: scale(1.02);
+    }
+
+    button:focus {
+      outline: 2px solid #d81b60;
+      outline-offset: 2px;
+    }
+
+    /* Results */
+    #results {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      display: none;
+      text-align: center;
+    }
+
+    #results h2 {
+      font-size: 1.8em;
+      color: #ff4081;
+      margin-bottom: 10px;
+    }
+
+    #percentage {
+      font-size: 2.5em;
+      color: #d81b60;
+      margin: 10px 0;
     }
 
     /* Sections */
     section {
       margin: 20px 0;
       padding: 15px;
-      background: #fff;
+      background: rgba(255, 255, 255, 0.95);
       border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
     h2 {
       font-size: 1.6em;
-      color: #3498db;
-      margin-bottom: 10px;
+      color: #ff4081;
       cursor: pointer;
-      transition: color 0.3s ease;
-    }
-
-    h2:hover {
-      color: #2980b9;
-    }
-
-    p, ul {
-      font-size: 1em;
       margin-bottom: 10px;
+    }
+
+    .details {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+
+    .details.expanded {
+      max-height: 3000px;
     }
 
     ul {
@@ -125,47 +195,13 @@
     }
 
     li::before {
-      content: "• ";
-      color: #3498db;
+      content: "♥ ";
+      color: #ff4081;
     }
 
-    /* Expandable sections */
-    .details {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease;
-    }
-
-    .details.expanded {
-      max-height: 1000px; /* Adjust as needed */
-    }
-
-    /* Buttons */
-    button {
-      padding: 10px 20px;
-      background: #3498db;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 0.9em;
-      transition: transform 0.2s ease, background 0.2s ease;
-      margin: 10px 0;
-    }
-
-    button:hover {
-      background: #2980b9;
-      transform: scale(1.03);
-    }
-
-    button:focus {
-      outline: 2px solid #2c3e50;
-      outline-offset: 2px;
-    }
-
-    /* Error message */
+    /* Error */
     .error {
-      color: #c0392b;
+      color: #d32f2f;
       font-size: 0.9em;
       text-align: center;
       margin: 10px 0;
@@ -175,12 +211,12 @@
     /* Footer */
     footer {
       text-align: center;
-      padding: 20px 0;
+      padding: 20px;
       font-size: 0.9em;
-      color: #7f8c8d;
+      color: #666;
     }
 
-    /* Responsive design */
+    /* Responsive */
     @media (max-width: 600px) {
       .loader {
         width: 40px;
@@ -191,23 +227,19 @@
         font-size: 1.8em;
       }
 
-      h2 {
-        font-size: 1.4em;
-      }
-
-      .container {
-        padding: 10px;
+      .form, #results, section {
+        padding: 15px;
       }
     }
 
-    /* Accessibility: Reduced motion */
+    /* Accessibility */
     @media (prefers-reduced-motion: reduce) {
       .loader {
         animation: none;
-        border: 6px solid #3498db;
+        border: 5px solid #ff4081;
       }
 
-      .content, button, h2 {
+      .content, button {
         transition: none;
       }
     }
@@ -215,80 +247,78 @@
 </head>
 <body>
   <!-- Loader -->
-  <div id="loader" class="loader" role="status" aria-label="Loading content"></div>
+  <div id="loader" class="loader" role="status" aria-label="Calculating love spark"></div>
 
   <!-- Content -->
   <div id="content" class="content hidden">
     <div class="container">
       <header>
-        <h1>Exploring Religions and Castes</h1>
-        <p>A journey through social structures, with a focus on the Meena community</p>
-        <input type="text" id="search" placeholder="Search religions or castes..." aria-label="Search content">
+        <h1>Love Spark</h1>
+        <p>Find your perfect love match with a million ways to spark romance</p>
+        <input type="text" id="search" placeholder="Search compatibility factors..." aria-label="Search methods">
       </header>
+
+      <!-- Form -->
+      <div class="form">
+        <label for="male-name">Male Name *</label>
+        <input type="text" id="male-name" placeholder="Enter full name (e.g., Arjun Meena)" required aria-required="true">
+        
+        <label for="male-dob">Male Date of Birth (Optional)</label>
+        <input type="date" id="male-dob">
+        
+        <label for="female-name">Female Name *</label>
+        <input type="text" id="female-name" placeholder="Enter full name (e.g., Priya Sharma)" required aria-required="true">
+        
+        <label for="female-dob">Female Date of Birth (Optional)</label>
+        <input type="date" id="female-dob">
+        
+        <button onclick="calculateLove()">Ignite Your Love Spark</button>
+      </div>
+
+      <!-- Results -->
+      <div id="results">
+        <h2>Your Love Spark</h2>
+        <div id="percentage"></div>
+        <p id="details"></p>
+        <p id="tips"></p>
+      </div>
 
       <div id="error" class="error"></div>
 
-      <!-- Religions Overview -->
-      <section id="religions">
-        <h2 onclick="toggleSection(this)">Major Religions and Social Hierarchies</h2>
+      <!-- Methodology -->
+      <section id="methodology">
+        <h2 onclick="toggleSection(this)">How Love Spark Calculates Love</h2>
         <div class="details">
-          <p>Religions shape social structures worldwide. Below is an overview of how caste or similar hierarchies appear in major faiths.</p>
+          <p>Love Spark uses countless methods inspired by global wisdom:</p>
           <ul>
-            <li><strong>Hinduism</strong>: Organized into four varnas (Brahmins, Kshatriyas, Vaishyas, Shudras) and thousands of jatis. Tribes like the Meenas are Scheduled Tribes (STs).</li>
-            <li><strong>Islam</strong>: South Asian Muslims have Ashraf (elite), Ajlaf (artisans), and Arzal (lowest) groups, despite equality in scripture.</li>
-            <li><strong>Christianity</strong>: In India, converts from higher castes hold more status than Dalit or tribal converts.</li>
-            <li><strong>Sikhism</strong>: Jat Sikhs dominate over Mazhabi or Ravidasi Sikhs, despite casteless teachings.</li>
-            <li><strong>Buddhism</strong>: Casteless in India, but Sri Lankan Buddhists have Govi (high) and Karava (low) ranks.</li>
-            <li><strong>Jainism</strong>: Mostly higher-caste Vaishyas (e.g., Oswals), with social practices mirroring Hinduism.</li>
+            <li><strong>Numerology</strong>: Name vibrations align your energies.</li>
+            <li><strong>Western Zodiac</strong>: Star signs (e.g., Aries, Pisces) shape chemistry.</li>
+            <li><strong>Hindu Rashi</strong>: Moon signs enhance emotional bonds.</li>
+            <li><strong>Hindu Astrology</strong>: Nakshatras and planetary alignments guide compatibility.</li>
+            <li><strong>Egyptian Astrology</strong>: Ancient signs like Anubis or Isis add depth.</li>
+            <li><strong>Islam</strong>: Spiritual harmony and mutual respect.</li>
+            <li><strong>Sikhism</strong>: Equality and shared purpose.</li>
+            <li><strong>Cultural Context</strong>: Surnames hint at traditions, like Meena’s egalitarian ethos.</li>
+            <li><strong>Other Factors</strong>: Synastry, aura matching, karmic cycles, and more.</li>
           </ul>
         </div>
       </section>
 
-      <!-- Hindu Caste System -->
-      <section id="hindu-caste">
-        <h2 onclick="toggleSection(this)">Hindu Caste System</h2>
-        <div class="details">
-          <p>The Hindu caste system, rooted in ancient texts like the Manusmriti, divides society into varnas and jatis. It became rigid under colonial rule but remains influential today.</p>
-          <ul>
-            <li><strong>Varnas</strong>: Brahmins (priests), Kshatriyas (warriors), Vaishyas (merchants), Shudras (laborers).</li>
-            <li><strong>Jatis</strong>: Thousands of sub-castes tied to region and occupation.</li>
-            <li><strong>Scheduled Tribes</strong>: Indigenous groups like the Meenas, outside varnas, with unique cultures.</li>
-            <li><strong>Modern Reforms</strong>: Reservations for SCs, STs, and OBCs aim to uplift marginalized groups.</li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- Meena Caste -->
+      <!-- Meena Romance -->
       <section id="meena">
-        <h2 onclick="toggleSection(this)">The Meena Community</h2>
+        <h2 onclick="toggleSection(this)">Romance and the Meena Spirit</h2>
         <div class="details">
-          <p>The Meena caste, a Scheduled Tribe in Rajasthan, has a rich history and vibrant culture.</p>
+          <p>The Meena community brings a unique spark to love:</p>
           <ul>
-            <li><strong>Origins</strong>: Linked to the Matsya Kingdom, possibly from “meen” (fish). Historically hunters and warriors.</li>
-            <li><strong>Population</strong>: ~5-7 million, mainly in Rajasthan and Madhya Pradesh.</li>
-            <li><strong>Culture</strong>: Organized into clans (adakhs), with festivals like Teej and oral traditions.</li>
-            <li><strong>Status</strong>: ST reservations have boosted education and jobs, but tensions with other groups persist.</li>
-            <li><strong>Challenges</strong>: Benefits often favor an elite minority; rural Meenas face poverty.</li>
-          </ul>
-          <button onclick="loadMoreMeena()">Learn More About Meenas</button>
-        </div>
-      </section>
-
-      <!-- Sociology of Caste -->
-      <section id="sociology">
-        <h2 onclick="toggleSection(this)">Sociology of Caste</h2>
-        <div class="details">
-          <p>Caste shapes identity, opportunity, and social dynamics in India and beyond.</p>
-          <ul>
-            <li><strong>Privilege</strong>: Upper castes inherit social capital, while lower castes face systemic barriers.</li>
-            <li><strong>Mobility</strong>: Reservations help groups like the Meenas, but rural-urban divides remain.</li>
-            <li><strong>Globalization</strong>: Caste issues affect diaspora communities, sparking anti-caste movements abroad.</li>
+            <li><strong>Clan Bonds</strong>: Strong family ties foster trust.</li>
+            <li><strong>Equality</strong>: Balanced roles create harmony.</li>
+            <li><strong>Traditions</strong>: Festivals like Teej ignite passion.</li>
           </ul>
         </div>
       </section>
 
       <footer>
-        <p>Built with care to explore culture and identity | 2025</p>
+        <p>Love Spark | A million paths to love | 2025</p>
       </footer>
     </div>
   </div>
@@ -323,27 +353,224 @@
       errorDiv.style.display = 'block';
     }
 
-    // Toggle expandable sections
+    // Toggle sections
     function toggleSection(header) {
       const details = header.nextElementSibling;
       details.classList.toggle('expanded');
     }
 
-    // Simulate async data load for Meena section
-    async function loadMoreMeena() {
+    // Infer cultural context from surname
+    function inferCulturalContext(name) {
+      const surname = name.split(' ').pop().toLowerCase();
+      const patterns = {
+        'meena': { vibe: 'egalitarian', score: 85, desc: 'Meena tribal harmony' },
+        'sharma': { vibe: 'scholarly', score: 80, desc: 'Brahmin wisdom' },
+        'singh': { vibe: 'warrior', score: 82, desc: 'Sikh or Kshatriya strength' },
+        'patel': { vibe: 'merchant', score: 78, desc: 'Vaishya enterprise' },
+        'kumar': { vibe: 'neutral', score: 75, desc: 'Broad compatibility' }
+      };
+      return patterns[surname] || { vibe: 'general', score: 70, desc: 'Universal spark' };
+    }
+
+    // Calculate love percentage
+    async function calculateLove() {
       toggleLoader(true);
+      const resultsDiv = document.getElementById('results');
+      const percentageDiv = document.getElementById('percentage');
+      const detailsDiv = document.getElementById('details');
+      const tipsDiv = document.getElementById('tips');
+      const errorDiv = document.getElementById('error');
+
+      errorDiv.style.display = 'none';
+      resultsDiv.style.display = 'none';
+
       try {
-        await new Promise(resolve => setTimeout(resolve, 800));
-        if (Math.random() > 0.9) throw new Error('Simulated error');
-        const meenaSection = document.getElementById('meena').querySelector('.details');
-        const newContent = document.createElement('p');
-        newContent.textContent = 'The Meenas are known for their resilience, transitioning from nomadism to modern professions while preserving traditions.';
-        meenaSection.appendChild(newContent);
+        const maleName = document.getElementById('male-name').value.trim();
+        const femaleName = document.getElementById('female-name').value.trim();
+        const maleDOB = document.getElementById('male-dob').value;
+        const femaleDOB = document.getElementById('female-dob').value;
+
+        if (!maleName || !femaleName) {
+          throw new Error('Please enter both names');
+        }
+
+        // Simulate complex calculation
+        await new Promise(resolve => setTimeout(resolve, 1200));
+
+        // Algorithm with many factors
+        let score = 0;
+        let factors = [];
+
+        // 1. Numerology
+        const numScore = calculateNumerology(maleName, femaleName);
+        score += numScore * 0.15;
+        factors.push(`Numerology: ${numScore}%`);
+
+        // 2. Western Zodiac
+        let zodiacScore = 70;
+        if (maleDOB && femaleDOB) {
+          zodiacScore = calculateZodiac(maleDOB, femaleDOB);
+        }
+        score += zodiacScore * 0.1;
+        factors.push(`Zodiac: ${zodiacScore}%`);
+
+        // 3. Hindu Rashi
+        let rashiScore = 65;
+        if (maleDOB && femaleDOB) {
+          rashiScore = calculateRashi(maleDOB, femaleDOB);
+        }
+        score += rashiScore * 0.1;
+        factors.push(`Rashi: ${rashiScore}%`);
+
+        // 4. Hindu Astrology
+        let hinduAstroScore = 60;
+        if (maleDOB && femaleDOB) {
+          hinduAstroScore = calculateHinduAstro(maleDOB, femaleDOB);
+        }
+        score += hinduAstroScore * 0.1;
+        factors.push(`Hindu Astrology: ${hinduAstroScore}%`);
+
+        // 5. Egyptian Astrology
+        let egyptianScore = 70;
+        if (maleDOB && femaleDOB) {
+          egyptianScore = calculateEgyptianAstro(maleDOB, femaleDOB);
+        }
+        score += egyptianScore * 0.1;
+        factors.push(`Egyptian Astrology: ${egyptianScore}%`);
+
+        // 6. Islamic Harmony
+        const islamScore = calculateIslamicHarmony();
+        score += islamScore * 0.05;
+        factors.push(`Islamic Harmony: ${islamScore}%`);
+
+        // 7. Sikh Equality
+        const sikhScore = calculateSikhEquality();
+        score += sikhScore * 0.05;
+        factors.push(`Sikh Equality: ${sikhScore}%`);
+
+        // 8. Cultural Context
+        const maleContext = inferCulturalContext(maleName);
+        const femaleContext = inferCulturalContext(femaleName);
+        const contextScore = (maleContext.score + femaleContext.score) / 2;
+        score += contextScore * 0.15;
+        factors.push(`Cultural Spark: ${contextScore}%`);
+
+        // 9. Other Factors (simulating 100+)
+        const otherScore = calculateOtherFactors(maleName, femaleName);
+        score += otherScore * 0.2;
+        factors.push(`Mystic Factors: ${otherScore}%`);
+
+        // Normalize
+        score = Math.min(Math.max(Math.round(score), 0), 100);
+
+        // Results
+        const details = generateDetails(score, maleName, femaleName, maleContext, femaleContext, factors);
+        const tips = generateTips(score, maleContext, femaleContext);
+
+        percentageDiv.textContent = `${score}%`;
+        detailsDiv.innerHTML = details;
+        tipsDiv.innerHTML = tips;
+        resultsDiv.style.display = 'block';
+
         toggleLoader(false);
       } catch (error) {
         toggleLoader(false);
-        showError('Failed to load more: ' + error.message);
+        showError(error.message);
       }
+    }
+
+    // Numerology
+    function calculateNumerology(maleName, femaleName) {
+      const values = { a:1,b:2,c:3,d:4,e:5,f:6,g:7,h:8,i:9,j:1,k:2,l:3,m:4,n:5,o:6,p:7,q:8,r:9,s:1,t:2,u:3,v:4,w:5,x:6,y:7,z:8 };
+      const sumMale = maleName.toLowerCase().split('').reduce((sum, c) => sum + (values[c] || 0), 0) % 9 || 9;
+      const sumFemale = femaleName.toLowerCase().split('').reduce((sum, c) => sum + (values[c] || 0), 0) % 9 || 9;
+      const diff = Math.abs(sumMale - sumFemale);
+      return 100 - diff * 10;
+    }
+
+    // Western Zodiac
+    function calculateZodiac(maleDOB, femaleDOB) {
+      const maleDate = new Date(maleDOB);
+      const femaleDate = new Date(femaleDOB);
+      const signs = ['Aries','Taurus','Gemini','Cancer','Leo','Virgo','Libra','Scorpio','Sagittarius','Capricorn','Aquarius','Pisces'];
+      const maleSign = signs[Math.floor((maleDate.getMonth() + maleDate.getDate() / 30) % 12)];
+      const femaleSign = signs[Math.floor((femaleDate.getMonth() + femaleDate.getDate() / 30) % 12)];
+      const compat = {
+        'Aries': { 'Leo': 90, 'Sagittarius': 90, 'Aries': 80, 'default': 70 },
+        'Taurus': { 'Virgo': 85, 'Capricorn': 85, 'Taurus': 75, 'default': 65 }
+        // Simplified
+      };
+      return compat[maleSign]?.[femaleSign] || compat[maleSign]?.default || 70;
+    }
+
+    // Hindu Rashi
+    function calculateRashi(maleDOB, femaleDOB) {
+      const rashis = ['Mesha','Vrishabha','Mithuna','Karka','Simha','Kanya','Tula','Vrishchika','Dhanu','Makara','Kumbha','Meena'];
+      const maleDate = new Date(maleDOB);
+      const femaleDate = new Date(femaleDOB);
+      const maleRashi = rashis[Math.floor((maleDate.getMonth() + maleDate.getDate() / 30) % 12)];
+      const femaleRashi = rashis[Math.floor((femaleDate.getMonth() + femaleDate.getDate() / 30) % 12)];
+      const compat = {
+        'Mesha': { 'Simha': 88, 'Dhanu': 88, 'Mesha': 78, 'default': 68 },
+        'Vrishabha': { 'Kanya': 82, 'Makara': 82, 'Vrishabha': 72, 'default': 62 }
+      };
+      return compat[maleRashi]?.[femaleRashi] || compat[maleRashi]?.default || 65;
+    }
+
+    // Hindu Astrology
+    function calculateHinduAstro(maleDOB, femaleDOB) {
+      // Simulate nakshatra compatibility
+      return maleDOB && femaleDOB ? 75 + Math.random() * 15 : 60;
+    }
+
+    // Egyptian Astrology
+    function calculateEgyptianAstro(maleDOB, femaleDOB) {
+      const signs = ['Anubis','Isis','Osiris','Horus','Bastet','Thoth','Sekhmet','Ra','Amun','Ptah','Hathor','Set'];
+      const maleDate = new Date(maleDOB);
+      const femaleDate = new Date(femaleDOB);
+      const maleSign = signs[Math.floor((maleDate.getMonth() + maleDate.getDate() / 30) % 12)];
+      const femaleSign = signs[Math.floor((femaleDate.getMonth() + femaleDate.getDate() / 30) % 12)];
+      return maleSign === femaleSign ? 80 : 70;
+    }
+
+    // Islamic Harmony
+    function calculateIslamicHarmony() {
+      return 80; // Placeholder for spiritual alignment
+    }
+
+    // Sikh Equality
+    function calculateSikhEquality() {
+      return 85; // Placeholder for mutual respect
+    }
+
+    // Other Factors
+    function calculateOtherFactors(maleName, femaleName) {
+      // Simulate aura, karma, synastry, etc.
+      const seed = maleName.length + femaleName.length;
+      return 60 + (seed % 40);
+    }
+
+    // Generate details
+    function generateDetails(score, maleName, femaleName, maleContext, femaleContext, factors) {
+      let text = `${maleName} and ${femaleName}, your love spark is ${score}%! `;
+      if (score > 85) text += 'A cosmic bond destined to shine.';
+      else if (score > 65) text += 'A warm spark with room to blaze.';
+      else text += 'A gentle flame that can grow with care.';
+      text += ` Your vibes—${maleContext.desc} meets ${femaleContext.desc}—add unique magic.<br><br>Factors:<ul>`;
+      factors.forEach(f => text += `<li>${f}</li>`);
+      text += '</ul>';
+      return text;
+    }
+
+    // Generate tips
+    function generateTips(score, maleContext, femaleContext) {
+      let tips = 'Tips: ';
+      if (score < 70) tips += 'Nurture trust through open communication. ';
+      tips += 'Blend your unique vibes for harmony.';
+      if (maleContext.vibe === 'egalitarian' || femaleContext.vibe === 'egalitarian') {
+        tips += ' Embrace Meena-inspired equality for a balanced bond.';
+      }
+      return tips;
     }
 
     // Search functionality
@@ -360,9 +587,8 @@
     window.addEventListener('load', () => {
       setTimeout(() => {
         toggleLoader(false);
-        // Expand first section by default
         document.querySelector('.details').classList.add('expanded');
-      }, 600);
+      }, 500);
     });
 
     // Optimize resize
