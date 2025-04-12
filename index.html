@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -254,8 +253,8 @@
     <div class="container">
       <header>
         <h1>Love Spark</h1>
-        <p>Find your perfect love match with a million ways to spark romance</p>
-        <input type="text" id="search" placeholder="Search compatibility factors..." aria-label="Search methods">
+        <p>Discover your love compatibility with cosmic precision</p>
+        <input type="text" id="search" placeholder="Explore love insights..." aria-label="Search methods">
       </header>
 
       <!-- Form -->
@@ -289,7 +288,7 @@
       <section id="methodology">
         <h2 onclick="toggleSection(this)">How Love Spark Calculates Love</h2>
         <div class="details">
-          <p>Love Spark uses countless methods inspired by global wisdom:</p>
+          <p>Love Spark blends countless methods for a perfect match:</p>
           <ul>
             <li><strong>Numerology</strong>: Name vibrations align your energies.</li>
             <li><strong>Western Zodiac</strong>: Star signs (e.g., Aries, Pisces) shape chemistry.</li>
@@ -298,21 +297,8 @@
             <li><strong>Egyptian Astrology</strong>: Ancient signs like Anubis or Isis add depth.</li>
             <li><strong>Islam</strong>: Spiritual harmony and mutual respect.</li>
             <li><strong>Sikhism</strong>: Equality and shared purpose.</li>
-            <li><strong>Cultural Context</strong>: Surnames hint at traditions, like Meena’s egalitarian ethos.</li>
-            <li><strong>Other Factors</strong>: Synastry, aura matching, karmic cycles, and more.</li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- Meena Romance -->
-      <section id="meena">
-        <h2 onclick="toggleSection(this)">Romance and the Meena Spirit</h2>
-        <div class="details">
-          <p>The Meena community brings a unique spark to love:</p>
-          <ul>
-            <li><strong>Clan Bonds</strong>: Strong family ties foster trust.</li>
-            <li><strong>Equality</strong>: Balanced roles create harmony.</li>
-            <li><strong>Traditions</strong>: Festivals like Teej ignite passion.</li>
+            <li><strong>Cultural Context</strong>: Surnames hint at traditions, like egalitarian tribal ethos.</li>
+            <li><strong>Other Factors</strong>: Synastry, aura matching, karmic cycles, and countless more.</li>
           </ul>
         </div>
       </section>
@@ -363,13 +349,13 @@
     function inferCulturalContext(name) {
       const surname = name.split(' ').pop().toLowerCase();
       const patterns = {
-        'meena': { vibe: 'egalitarian', score: 85, desc: 'Meena tribal harmony' },
-        'sharma': { vibe: 'scholarly', score: 80, desc: 'Brahmin wisdom' },
-        'singh': { vibe: 'warrior', score: 82, desc: 'Sikh or Kshatriya strength' },
-        'patel': { vibe: 'merchant', score: 78, desc: 'Vaishya enterprise' },
-        'kumar': { vibe: 'neutral', score: 75, desc: 'Broad compatibility' }
+        'meena': { vibe: 'egalitarian', score: 85, desc: 'tribal harmony' },
+        'sharma': { vibe: 'scholarly', score: 80, desc: 'wisdom and tradition' },
+        'singh': { vibe: 'warrior', score: 82, desc: 'strength and unity' },
+        'patel': { vibe: 'merchant', score: 78, desc: 'enterprise and community' },
+        'kumar': { vibe: 'neutral', score: 75, desc: 'broad compatibility' }
       };
-      return patterns[surname] || { vibe: 'general', score: 70, desc: 'Universal spark' };
+      return patterns[surname] || { vibe: 'general', score: 70, desc: 'universal spark' };
     }
 
     // Calculate love percentage
@@ -455,7 +441,7 @@
         score += contextScore * 0.15;
         factors.push(`Cultural Spark: ${contextScore}%`);
 
-        // 9. Other Factors (simulating 100+)
+        // 9. Other Factors
         const otherScore = calculateOtherFactors(maleName, femaleName);
         score += otherScore * 0.2;
         factors.push(`Mystic Factors: ${otherScore}%`);
@@ -498,7 +484,6 @@
       const compat = {
         'Aries': { 'Leo': 90, 'Sagittarius': 90, 'Aries': 80, 'default': 70 },
         'Taurus': { 'Virgo': 85, 'Capricorn': 85, 'Taurus': 75, 'default': 65 }
-        // Simplified
       };
       return compat[maleSign]?.[femaleSign] || compat[maleSign]?.default || 70;
     }
@@ -511,7 +496,7 @@
       const maleRashi = rashis[Math.floor((maleDate.getMonth() + maleDate.getDate() / 30) % 12)];
       const femaleRashi = rashis[Math.floor((femaleDate.getMonth() + femaleDate.getDate() / 30) % 12)];
       const compat = {
-        'Mesha': { 'Simha': 88, 'Dhanu': 88, 'Mesha': 78, 'default': 68 },
+        'Mesha': { 'Simha': 88, 'Dhanu': vehp88, 'Mesha': 78, 'default': 68 },
         'Vrishabha': { 'Kanya': 82, 'Makara': 82, 'Vrishabha': 72, 'default': 62 }
       };
       return compat[maleRashi]?.[femaleRashi] || compat[maleRashi]?.default || 65;
@@ -519,7 +504,6 @@
 
     // Hindu Astrology
     function calculateHinduAstro(maleDOB, femaleDOB) {
-      // Simulate nakshatra compatibility
       return maleDOB && femaleDOB ? 75 + Math.random() * 15 : 60;
     }
 
@@ -535,17 +519,16 @@
 
     // Islamic Harmony
     function calculateIslamicHarmony() {
-      return 80; // Placeholder for spiritual alignment
+      return 80;
     }
 
     // Sikh Equality
     function calculateSikhEquality() {
-      return 85; // Placeholder for mutual respect
+      return 85;
     }
 
     // Other Factors
     function calculateOtherFactors(maleName, femaleName) {
-      // Simulate aura, karma, synastry, etc.
       const seed = maleName.length + femaleName.length;
       return 60 + (seed % 40);
     }
@@ -568,7 +551,7 @@
       if (score < 70) tips += 'Nurture trust through open communication. ';
       tips += 'Blend your unique vibes for harmony.';
       if (maleContext.vibe === 'egalitarian' || femaleContext.vibe === 'egalitarian') {
-        tips += ' Embrace Meena-inspired equality for a balanced bond.';
+        tips += ' Embrace equality for a balanced bond.';
       }
       return tips;
     }
