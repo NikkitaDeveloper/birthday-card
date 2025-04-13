@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -140,20 +141,6 @@
       outline-offset: 2px;
     }
 
-    /* Spark Quiz */
-    .quiz {
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      margin-bottom: 20px;
-      display: none;
-    }
-
-    .quiz.visible {
-      display: block;
-    }
-
     /* Results */
     #results {
       background: #fff;
@@ -175,17 +162,6 @@
       font-size: 2.5em;
       color: #d81b60;
       margin: 10px 0;
-    }
-
-    /* Text-based Chart */
-    .chart {
-      font-family: monospace;
-      font-size: 0.9em;
-      text-align: left;
-      margin: 10px 0;
-      padding: 10px;
-      background: #f9f9f9;
-      border-radius: 5px;
     }
 
     /* History */
@@ -265,7 +241,7 @@
         font-size: 2em;
       }
 
-      .form, #results, .quiz, #history, section {
+      .form, #results, #history, section {
         padding: 15px;
       }
     }
@@ -299,32 +275,18 @@
       <!-- Form -->
       <div class="form">
         <label for="male-name">Male Name *</label>
-        <input type="text" id="male-name" placeholder="Enter full name (e.g., Arjun Meena)" required aria-required="true">
+        <input type="text" id="male-name" value="Binod Meena" required aria-required="true">
         
         <label for="male-dob">Male Date of Birth (Optional)</label>
         <input type="date" id="male-dob">
         
         <label for="female-name">Female Name *</label>
-        <input type="text" id="female-name" placeholder="Enter full name (e.g., Priya Sharma)" required aria-required="true">
+        <input type="text" id="female-name" value="Riya Sharma" required aria-required="true">
         
         <label for="female-dob">Female Date of Birth (Optional)</label>
         <input type="date" id="female-dob">
         
-        <button onclick="showQuiz()">Start Love Spark</button>
-      </div>
-
-      <!-- Spark Quiz -->
-      <div class="quiz" id="quiz">
-        <h2>Spark Quiz</h2>
-        <p>Answer to refine your compatibility:</p>
-        <label for="priority">What matters most in love?</label>
-        <select id="priority">
-          <option value="emotion">Emotional connection</option>
-          <option value="values">Shared values</option>
-          <option value="passion">Passion</option>
-          <option value="trust">Trust</option>
-        </select>
-        <button onclick="calculateLove()">Calculate Spark</button>
+        <button onclick="calculateLove()">Ignite Your Love Spark</button>
       </div>
 
       <!-- Results -->
@@ -332,7 +294,6 @@
         <h2>Your Love Spark</h2>
         <div id="percentage"></div>
         <p id="details"></p>
-        <p id="chart"></p>
         <p id="tips"></p>
         <button onclick="shareResult()">Share Result</button>
       </div>
@@ -363,7 +324,6 @@
             <li><strong>Islam</strong>: Spiritual harmony and respect.</li>
             <li><strong>Sikhism</strong>: Equality and shared purpose.</li>
             <li><strong>Cultural Context</strong>: Surnames hint at traditions.</li>
-            <li><strong>Personality Traits</strong>: Quiz responses refine vibes.</li>
             <li><strong>Other Mystics</strong>: Aura, karma, synastry, and beyond.</li>
           </ul>
         </div>
@@ -411,13 +371,6 @@
       details.classList.toggle('expanded');
     }
 
-    // Show quiz
-    function showQuiz() {
-      const quiz = document.getElementById('quiz');
-      quiz.classList.add('visible');
-      document.querySelector('.form').style.display = 'none';
-    }
-
     // Infer cultural context
     function inferCulturalContext(name) {
       const surname = name.split(' ').pop().toLowerCase();
@@ -440,7 +393,6 @@
       const resultsDiv = document.getElementById('results');
       const percentageDiv = document.getElementById('percentage');
       const detailsDiv = document.getElementById('details');
-      const chartDiv = document.getElementById('chart');
       const tipsDiv = document.getElementById('tips');
       const errorDiv = document.getElementById('error');
 
@@ -452,7 +404,6 @@
         const femaleName = document.getElementById('female-name').value.trim();
         const maleDOB = document.getElementById('male-dob').value;
         const femaleDOB = document.getElementById('female-dob').value;
-        const priority = document.getElementById('priority').value;
 
         if (!maleName || !femaleName) {
           throw new Error('Please enter both names');
@@ -467,7 +418,7 @@
 
         // 1. Numerology
         const numScore = calculateNumerology(maleName, femaleName);
-        score += numScore * 0.12;
+        score += numScore * 0.13;
         factors.push(`Numerology: ${numScore}%`);
 
         // 2. Western Zodiac
@@ -499,7 +450,7 @@
         if (maleDOB && femaleDOB) {
           egyptianScore = calculateEgyptianAstro(maleDOB, femaleDOB);
         }
-        score += egyptianScore * 0.08;
+        score += egyptianScore * 0.09;
         factors.push(`Egyptian Astrology: ${egyptianScore}%`);
 
         // 6. Chinese Astrology
@@ -507,12 +458,12 @@
         if (maleDOB && femaleDOB) {
           chineseScore = calculateChineseAstro(maleDOB, femaleDOB);
         }
-        score += chineseScore * 0.08;
+        score += chineseScore * 0.09;
         factors.push(`Chinese Astrology: ${chineseScore}%`);
 
         // 7. Tarot Compatibility
         const tarotScore = calculateTarot(maleName, femaleName);
-        score += tarotScore * 0.07;
+        score += tarotScore * 0.08;
         factors.push(`Tarot: ${tarotScore}%`);
 
         // 8. Biorhythms
@@ -520,44 +471,35 @@
         if (maleDOB && femaleDOB) {
           bioScore = calculateBiorhythm(maleDOB, femaleDOB);
         }
-        score += bioScore * 0.07;
+        score += bioScore * 0.08;
         factors.push(`Biorhythms: ${bioScore}%`);
 
         // 9. Islamic Harmony
         const islamScore = calculateIslamicHarmony();
-        score += islamScore * 0.05;
+        score += islamScore * 0.06;
         factors.push(`Islamic Harmony: ${islamScore}%`);
 
         // 10. Sikh Equality
         const sikhScore = calculateSikhEquality();
-        score += sikhScore * 0.05;
+        score += sikhScore * 0.06;
         factors.push(`Sikh Equality: ${sikhScore}%`);
 
         // 11. Cultural Context
         const maleContext = inferCulturalContext(maleName);
         const femaleContext = inferCulturalContext(femaleName);
         const contextScore = (maleContext.score + femaleContext.score) / 2;
-        score += contextScore * 0.12;
+        score += contextScore * 0.11;
         factors.push(`Cultural Spark: ${contextScore}%`);
-
-        // 12. Personality (Quiz)
-        const personalityScore = calculatePersonality(priority);
-        score += personalityScore * 0.06;
-        factors.push(`Personality: ${personalityScore}%`);
 
         // Normalize
         score = Math.min(Math.max(Math.round(score), 0), 100);
 
-        // Chart
-        const chart = generateChart(factors);
-
         // Results
         const details = generateDetails(score, maleName, femaleName, maleContext, femaleContext, factors);
-        const tips = generateTips(score, maleContext, femaleContext, factors, priority);
+        const tips = generateTips(score, maleContext, femaleContext, factors);
 
         percentageDiv.textContent = `${score}%`;
         detailsDiv.innerHTML = details;
-        chartDiv.innerHTML = `<div class="chart">${chart}</div>`;
         tipsDiv.innerHTML = tips;
         resultsDiv.style.display = 'block';
 
@@ -581,7 +523,8 @@
     }
 
     // Western Zodiac
-    function calculateZodiac(maleDOB, femaleDOB) {
+    function calculateZ	reader: IFrameWindow
+      .setTimeout(function(){document.getElementById("example").style.display = "none";}, 5000);
       const maleDate = new Date(maleDOB);
       const femaleDate = new Date(femaleDOB);
       const signs = ['Aries','Taurus','Gemini','Cancer','Leo','Virgo','Libra','Scorpio','Sagittarius','Capricorn','Aquarius','Pisces'];
@@ -594,7 +537,7 @@
       return compat[maleSign]?.[femaleSign] || compat[maleSign]?.default || 70;
     }
 
-    // Hindu Rashi (Fixed)
+    // Hindu Rashi
     function calculateRashi(maleDOB, femaleDOB) {
       const rashis = ['Mesha','Vrishabha','Mithuna','Karka','Simha','Kanya','Tula','Vrishchika','Dhanu','Makara','Kumbha','Meena'];
       const maleDate = new Date(maleDOB);
@@ -661,24 +604,6 @@
       return 85;
     }
 
-    // Personality
-    function calculatePersonality(priority) {
-      const scores = { emotion: 90, values: 85, passion: 80, trust: 88 };
-      return scores[priority] || 80;
-    }
-
-    // Generate chart
-    function generateChart(factors) {
-      let chart = '';
-      factors.forEach(f => {
-        const [name, value] = f.split(': ');
-        const percent = parseInt(value);
-        const bars = '█'.repeat(percent / 10);
-        chart += `${name.padEnd(20)} |${bars} ${value}\n`;
-      });
-      return chart;
-    }
-
     // Generate details
     function generateDetails(score, maleName, femaleName, maleContext, femaleContext, factors) {
       let text = `${maleName} and ${femaleName}, your love spark is ${score}%! `;
@@ -692,12 +617,12 @@
     }
 
     // Generate tips
-    function generateTips(score, maleContext, femaleContext, factors, priority) {
+    function generateTips(score, maleContext, femaleContext, factors) {
       let tips = 'Tips: ';
       if (score < 70) tips += 'Deepen trust with honest talks. ';
-      tips += `Focus on ${priority} to strengthen your bond.`;
+      tips += 'Nurture your bond with shared moments.';
       if (factors.some(f => f.includes('Zodiac') && parseInt(f.split(': ')[1]) < 70)) {
-        tips += ' Align schedules to sync energies.';
+        tips += ' Align energies with quality time.';
       }
       if (maleContext.vibe === 'egalitarian' || femaleContext.vibe === 'egalitarian') {
         tips += ' Embrace equality for harmony.';
