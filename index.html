@@ -1,5 +1,4 @@
-
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -336,6 +335,13 @@
   </div>
 
   <script>
+    // Error logging
+    window.onerror = function(msg, url, lineNo, columnNo, error) {
+      console.error('Error: ' + msg + '\nLine: ' + lineNo + '\nColumn: ' + columnNo);
+      showError('Something went wrong. Please refresh and try again.');
+      toggleLoader(false);
+    };
+
     // Debounce utility
     function debounce(func, wait) {
       let timeout;
@@ -523,8 +529,7 @@
     }
 
     // Western Zodiac
-    function calculateZ	reader: IFrameWindow
-      .setTimeout(function(){document.getElementById("example").style.display = "none";}, 5000);
+    function calculateZodiac(maleDOB, femaleDOB) {
       const maleDate = new Date(maleDOB);
       const femaleDate = new Date(femaleDOB);
       const signs = ['Aries','Taurus','Gemini','Cancer','Leo','Virgo','Libra','Scorpio','Sagittarius','Capricorn','Aquarius','Pisces'];
@@ -678,11 +683,15 @@
 
     // Initial load
     window.addEventListener('load', () => {
-      setTimeout(() => {
+      try {
         toggleLoader(false);
         document.querySelector('.details').classList.add('expanded');
         updateHistory();
-      }, 500);
+      } catch (e) {
+        console.error('Load error:', e);
+        showError('Failed to load content. Please refresh.');
+        toggleLoader(false);
+      }
     });
 
     // Optimize resize
