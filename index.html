@@ -639,4 +639,68 @@
     function saveToHistory(score, maleName, femaleName, factors) {
       const history = JSON.parse(localStorage.getItem('loveSparkHistory') || '[]');
       history.unshift({ score, maleName, femaleName, factors, date: new Date().toLocaleString() });
-      localStorage.setI
+      localStorage.setItem('loveSparkHistory', JSON.stringify(history.slice(0, 5)));
+      updateHistory();
+    }
+
+    // Update history
+    function updateHistory() {
+      const historyList = document.getElementById('history-list');
+      const history = JSON.parse(localStorage.getItem('loveSparkHistory') || '[]');
+      historyList.innerHTML = history.length ? history.map(h => 
+        `<p><strong>${h.score}%</strong> - ${h.maleName} & ${h.femaleName} (${h.date})</p>`
+      ).join('') : '<p>No sparks yet!</p>';
+      document.getElementById('history').style.display = history.length ? 'block' : 'none';
+    }
+
+    // Clear history
+    function clearHistory() {
+      localStorage.removeItem('loveSparkHistory');
+      updateHistory();
+    }
+
+    // Share result
+    function shareResult() {
+      const percentage = document.getElementById('percentage').textContent;
+      const details = document.getElementById('details').textContent.split('! ')[0];
+      const text = `${details}! Score: ${percentage}`;
+      if (navigator.share) {
+        navigator.share({ title: 'Love Spark', text });
+      } else {
+        prompt('Copy this to share:', text);
+      }
+    }
+
+    // Search functionality
+    document.getElementById('search').addEventListener('input', debounce(function(e) {
+      const query = e.target.value.toLowerCase();
+      const sections = document.querySelectorAll('section');
+      sections.forEach(section => {
+        const text = section.textContent.toLowerCase();
+        section.style.display = text.includes(query) ? 'block' : 'none';
+      });
+    }, 300));
+
+    // Initial load
+    window.addEventListener('load', () => {
+      try {
+        toggleLoader(false);
+        document.querySelector('.details').classList.add('expanded');
+        updateHistory();
+      } catch (e) {
+        console.error('Load error:', e);
+        showError('Failed to load content. Please refresh.');
+        toggleLoader(false);
+      }
+    });
+
+    // Optimize resize
+    window.addEventListener('resize', debounce(() => {
+      console.log('Resized');
+    }, 100));
+
+    // Progressive enhancement
+    document.documentElement.classList.add('js-enabled');
+  </script>
+</body>
+</html>
