@@ -1,0 +1,642 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Love Spark - Cosmic Love Compatibilitoy</title>
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* General */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      background: linear-gradient(135deg, #ffccd5, #d4e4ff);
+      color: #333;
+      min-height: 100vh;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    /* Loader */
+    .loader {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50px;
+      height: 50px;
+      border: 5px solid #f0f0f0;
+      border-top: 5px solid #ff4081;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      z-index: 1000;
+      display: block;
+    }
+
+    @keyframes spin {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    .loader.hidden {
+      display: none;
+    }
+
+    /* Content */
+    .content {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .content.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .content.hidden {
+      display: none;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      color: #ff4081;
+    }
+
+    /* Search */
+    #search {
+      width: 100%;
+      padding: 12px;
+      margin: 15px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+
+    /* Form */
+    .form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 1em;
+      margin: 10px 0 5px;
+      color: #555;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #ff4081;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+      margin-top: 15px;
+    }
+
+    button:hover {
+      background: #d81b60;
+      transform: scale(1.02);
+    }
+
+    button:focus {
+      outline: 2px solid #d81b60;
+      outline-offset: 2px;
+    }
+
+    /* Results */
+    #results {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      display: none;
+      text-align: center;
+    }
+
+    #results h2 {
+      font-size: 1.8em;
+      color: #ff4081;
+      margin-bottom: 10px;
+    }
+
+    #percentage {
+      font-size: 2.5em;
+      color: #d81b60;
+      margin: 10px 0;
+    }
+
+    /* History */
+    #history {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    #history.visible {
+      display: block;
+    }
+
+    /* Sections */
+    section {
+      margin: 20px 0;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 8px;
+    }
+
+    h2 {
+      font-size: 1.6em;
+      color: #ff4081;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+
+    .details {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+
+    .details.expanded {
+      max-height: 4000px;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 20px;
+    }
+
+    li::before {
+      content: "♥ ";
+      color: #ff4081;
+    }
+
+    /* Error */
+    .error {
+      color: #d32f2f;
+      font-size: 0.9em;
+      text-align: center;
+      margin: 10px 0;
+      display: none;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+      color: #666;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .loader {
+        width: 40px;
+        height: 40px;
+      }
+
+      h1 {
+        font-size: 2em;
+      }
+
+      .form, #results, #history, section {
+        padding: 15px;
+      }
+    }
+
+    /* Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      .loader {
+        animation: none;
+        border: 5px solid #ff4081;
+      }
+
+      .content, button {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loader -->
+  <div id="loader" class="loader" role="status" aria-label="Calculating love spark"></div>
+
+  <!-- Content -->
+  <div id="content" class="content hidden">
+    <div class="container">
+      <header>
+        <h1>Love Spark</h1>
+        <p>Discover your love compatibility with cosmic precision</p>
+        <input type="text" id="search" placeholder="Explore love insights..." aria-label="Search methods">
+      </header>
+
+      <!-- Form -->
+      <div class="form">
+        <label for="male-name">Male Name *</label>
+        <input type="text" id="male-name" value="Binod Meena" required aria-required="true">
+        
+        <label for="male-dob">Male Date of Birth (Optional)</label>
+        <input type="date" id="male-dob">
+        
+        <label for="female-name">Female Name *</label>
+        <input type="text" id="female-name" value="Riya Sharma" required aria-required="true">
+        
+        <label for="female-dob">Female Date of Birth (Optional)</label>
+        <input type="date" id="female-dob">
+        
+        <button onclick="calculateLove()">Ignite Your Love Spark</button>
+      </div>
+
+      <!-- Results -->
+      <div id="results">
+        <h2>Your Love Spark</h2>
+        <div id="percentage"></div>
+        <p id="details"></p>
+        <p id="tips"></p>
+        <button onclick="shareResult()">Share Result</button>
+      </div>
+
+      <div id="error" class="error"></div>
+
+      <!-- History -->
+      <div id="history">
+        <h2>Past Sparks</h2>
+        <div id="history-list"></div>
+        <button onclick="clearHistory()">Clear History</button>
+      </div>
+
+      <!-- Methodology -->
+      <section id="methodology">
+        <h2 onclick="toggleSection(this)">How Love Spark Calculates Love</h2>
+        <div class="details">
+          <p>Love Spark weaves a tapestry of cosmic and cultural wisdom:</p>
+          <ul>
+            <li><strong>Numerology</strong>: Name vibrations align your energies.</li>
+            <li><strong>Western Zodiac</strong>: Star signs shape chemistry.</li>
+            <li><strong>Hindu Rashi</strong>: Moon signs enhance emotional bonds.</li>
+            <li><strong>Hindu Astrology</strong>: Nakshatras and planetary alignments.</li>
+            <li><strong>Egyptian Astrology</strong>: Ancient signs like Anubis.</li>
+            <li><strong>Chinese Astrology</strong>: Animal signs guide harmony.</li>
+            <li><strong>Tarot Compatibility</strong>: Archetypes reveal destiny.</li>
+            <li><strong>Biorhythms</strong>: Physical, emotional cycles align.</li>
+            <li><strong>Islam</strong>: Spiritual harmony and respect.</li>
+            <li><strong>Sikhism</strong>: Equality and shared purpose.</li>
+            <li><strong>Cultural Context</strong>: Surnames hint at traditions.</li>
+            <li><strong>Other Mystics</strong>: Aura, karma, synastry, and beyond.</li>
+          </ul>
+        </div>
+      </section>
+
+      <footer>
+        <p>Love Spark | A universe of love | 2025</p>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    // Error logging
+    window.onerror = function(msg, url, lineNo, columnNo, error) {
+      console.error('Error: ' + msg + '\nLine: ' + lineNo + '\nColumn: ' + columnNo);
+      showError('Something went wrong. Please refresh and try again.');
+      toggleLoader(false);
+    };
+
+    // Debounce utility
+    function debounce(func, wait) {
+      let timeout;
+      return function executedFunction(...args) {
+        const later = () => {
+          clearTimeout(timeout);
+          func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+      };
+    }
+
+    // Toggle loader
+    function toggleLoader(show) {
+      const loader = document.getElementById('loader');
+      const content = document.getElementById('content');
+      loader.classList.toggle('hidden', !show);
+      content.classList.toggle('hidden', show);
+      content.classList.toggle('visible', !show);
+    }
+
+    // Show error
+    function showError(message) {
+      const errorDiv = document.getElementById('error');
+      errorDiv.textContent = message;
+      errorDiv.style.display = 'block';
+    }
+
+    // Toggle sections
+    function toggleSection(header) {
+      const details = header.nextElementSibling;
+      details.classList.toggle('expanded');
+    }
+
+    // Infer cultural context
+    function inferCulturalContext(name) {
+      const surname = name.split(' ').pop().toLowerCase();
+      const patterns = {
+        'meena': { vibe: 'egalitarian', score: 85, desc: 'tribal harmony' },
+        'sharma': { vibe: 'scholarly', score: 80, desc: 'wisdom and tradition' },
+        'singh': { vibe: 'warrior', score: 82, desc: 'strength and unity' },
+        'patel': { vibe: 'merchant', score: 78, desc: 'enterprise and community' },
+        'kumar': { vibe: 'neutral', score: 75, desc: 'broad compatibility' },
+        'gupta': { vibe: 'trader', score: 79, desc: 'prosperity and balance' },
+        'khan': { vibe: 'noble', score: 81, desc: 'honor and respect' },
+        'verma': { vibe: 'guardian', score: 80, desc: 'duty and loyalty' }
+      };
+      return patterns[surname] || { vibe: 'general', score: 70, desc: 'universal spark' };
+    }
+
+    // Calculate love percentage
+    async function calculateLove() {
+      toggleLoader(true);
+      const resultsDiv = document.getElementById('results');
+      const percentageDiv = document.getElementById('percentage');
+      const detailsDiv = document.getElementById('details');
+      const tipsDiv = document.getElementById('tips');
+      const errorDiv = document.getElementById('error');
+
+      errorDiv.style.display = 'none';
+      resultsDiv.style.display = 'none';
+
+      try {
+        const maleName = document.getElementById('male-name').value.trim();
+        const femaleName = document.getElementById('female-name').value.trim();
+        const maleDOB = document.getElementById('male-dob').value;
+        const femaleDOB = document.getElementById('female-dob').value;
+
+        if (!maleName || !femaleName) {
+          throw new Error('Please enter both names');
+        }
+
+        // Simulate complex calculation
+        await new Promise(resolve => setTimeout(resolve, 1500));
+
+        // Algorithm
+        let score = 0;
+        let factors = [];
+
+        // 1. Numerology
+        const numScore = calculateNumerology(maleName, femaleName);
+        score += numScore * 0.13;
+        factors.push(`Numerology: ${numScore}%`);
+
+        // 2. Western Zodiac
+        let zodiacScore = 70;
+        if (maleDOB && femaleDOB) {
+          zodiacScore = calculateZodiac(maleDOB, femaleDOB);
+        }
+        score += zodiacScore * 0.1;
+        factors.push(`Zodiac: ${zodiacScore}%`);
+
+        // 3. Hindu Rashi
+        let rashiScore = 65;
+        if (maleDOB && femaleDOB) {
+          rashiScore = calculateRashi(maleDOB, femaleDOB);
+        }
+        score += rashiScore * 0.1;
+        factors.push(`Rashi: ${rashiScore}%`);
+
+        // 4. Hindu Astrology
+        let hinduAstroScore = 60;
+        if (maleDOB && femaleDOB) {
+          hinduAstroScore = calculateHinduAstro(maleDOB, femaleDOB);
+        }
+        score += hinduAstroScore * 0.1;
+        factors.push(`Hindu Astrology: ${hinduAstroScore}%`);
+
+        // 5. Egyptian Astrology
+        let egyptianScore = 70;
+        if (maleDOB && femaleDOB) {
+          egyptianScore = calculateEgyptianAstro(maleDOB, femaleDOB);
+        }
+        score += egyptianScore * 0.09;
+        factors.push(`Egyptian Astrology: ${egyptianScore}%`);
+
+        // 6. Chinese Astrology
+        let chineseScore = 68;
+        if (maleDOB && femaleDOB) {
+          chineseScore = calculateChineseAstro(maleDOB, femaleDOB);
+        }
+        score += chineseScore * 0.09;
+        factors.push(`Chinese Astrology: ${chineseScore}%`);
+
+        // 7. Tarot Compatibility
+        const tarotScore = calculateTarot(maleName, femaleName);
+        score += tarotScore * 0.08;
+        factors.push(`Tarot: ${tarotScore}%`);
+
+        // 8. Biorhythms
+        let bioScore = 65;
+        if (maleDOB && femaleDOB) {
+          bioScore = calculateBiorhythm(maleDOB, femaleDOB);
+        }
+        score += bioScore * 0.08;
+        factors.push(`Biorhythms: ${bioScore}%`);
+
+        // 9. Islamic Harmony
+        const islamScore = calculateIslamicHarmony();
+        score += islamScore * 0.06;
+        factors.push(`Islamic Harmony: ${islamScore}%`);
+
+        // 10. Sikh Equality
+        const sikhScore = calculateSikhEquality();
+        score += sikhScore * 0.06;
+        factors.push(`Sikh Equality: ${sikhScore}%`);
+
+        // 11. Cultural Context
+        const maleContext = inferCulturalContext(maleName);
+        const femaleContext = inferCulturalContext(femaleName);
+        const contextScore = (maleContext.score + femaleContext.score) / 2;
+        score += contextScore * 0.11;
+        factors.push(`Cultural Spark: ${contextScore}%`);
+
+        // Normalize
+        score = Math.min(Math.max(Math.round(score), 0), 100);
+
+        // Results
+        const details = generateDetails(score, maleName, femaleName, maleContext, femaleContext, factors);
+        const tips = generateTips(score, maleContext, femaleContext, factors);
+
+        percentageDiv.textContent = `${score}%`;
+        detailsDiv.innerHTML = details;
+        tipsDiv.innerHTML = tips;
+        resultsDiv.style.display = 'block';
+
+        // Save to history
+        saveToHistory(score, maleName, femaleName, factors);
+
+        toggleLoader(false);
+      } catch (error) {
+        toggleLoader(false);
+        showError(error.message);
+      }
+    }
+
+    // Numerology
+    function calculateNumerology(maleName, femaleName) {
+      const values = { a:1,b:2,c:3,d:4,e:5,f:6,g:7,h:8,i:9,j:1,k:2,l:3,m:4,n:5,o:6,p:7,q:8,r:9,s:1,t:2,u:3,v:4,w:5,x:6,y:7,z:8 };
+      const sumMale = maleName.toLowerCase().split('').reduce((sum, c) => sum + (values[c] || 0), 0) % 9 || 9;
+      const sumFemale = femaleName.toLowerCase().split('').reduce((sum, c) => sum + (values[c] || 0), 0) % 9 || 9;
+      const diff = Math.abs(sumMale - sumFemale);
+      return 100 - diff * 10;
+    }
+
+    // Western Zodiac
+    function calculateZodiac(maleDOB, femaleDOB) {
+      const maleDate = new Date(maleDOB);
+      const femaleDate = new Date(femaleDOB);
+      const signs = ['Aries','Taurus','Gemini','Cancer','Leo','Virgo','Libra','Scorpio','Sagittarius','Capricorn','Aquarius','Pisces'];
+      const maleSign = signs[Math.floor((maleDate.getMonth() + maleDate.getDate() / 30) % 12)];
+      const femaleSign = signs[Math.floor((femaleDate.getMonth() + femaleDate.getDate() / 30) % 12)];
+      const compat = {
+        'Aries': { 'Leo': 90, 'Sagittarius': 90, 'Aries': 80, 'default': 70 },
+        'Taurus': { 'Virgo': 85, 'Capricorn': 85, 'Taurus': 75, 'default': 65 }
+      };
+      return compat[maleSign]?.[femaleSign] || compat[maleSign]?.default || 70;
+    }
+
+    // Hindu Rashi
+    function calculateRashi(maleDOB, femaleDOB) {
+      const rashis = ['Mesha','Vrishabha','Mithuna','Karka','Simha','Kanya','Tula','Vrishchika','Dhanu','Makara','Kumbha','Meena'];
+      const maleDate = new Date(maleDOB);
+      const femaleDate = new Date(femaleDOB);
+      const maleRashi = rashis[Math.floor((maleDate.getMonth() + maleDate.getDate() / 30) % 12)];
+      const femaleRashi = rashis[Math.floor((femaleDate.getMonth() + femaleDate.getDate() / 30) % 12)];
+      const compat = {
+        'Mesha': { 'Simha': 88, 'Dhanu': 88, 'Mesha': 78, 'default': 68 },
+        'Vrishabha': { 'Kanya': 82, 'Makara': 82, 'Vrishabha': 72, 'default': 62 }
+      };
+      return compat[maleRashi]?.[femaleRashi] || compat[maleRashi]?.default || 65;
+    }
+
+    // Hindu Astrology
+    function calculateHinduAstro(maleDOB, femaleDOB) {
+      return maleDOB && femaleDOB ? 75 + Math.random() * 15 : 60;
+    }
+
+    // Egyptian Astrology
+    function calculateEgyptianAstro(maleDOB, femaleDOB) {
+      const signs = ['Anubis','Isis','Osiris','Horus','Bastet','Thoth','Sekhmet','Ra','Amun','Ptah','Hathor','Set'];
+      const maleDate = new Date(maleDOB);
+      const femaleDate = new Date(femaleDOB);
+      const maleSign = signs[Math.floor((maleDate.getMonth() + maleDate.getDate() / 30) % 12)];
+      const femaleSign = signs[Math.floor((femaleDate.getMonth() + femaleDate.getDate() / 30) % 12)];
+      return maleSign === femaleSign ? 80 : 70;
+    }
+
+    // Chinese Astrology
+    function calculateChineseAstro(maleDOB, femaleDOB) {
+      const animals = ['Rat','Ox','Tiger','Rabbit','Dragon','Snake','Horse','Goat','Monkey','Rooster','Dog','Pig'];
+      const maleYear = new Date(maleDOB).getFullYear();
+      const femaleYear = new Date(femaleDOB).getFullYear();
+      const maleAnimal = animals[(maleYear - 1900) % 12];
+      const femaleAnimal = animals[(femaleYear - 1900) % 12];
+      const compat = {
+        'Rat': { 'Dragon': 90, 'Monkey': 90, 'Rat': 80, 'default': 70 },
+        'Ox': { 'Snake': 85, 'Rooster': 85, 'Ox': 75, 'default': 65 }
+      };
+      return compat[maleAnimal]?.[femaleAnimal] || compat[maleAnimal]?.default || 68;
+    }
+
+    // Tarot Compatibility
+    function calculateTarot(maleName, femaleName) {
+      const seed = maleName.length + femaleName.length;
+      return 60 + (seed % 40);
+    }
+
+    // Biorhythms
+    function calculateBiorhythm(maleDOB, femaleDOB) {
+      const maleDate = new Date(maleDOB);
+      const femaleDate = new Date(femaleDOB);
+      const daysDiff = Math.abs((maleDate - femaleDate) / (1000 * 60 * 60 * 24));
+      return 60 + ((daysDiff % 33) / 33) * 40;
+    }
+
+    // Islamic Harmony
+    function calculateIslamicHarmony() {
+      return 80;
+    }
+
+    // Sikh Equality
+    function calculateSikhEquality() {
+      return 85;
+    }
+
+    // Generate details
+    function generateDetails(score, maleName, femaleName, maleContext, femaleContext, factors) {
+      let text = `${maleName} and ${femaleName}, your love spark is ${score}%! `;
+      if (score > 85) text += 'A celestial flame that lights the stars.';
+      else if (score > 65) text += 'A glowing ember ready to ignite.';
+      else text += 'A tender spark needing gentle care.';
+      text += ` Your vibes—${maleContext.desc} meets ${femaleContext.desc}—weave a unique bond.<br><br>Factors:<ul>`;
+      factors.forEach(f => text += `<li>${f}</li>`);
+      text += '</ul>';
+      return text;
+    }
+
+    // Generate tips
+    function generateTips(score, maleContext, femaleContext, factors) {
+      let tips = 'Tips: ';
+      if (score < 70) tips += 'Deepen trust with honest talks. ';
+      tips += 'Nurture your bond with shared moments.';
+      if (factors.some(f => f.includes('Zodiac') && parseInt(f.split(': ')[1]) < 70)) {
+        tips += ' Align energies with quality time.';
+      }
+      if (maleContext.vibe === 'egalitarian' || femaleContext.vibe === 'egalitarian') {
+        tips += ' Embrace equality for harmony.';
+      }
+      return tips;
+    }
+
+    // Save to history
+    function saveToHistory(score, maleName, femaleName, factors) {
+      const history = JSON.parse(localStorage.getItem('loveSparkHistory') || '[]');
+      history.unshift({ score, maleName, femaleName, factors, date: new Date().toLocaleString() });
+      localStorage.setI
