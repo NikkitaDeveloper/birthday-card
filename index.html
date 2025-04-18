@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Love Spark - Cosmic Love Compatibility</title>
+  <title>Love Spark - Deleted</title>
   <style>
     /* Reset */
     * {
@@ -15,20 +14,16 @@
 
     /* General */
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      line-height: 1.6;
-      background: linear-gradient(135deg, #ffccd5, #d4e4ff);
-      color: #333;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      color: #fff;
       min-height: 100vh;
-      padding: 20px;
-      overflow-x: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
       position: relative;
-      animation: pulseGradient 10s ease infinite;
-    }
-
-    @keyframes pulseGradient {
-      0%, 100% { background: linear-gradient(135deg, #ffccd5, #d4e4ff); }
-      50% { background: linear-gradient(135deg, #d4e4ff, #ffccd5); }
     }
 
     /* Starfield */
@@ -44,347 +39,78 @@
 
     .star {
       position: absolute;
-      background: #fff;
+      background: rgba(255, 255, 255, 0.8);
       border-radius: 50%;
-      animation: twinkle 3s infinite;
-    }
-
-    .shooting-star {
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background: #fff;
-      animation: shoot 2s linear infinite;
+      animation: twinkle 4s infinite;
     }
 
     @keyframes twinkle {
-      0%, 100% { opacity: 0.2; }
+      0%, 100% { opacity: 0.3; }
       50% { opacity: 1; }
     }
 
-    @keyframes shoot {
-      0% { transform: translateX(0) translateY(0); opacity: 1; }
-      100% { transform: translateX(-200px) translateY(200px); opacity: 0; }
-    }
-
+    /* Container */
     .container {
-      max-width: 1000px;
-      margin: 0 auto;
+      max-width: 600px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      transform: perspective(600px) rotateX(0deg);
+      transition: transform 0.3s ease;
     }
 
-    /* Loader */
-    .loader {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) rotate(0deg);
-      width: 50px;
-      height: 50px;
-      border: 5px solid #f0f0f0;
-      border-top: 5px solid #ff4081;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite, sparkle 1.5s ease infinite;
-      z-index: 1000;
-      display: block;
-    }
-
-    @keyframes spin {
-      0% { transform: translate(-50%, -50%) rotate(0deg); }
-      100% { transform: translate(-50%, -50%) rotate(360deg); }
-    }
-
-    @keyframes sparkle {
-      0%, 100% { box-shadow: 0 0 10px #ff4081; }
-      50% { box-shadow: 0 0 20px #ff4081; }
-    }
-
-    .loader.hidden {
-      display: none;
+    .container:hover {
+      transform: perspective(600px) rotateX(2deg);
     }
 
     /* Content */
-    .content {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-
-    .content.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .content.hidden {
-      display: none;
-    }
-
-    /* Header */
-    header {
-      text-align: center;
-      padding: 20px;
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 10px;
-      margin-bottom: 20px;
-      transform: perspective(600px) rotateX(0deg);
-      transition: transform 0.3s ease;
-    }
-
-    header:hover {
-      transform: perspective(600px) rotateX(2deg);
-    }
-
     h1 {
       font-size: 2.5em;
       color: #ff4081;
-      text-shadow: 0 0 5px rgba(255, 64, 129, 0.5);
-    }
-
-    /* Search */
-    #search {
-      width: 100%;
-      padding: 12px;
-      margin: 15px 0;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      font-size: 1em;
-      transition: box-shadow 0.3s ease;
-    }
-
-    #search:focus {
-      box-shadow: 0 0 10px #ff4081;
-    }
-
-    /* Form */
-    .form {
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      margin-bottom: 20px;
-      transform: perspective(600px) rotateX(0deg);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .form:hover {
-      transform: perspective(600px) rotateX(2deg);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    }
-
-    label {
-      display: block;
-      font-size: 1em;
-      margin: 10px 0 5px;
-      color: #555;
-    }
-
-    input {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      font-size: 1em;
-      transition: box-shadow 0.3s ease;
-    }
-
-    input:focus {
-      box-shadow: 0 0 10px #ff4081;
-    }
-
-    button {
-      width: 100%;
-      padding: 12px;
-      background: #ff4081;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      font-size: 1em;
-      cursor: pointer;
-      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    }
-
-    button:hover {
-      background: #d81b60;
-      transform: scale(1.05);
-      box-shadow: 0 0 15px #ff4081;
-    }
-
-    button:focus {
-      outline: none;
-      box-shadow: 0 0 10px #d81b60;
-    }
-
-    /* Results */
-    #results {
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      margin-bottom: 20px;
-      display: none;
-      text-align: center;
-      transform: perspective(600px) rotateX(0deg);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    #results.visible {
-      display: block;
-    }
-
-    #results:hover {
-      transform: perspective(600px) rotateX(2deg);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    }
-
-    #results h2 {
-      font-size: 1.8em;
-      color: #ff4081;
+      text-shadow: 0 0 10px rgba(255, 64, 129, 0.5);
       margin-bottom: 10px;
     }
 
-    #percentage {
-      font-size: 2.5em;
-      color: #d81b60;
-      margin: 10px 0;
-      text-shadow: 0 0 5px rgba(216, 27, 96, 0.5);
-      animation: heartbeat 2s ease infinite;
+    p {
+      font-size: 1.2em;
+      color: #ccc;
+      line-height: 1.5;
     }
 
-    @keyframes heartbeat {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-
-    .love-meter {
-      width: 100%;
-      height: 10px;
-      background: #ddd;
-      border-radius: 5px;
-      margin: 10px 0;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .love-meter-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #ff4081, #d81b60);
-      transition: width 1s ease;
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
-
-    .love-meter-fill.high {
-      animation: glow 1.5s ease infinite;
-    }
-
-    @keyframes glow {
-      0%, 100% { box-shadow: 0 0 10px #ff4081; }
-      50% { box-shadow: 0 0 20px #ff4081; }
-    }
-
-    /* History */
-    #history {
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    .icon {
+      font-size: 3em;
+      color: #ff4081;
       margin-bottom: 20px;
-      display: none;
-      transform: perspective(600px) rotateX(0deg);
-      transition: transform 0.3s ease;
+      animation: fade 2s ease infinite;
     }
 
-    #history.visible {
-      display: block;
-    }
-
-    #history:hover {
-      transform: perspective(600px) rotateX(2deg);
-    }
-
-    /* Sections */
-    section {
-      margin: 20px 0;
-      padding: 15px;
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 8px;
-      transform: perspective(600px) rotateX(0deg);
-      transition: transform 0.3s ease;
-    }
-
-    section:hover {
-      transform: perspective(600px) rotateX(2deg);
-    }
-
-    h2 {
-      font-size: 1.6em;
-      color: #ff4081;
-      cursor: pointer;
-      margin-bottom: 10px;
-    }
-
-    .details {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s ease;
-    }
-
-    .details.expanded {
-      max-height: 9000px;
-    }
-
-    ul {
-      list-style: none;
-      padding-left: 20px;
-    }
-
-    li::before {
-      content: "♥ ";
-      color: #ff4081;
-    }
-
-    /* Error */
-    .error {
-      color: #d32f2f;
-      font-size: 0.9em;
-      text-align: center;
-      margin: 10px 0;
-      display: none;
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 0.9em;
-      color: #666;
+    @keyframes fade {
+      0%, 100% { opacity: 0.7; }
+      50% { opacity: 1; }
     }
 
     /* Responsive */
     @media (max-width: 600px) {
-      .loader {
-        width: 40px;
-        height: 40px;
-      }
-
       h1 {
         font-size: 2em;
       }
 
-      .form, #results, #history, section {
-        padding: 15px;
+      p {
+        font-size: 1em;
+      }
+
+      .icon {
+        font-size: 2.5em;
       }
     }
 
     /* Accessibility */
     @media (prefers-reduced-motion: reduce) {
-      .loader, .star, .shooting-star, body, .content, button, .form, #results, #history, section, header, #percentage, .love-meter-fill {
+      .star, .container, .icon {
         animation: none;
         transition: none;
-      }
-
-      .loader {
-        border: 5px solid #ff4081;
       }
     }
   </style>
@@ -393,657 +119,42 @@
   <!-- Starfield -->
   <div class="starfield" id="starfield"></div>
 
-  <!-- Loader -->
-  <div id="loader" class="loader" role="status" aria-label="Calculating love spark"></div>
-
   <!-- Content -->
-  <div id="content" class="content hidden">
-    <div class="container">
-      <header>
-        <h1>Love Spark</h1>
-        <p>Discover your love compatibility with cosmic precision</p>
-        <input type="text" id="search" placeholder="Explore love insights..." aria-label="Search methods">
-      </header>
-
-      <!-- Form -->
-      <div class="form">
-        <label for="male-name">Male Name *</label>
-        <input type="text" id="male-name" placeholder="Enter male name here" required aria-required="true">
-        
-        <label for="male-dob">Male Date of Birth (Optional)</label>
-        <input type="date" id="male-dob">
-        
-        <label for="female-name">Female Name *</label>
-        <input type="text" id="female-name" placeholder="Enter female name here" required aria-required="true">
-        
-        <label for="female-dob">Female Date of Birth (Optional)</label>
-        <input type="date" id="female-dob">
-        
-        <button onclick="calculateLove()">Ignite Your Love Spark</button>
-      </div>
-
-      <!-- Results -->
-      <div id="results">
-        <h2>Your Love Spark</h2>
-        <div id="percentage"></div>
-        <div class="love-meter"><div class="love-meter-fill" id="love-meter-fill"></div></div>
-        <p id="details"></p>
-        <p id="tips"></p>
-        <button onclick="shareResult()">Share Result</button>
-      </div>
-
-      <div id="error" class="error"></div>
-
-      <!-- History -->
-      <div id="history">
-        <h2>Past Sparks</h2>
-        <div id="history-list"></div>
-        <button onclick="clearHistory()">Clear History</button>
-      </div>
-
-      <!-- Methodology -->
-      <section id="methodology">
-        <h2 onclick="toggleSection(this)">How Love Spark Calculates Love</h2>
-        <div class="details">
-          <p>Love Spark weaves a tapestry of cosmic, cultural, and mystical wisdom across 110 methods:</p>
-          <h3>Astrology-Based Methods</h3>
-          <ul>
-            <li><strong>Synastry</strong>: Chart interplay.</li>
-            <li><strong>Zodiac Sign Compatibility</strong>: Star sign chemistry.</li>
-            <li><strong>Composite Chart</strong>: Combined chart dynamics.</li>
-            <li><strong>Bi-wheel Synastry Chart</strong>: Overlaid charts.</li>
-            <li><strong>Moon-Venus Aspect Analysis</strong>: Emotional-romantic bonds.</li>
-            <li><strong>Venus-Mars Aspect Compatibility</strong>: Passion alignment.</li>
-            <li><strong>Solar Return Compatibility</strong>: Annual influences.</li>
-            <li><strong>Birth Chart Harmony Index</strong>: Overall chart sync.</li>
-            <li><strong>Astrological Love Index</strong>: Cosmic love score.</li>
-            <li><strong>Planetary Line-up Test</strong>: Planetary positions.</li>
-            <li><strong>House Overlap Assessment</strong>: Life area alignment.</li>
-            <li><strong>Elemental Harmony Score</strong>: Fire, water, air, earth synergy.</li>
-            <li><strong>Manglik Match</strong>: Vedic dosha harmony.</li>
-            <li><strong>Cosmic Destiny Score</strong>: Fated star alignment.</li>
-          </ul>
-          <h3>Numerology-Based Methods</h3>
-          <ul>
-            <li><strong>Numerology</strong>: Name vibrations align energies.</li>
-            <li><strong>Life Path Number Compatibility</strong>: Core life paths.</li>
-            <li><strong>Destiny Number Compatibility</strong>: Life purposes.</li>
-            <li><strong>Expression Number Compatibility</strong>: Outer selves.</li>
-            <li><strong>Soul Urge Number Compatibility</strong>: Inner desires.</li>
-            <li><strong>Personality Number Compatibility</strong>: Social personas.</li>
-            <li><strong>Chaldean Numerology Compatibility</strong>: Ancient system.</li>
-            <li><strong>Pythagorean Numerology Love Score</strong>: Western system.</li>
-            <li><strong>Name/Date of Birth Compatibility</strong>: Combined numerics.</li>
-            <li><strong>Location Compatibility Score</strong>: Place-based numbers.</li>
-            <li><strong>Personal Year Match</strong>: Current cycles.</li>
-            <li><strong>Kabbalah Numerology Compatibility</strong>: Mystical numbers.</li>
-            <li><strong>Pinnacle Period Compatibility</strong>: Life phases.</li>
-            <li><strong>Lucky Number Sync</strong>: Shared fortune digits.</li>
-          </ul>
-          <h3>Personality & Psychology-Based Methods</h3>
-          <ul>
-            <li><strong>Myers-Briggs Type Indicator Compatibility</strong>: Personality types.</li>
-            <li><strong>Enneagram Type Pairings</strong>: Core motivations.</li>
-            <li><strong>Big Five Personality Compatibility</strong>: Trait alignment.</li>
-            <li><strong>DiSC Compatibility Assessment</strong>: Behavioral styles.</li>
-            <li><strong>Four Temperaments Compatibility</strong>: Classic temperaments.</li>
-            <li><strong>Love Languages Assessment</strong>: Expression styles.</li>
-            <li><strong>Attachment Style Compatibility</strong>: Bonding patterns.</li>
-            <li><strong>Story-Based Compatibility Model</strong>: Narrative alignment.</li>
-            <li><strong>Social Instincts Dimensions</strong>: Social drives.</li>
-            <li><strong>Communication Style Match</strong>: Interaction modes.</li>
-            <li><strong>Emotional Intelligence Match</strong>: Emotional sync.</li>
-            <li><strong>Values Alignment Index</strong>: Core beliefs.</li>
-            <li><strong>Soulmate Resonance</strong>: Deep personality sync.</li>
-          </ul>
-          <h3>Tarot & Esoteric Methods</h3>
-          <ul>
-            <li><strong>Tarot Compatibility</strong>: Archetype destiny.</li>
-            <li><strong>Love Celtic Cross Spread</strong>: Deep insights.</li>
-            <li><strong>Love Quest Potentials Tarot Spread</strong>: Future paths.</li>
-            <li><strong>Lenormand Love Spread</strong>: Practical romance.</li>
-            <li><strong>Relationship Celtic Cross</strong>: Bond dynamics.</li>
-            <li><strong>Three-Card Love Spread</strong>: Past, present, future.</li>
-            <li><strong>Karmic Relationship Spread</strong>: Soul lessons.</li>
-            <li><strong>Twin Flame Spread</strong>: Soulmate ties.</li>
-            <li><strong>Heart Chakra Tarot Spread</strong>: Emotional core.</li>
-            <li><strong>Romance Spread</strong>: Love vibes.</li>
-            <li><strong>Past-Present-Future Spread</strong>: Timeline insights.</li>
-            <li><strong>Court Cards Love Spread</strong>: Archetypal roles.</li>
-            <li><strong>Wheel of Fortune Love Spread</strong>: Fate’s role.</li>
-            <li><strong>Destiny Card Match</strong>: Esoteric fate.</li>
-          </ul>
-          <h3>Spiritual & Energy-Based Methods</h3>
-          <ul>
-            <li><strong>Chakra Compatibility Assessment</strong>: Energy balance.</li>
-            <li><strong>Aura Color Compatibility</strong>: Energy vibes.</li>
-            <li><strong>Gaia Energy Love Match</strong>: Earth connection.</li>
-            <li><strong>Crystal Healing Match</strong>: Gemstone synergy.</li>
-            <li><strong>Reiki Love Energy Alignment</strong>: Healing flow.</li>
-            <li><strong>Feng Shui Bedroom Test</strong>: Space harmony.</li>
-            <li><strong>Angel Number Compatibility</strong>: Divine signs.</li>
-            <li><strong>Heart Chakra Balance Score</strong>: Love center.</li>
-            <li><strong>Soul Frequency Matching</strong>: Spiritual sync.</li>
-            <li><strong>Energy Vibration Harmony</strong>: Energetic resonance.</li>
-            <li><strong>Past Life Connection Index</strong>: Karmic ties.</li>
-            <li><strong>Akashic Record Love Score</strong>: Soul records.</li>
-            <li><strong>Karmic Cycles</strong>: Past-life influences.</li>
-            <li><strong>Divine Spark Alignment</strong>: Cosmic energy.</li>
-          </ul>
-          <h3>Cultural & Traditional Methods</h3>
-          <ul>
-            <li><strong>Chinese Zodiac Compatibility</strong>: Animal signs.</li>
-            <li><strong>Vedic Kundli Matching</strong>: Horoscope sync.</li>
-            <li><strong>Bazi Four Pillars Compatibility</strong>: Destiny pillars.</li>
-            <li><strong>I Ching Relationship Hexagram</strong>: Oracle insights.</li>
-            <li><strong>Western Astrology Compatibility</strong>: Star alignments.</li>
-            <li><strong>Mayan Tzolk’in Love Chart</strong>: Sacred calendar.</li>
-            <li><strong>Celtic Tree Compatibility</strong>: Nature signs.</li>
-            <li><strong>African Astrology Love Index</strong>: Tribal stars.</li>
-            <li><strong>Egyptian Astrology Compatibility</strong>: Ancient signs.</li>
-            <li><strong>Native American Zodiac Match</strong>: Spirit animals.</li>
-            <li><strong>Tibetan Astrology Love Score</strong>: Himalayan wisdom.</li>
-            <li><strong>Japanese Zodiac Love Compatibility</strong>: Eastern signs.</li>
-            <li><strong>Hindu Rashi</strong>: Moon sign bonds.</li>
-            <li><strong>Hindu Astrology</strong>: Nakshatras, planets.</li>
-            <li><strong>Bollywood Love Vibe</strong>: Cinematic romance.</li>
-          </ul>
-          <h3>AI & Hybrid Online Tools</h3>
-          <ul>
-            <li><strong>Online Love Calculator</strong>: Digital name match.</li>
-            <li><strong>CountingTools Love Calculator</strong>: Numeric sync.</li>
-            <li><strong>Couplesuite Love Compatibility Calculator</strong>: Modern tool.</li>
-            <li><strong>Discover Oracle Compatibility Calculator</strong>: Oracle-based.</li>
-            <li><strong>AI-Powered Love Predictor</strong>: Machine insights.</li>
-            <li><strong>Relationship Probability Index</strong>: Statistical love.</li>
-            <li><strong>Affinity Score Calculator</strong>: Bond strength.</li>
-            <li><strong>Secret Whisper Love Test</strong>: Hidden insights.</li>
-            <li><strong>Digital Synastry Analyzer</strong>: Astro-tech.</li>
-            <li><strong>Virtual Love Analytics</strong>: Data-driven love.</li>
-            <li><strong>Machine Learning Love Score</strong>: Adaptive scoring.</li>
-            <li><strong>Algorithmic Heart Match</strong>: Code-based love.</li>
-            <li><strong>Social Media Chemistry</strong>: Online vibe sync.</li>
-          </ul>
-          <h3>Games & Recreational Methods</h3>
-          <ul>
-            <li><strong>FLAMES</strong>: Fun name game (Friends, Lovers, Affection, Marriage, Enemies, Siblings).</li>
-            <li><strong>Love Calculator by Name</strong>: Simple name match.</li>
-            <li><strong>Love Calculator by Date of Birth</strong>: DOB sync.</li>
-            <li><strong>Friendship-Love-Game</strong>: Playful test.</li>
-            <li><strong>Crush Calculator</strong>: Romantic spark.</li>
-            <li><strong>Emoji Love Percentage</strong>: Modern vibe.</li>
-            <li><strong>Heart Reaction Test</strong>: Emotional response.</li>
-            <li><strong>Social Media Match Meter</strong>: Online buzz.</li>
-            <li><strong>Google Search Love Score</strong>: Search trends.</li>
-            <li><strong>Bing Love Predictor</strong>: Engine insights.</li>
-            <li><strong>Social Poll Love Score</strong>: Crowd opinion.</li>
-            <li><strong>Meme Compatibility Test</strong>: Humor sync.</li>
-            <li><strong>Meme Soulmate Score</strong>: Viral love vibes.</li>
-          </ul>
-          <h3>Miscellaneous Methods</h3>
-          <ul>
-            <li><strong>Relationship Counter</strong>: Bond duration.</li>
-            <li><strong>Love Horoscope</strong>: Daily stars.</li>
-            <li><strong>Opposites Attract Index</strong>: Difference spark.</li>
-            <li><strong>Compatibility Signs Checklist</strong>: Trait match.</li>
-            <li><strong>Biorhythms</strong>: Cycle alignment.</li>
-            <li><strong>Islamic Harmony</strong>: Spiritual unity.</li>
-            <li><strong>Sikh Equality</strong>: Shared purpose.</li>
-            <li><strong>Mystic Essence</strong>: Intuition, dreams.</li>
-            <li><strong>Eternal Flame Score</strong>: Timeless love.</li>
-            <li><strong>Love Synergy Bonus</strong>: Dynamic spark boost.</li>
-          </ul>
-        </div>
-      </section>
-
-      <footer>
-        <p>Love Spark | A universe of love | 2025</p>
-      </footer>
-    </div>
+  <div class="container">
+    <div class="icon">💔</div>
+    <h1>Love Spark is Gone</h1>
+    <p>The cosmic flames of Love Spark have faded. This page has been deleted, and the love calculator is no longer here. Check back later for new sparks or explore the universe elsewhere.</p>
   </div>
 
   <script>
     // Create starfield
     function createStarfield() {
       const starfield = document.getElementById('starfield');
-      // Regular stars
-      for (let i = 0; i < 100; i++) {
+      for (let i = 0; i < 50; i++) {
         const star = document.createElement('div');
         star.className = 'star';
         star.style.width = `${Math.random() * 2 + 1}px`;
         star.style.height = star.style.width;
         star.style.left = `${Math.random() * 100}%`;
         star.style.top = `${Math.random() * 100}%`;
-        star.style.animationDelay = `${Math.random() * 3}s`;
+        star.style.animationDelay = `${Math.random() * 4}s`;
         starfield.appendChild(star);
-      }
-      // Shooting stars
-      for (let i = 0; i < 5; i++) {
-        const shootingStar = document.createElement('div');
-        shootingStar.className = 'shooting-star';
-        shootingStar.style.left = `${Math.random() * 100}%`;
-        shootingStar.style.top = `${Math.random() * 50}%`;
-        shootingStar.style.animationDelay = `${Math.random() * 5}s`;
-        starfield.appendChild(shootingStar);
       }
     }
 
     // Error logging
     window.onerror = function(msg, url, lineNo, columnNo, error) {
       console.error('Error: ' + msg + '\nLine: ' + lineNo + '\nColumn: ' + columnNo);
-      showError('Something went wrong. Please refresh and try again.');
-      toggleLoader(false);
     };
-
-    // Debounce utility
-    function debounce(func, wait) {
-      let timeout;
-      return function executedFunction(...args) {
-        const later = () => {
-          clearTimeout(timeout);
-          func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-      };
-    }
-
-    // Toggle loader
-    function toggleLoader(show) {
-      const loader = document.getElementById('loader');
-      const content = document.getElementById('content');
-      loader.classList.toggle('hidden', !show);
-      content.classList.toggle('hidden', show);
-      content.classList.toggle('visible', !show);
-    }
-
-    // Show error
-    function showError(message) {
-      const errorDiv = document.getElementById('error');
-      errorDiv.textContent = message;
-      errorDiv.style.display = 'block';
-    }
-
-    // Toggle sections
-    function toggleSection(header) {
-      const details = header.nextElementSibling;
-      details.classList.toggle('expanded');
-    }
-
-    // Infer cultural context
-    function inferCulturalContext(name) {
-      const surname = name.split(' ').pop().toLowerCase();
-      const patterns = {
-        'meena': { vibe: 'egalitarian', score: 90, desc: 'tribal harmony' },
-        'sharma': { vibe: 'scholarly', score: 85, desc: 'wisdom and tradition' },
-        'singh': { vibe: 'warrior', score: 87, desc: 'strength and unity' },
-        'patel': { vibe: 'merchant', score: 83, desc: 'enterprise and community' },
-        'kumar': { vibe: 'neutral', score: 80, desc: 'broad compatibility' },
-        'gupta': { vibe: 'trader', score: 84, desc: 'prosperity and balance' },
-        'khan': { vibe: 'noble', score: 86, desc: 'honor and respect' },
-        'verma': { vibe: 'guardian', score: 85, desc: 'duty and loyalty' }
-      };
-      return patterns[surname] || { vibe: 'general', score: 75, desc: 'universal spark' };
-    }
-
-    // Calculate love percentage
-    async function calculateLove() {
-      toggleLoader(true);
-      const resultsDiv = document.getElementById('results');
-      const percentageDiv = document.getElementById('percentage');
-      const loveMeterFill = document.getElementById('love-meter-fill');
-      const detailsDiv = document.getElementById('details');
-      const tipsDiv = document.getElementById('tips');
-      const errorDiv = document.getElementById('error');
-
-      errorDiv.style.display = 'none';
-      resultsDiv.style.display = 'none';
-
-      try {
-        const maleName = document.getElementById('male-name').value.trim();
-        const femaleName = document.getElementById('female-name').value.trim();
-        const maleDOB = document.getElementById('male-dob').value;
-        const femaleDOB = document.getElementById('female-dob').value;
-
-        if (!maleName || !femaleName) {
-          throw new Error('Please enter both names');
-        }
-
-        // Simulate complex calculation
-        await new Promise(resolve => setTimeout(resolve, 1500));
-
-        // Algorithm
-        let score = 0;
-        let factors = [];
-
-        // Helper functions
-        function nameBasedScore(name1, name2, base, range) {
-          const seed = name1.toLowerCase().split('').reduce((sum, c) => sum + c.charCodeAt(0), 0) + 
-                      name2.toLowerCase().split('').reduce((sum, c) => sum + c.charCodeAt(0), 0);
-          return Math.min(base + (seed % range), 100);
-        }
-
-        function dobBasedScore(dob1, dob2, base, range) {
-          if (!dob1 || !dob2) return base;
-          const date1 = new Date(dob1);
-          const date2 = new Date(dob2);
-          const diff = Math.abs((date1 - date2) / (1000 * 60 * 60 * 24));
-          return Math.min(base + ((diff % range) / range) * (100 - base), 100);
-        }
-
-        function astroBasedScore(dob1, dob2, signs, compat, base) {
-          if (!dob1 || !dob2) return base;
-          const date1 = new Date(dob1);
-          const date2 = new Date(dob2);
-          const sign1 = signs[Math.floor((date1.getMonth() + date1.getDate() / 30) % signs.length)];
-          const sign2 = signs[Math.floor((date2.getMonth() + date2.getDate() / 30) % signs.length)];
-          return Math.min(compat[sign1]?.[sign2] || compat[sign1]?.default || base, 100);
-        }
-
-        // Synergy Bonus
-        function calculateSynergyBonus(name1, name2, dob1, dob2) {
-          let bonus = 0;
-          // Name letter overlap
-          const name1Letters = new Set(name1.toLowerCase().split(''));
-          const name2Letters = new Set(name2.toLowerCase().split(''));
-          const common = [...name1Letters].filter(c => name2Letters.has(c)).length;
-          bonus += common * 2; // Up to 10% for shared letters
-          // DOB proximity
-          if (dob1 && dob2) {
-            const date1 = new Date(dob1);
-            const date2 = new Date(dob2);
-            const diff = Math.abs((date1 - date2) / (1000 * 60 * 60 * 24));
-            if (diff < 365) bonus += 5; // Close DOBs
-          }
-          return Math.min(bonus, 10);
-        }
-
-        // FLAMES
-        function calculateFLAMES(name1, name2) {
-          const flames = ['Friends', 'Lovers', 'Affection', 'Marriage', 'Enemies', 'Siblings'];
-          const n1 = name1.toLowerCase().replace(/\s/g, '').split('');
-          const n2 = name2.toLowerCase().replace(/\s/g, '').split('');
-          const common = n1.filter(c => n2.includes(c));
-          n1.splice(0, common.length); n2.splice(0, common.length);
-          const count = (n1.length + n2.length) % flames.length;
-          const result = flames[count] || 'Lovers';
-          const scores = { 'Lovers': 95, 'Marriage': 90, 'Affection': 85, 'Friends': 80, 'Siblings': 75, 'Enemies': 60 };
-          return { score: scores[result], result };
-        }
-
-        // 1-14: Astrology-Based (1% each, boosted bases)
-        score += astroBasedScore(maleDOB, femaleDOB, ['Aries','Taurus','Gemini','Cancer','Leo','Virgo','Libra','Scorpio','Sagittarius','Capricorn','Aquarius','Pisces'], { 'Aries': { 'Leo': 95, 'Sagittarius': 95, 'Aries': 85, 'default': 80 }, 'Taurus': { 'Virgo': 90, 'Capricorn': 90, 'Taurus': 80, 'default': 75 } }, 80) * 0.01; factors.push(`Synastry: 80%`);
-        score += astroBasedScore(maleDOB, femaleDOB, ['Aries','Taurus','Gemini','Cancer','Leo','Virgo','Libra','Scorpio','Sagittarius','Capricorn','Aquarius','Pisces'], { 'Aries': { 'Leo': 95, 'Sagittarius': 95, 'Aries': 85, 'default': 80 }, 'Taurus': { 'Virgo': 90, 'Capricorn': 90, 'Taurus': 80, 'default': 75 } }, 80) * 0.01; factors.push(`Zodiac Sign Compatibility: 80%`);
-        score += dobBasedScore(maleDOB, femaleDOB, 75, 30) * 0.01; factors.push(`Composite Chart: 75%`);
-        score += dobBasedScore(maleDOB, femaleDOB, 76, 28) * 0.01; factors.push(`Bi-wheel Synastry Chart: 76%`);
-        score += dobBasedScore(maleDOB, femaleDOB, 77, 26) * 0.01; factors.push(`Moon-Venus Aspect Analysis: 77%`);
-        score += dobBasedScore(maleDOB, femaleDOB, 78, 24) * 0.01; factors.push(`Venus-Mars Aspect Compatibility: 78%`);
-        score += dobBasedScore(maleDOB, femaleDOB, 74, 32) * 0.01; factors.push(`Solar Return Compatibility: 74%`);
-        score += dobBasedScore(maleDOB, femaleDOB, 73, 34) * 0.01; factors.push(`Birth Chart Harmony Index: 73%`);
-        score += dobBasedScore(maleDOB, femaleDOB, 72, 36) * 0.01; factors.push(`Astrological Love Index: 72%`);
-        score += dobBasedScore(maleDOB, femaleDOB, 71, 38) * 0.01; factors.push(`Planetary Line-up Test: 71%`);
-        score += dobBasedScore(maleDOB, femaleDOB, 70, 40) * 0.01; factors.push(`House Overlap Assessment: 70%`);
-        score += astroBasedScore(maleDOB, femaleDOB, ['Fire','Earth','Air','Water'], { 'Fire': { 'Fire': 90, 'Air': 85, 'default': 80 }, 'Earth': { 'Earth': 88, 'Water': 84, 'default': 78 } }, 80) * 0.01; factors.push(`Elemental Harmony Score: 80%`);
-        score += dobBasedScore(maleDOB, femaleDOB, 85, 20) * 0.01; factors.push(`Manglik Match: 85%`);
-        score += dobBasedScore(maleDOB, femaleDOB, 90, 15) * 0.01; factors.push(`Cosmic Destiny Score: 90%`);
-
-        // 15-28: Numerology-Based (1% each, boosted bases)
-        const numScore = calculateNumerology(maleName, femaleName);
-        score += numScore * 0.01; factors.push(`Numerology: ${numScore}%`);
-        score += nameBasedScore(maleName, femaleName, 80, 20) * 0.01; factors.push(`Life Path Number Compatibility: 80%`);
-        score += nameBasedScore(maleName, femaleName, 81, 19) * 0.01; factors.push(`Destiny Number Compatibility: 81%`);
-        score += nameBasedScore(maleName, femaleName, 82, 18) * 0.01; factors.push(`Expression Number Compatibility: 82%`);
-        score += nameBasedScore(maleName, femaleName, 83, 17) * 0.01; factors.push(`Soul Urge Number Compatibility: 83%`);
-        score += nameBasedScore(maleName, femaleName, 79, 21) * 0.01; factors.push(`Personality Number Compatibility: 79%`);
-        score += nameBasedScore(maleName, femaleName, 78, 22) * 0.01; factors.push(`Chaldean Numerology Compatibility: 78%`);
-        score += nameBasedScore(maleName, femaleName, 77, 23) * 0.01; factors.push(`Pythagorean Numerology Love Score: 77%`);
-        score += nameBasedScore(maleName, femaleName, 76, 24) * 0.01; factors.push(`Name/Date of Birth Compatibility: 76%`);
-        score += nameBasedScore(maleName, femaleName, 75, 25) * 0.01; factors.push(`Location Compatibility Score: 75%`);
-        score += dobBasedScore(maleDOB, femaleDOB, 80, 20) * 0.01; factors.push(`Personal Year Match: 80%`);
-        score += nameBasedScore(maleName, femaleName, 81, 19) * 0.01; factors.push(`Kabbalah Numerology Compatibility: 81%`);
-        score += dobBasedScore(maleDOB, femaleDOB, 82, 18) * 0.01; factors.push(`Pinnacle Period Compatibility: 82%`);
-        score += nameBasedScore(maleName, femaleName, 85, 15) * 0.01; factors.push(`Lucky Number Sync: 85%`);
-
-        // 29-41: Personality & Psychology-Based (1% each, boosted bases)
-        score += nameBasedScore(maleName, femaleName, 80, 20) * 0.01; factors.push(`Myers-Briggs Type Indicator Compatibility: 80%`);
-        score += nameBasedScore(maleName, femaleName, 81, 19) * 0.01; factors.push(`Enneagram Type Pairings: 81%`);
-        score += nameBasedScore(maleName, femaleName, 82, 18) * 0.01; factors.push(`Big Five Personality Compatibility: 82%`);
-        score += nameBasedScore(maleName, femaleName, 83, 17) * 0.01; factors.push(`DiSC Compatibility Assessment: 83%`);
-        score += nameBasedScore(maleName, femaleName, 79, 21) * 0.01; factors.push(`Four Temperaments Compatibility: 79%`);
-        score += nameBasedScore(maleName, femaleName, 85, 15) * 0.01; factors.push(`Love Languages Assessment: 85%`);
-        score += nameBasedScore(maleName, femaleName, 76, 24) * 0.01; factors.push(`Attachment Style Compatibility: 76%`);
-        score += nameBasedScore(maleName, femaleName, 75, 25) * 0.01; factors.push(`Story-Based Compatibility Model: 75%`);
-        score += nameBasedScore(maleName, femaleName, 80, 20) * 0.01; factors.push(`Social Instincts Dimensions: 80%`);
-        score += nameBasedScore(maleName, femaleName, 81, 19) * 0.01; factors.push(`Communication Style Match: 81%`);
-        score += nameBasedScore(maleName, femaleName, 82, 18) * 0.01; factors.push(`Emotional Intelligence Match: 82%`);
-        score += nameBasedScore(maleName, femaleName, 83, 17) * 0.01; factors.push(`Values Alignment Index: 83%`);
-        score += nameBasedScore(maleName, femaleName, 90, 10) * 0.01; factors.push(`Soulmate Resonance: 90%`);
-
-        // 42-55: Tarot & Esoteric (1% each)
-        score += nameBasedScore(maleName, femaleName, 75, 25) * 0.01; factors.push(`Tarot Compatibility: 75%`);
-        score += nameBasedScore(maleName, femaleName, 80, 20) * 0.01; factors.push(`Love Celtic Cross Spread: 80%`);
-        score += nameBasedScore(maleName, femaleName, 81, 19) * 0.01; factors.push(`Love Quest Potentials Tarot Spread: 81%`);
-        score += nameBasedScore(maleName, femaleName, 82, 18) * 0.01; factors.push(`Lenormand Love Spread: 82%`);
-        score += nameBasedScore(maleName, femaleName, 83, 17) * 0.01; factors.push(`Relationship Celtic Cross: 83%`);
-        score += nameBasedScore(maleName, femaleName, 79, 21) * 0.01; factors.push(`Three-Card Love Spread: 79%`);
-        score += nameBasedScore(maleName, femaleName, 78, 22) * 0.01; factors.push(`Karmic Relationship Spread: 78%`);
-        score += nameBasedScore(maleName, femaleName, 77, 23) * 0.01; factors.push(`Twin Flame Spread: 77%`);
-        score += nameBasedScore(maleName, femaleName, 76, 24) * 0.01; factors.push(`Heart Chakra Tarot Spread: 76%`);
-        score += nameBasedScore(maleName, femaleName, 75, 25) * 0.01; factors.push(`Romance Spread: 75%`);
-        score += nameBasedScore(maleName, femaleName, 80, 20) * 0.01; factors.push(`Past-Present-Future Spread: 80%`);
-        score += nameBasedScore(maleName, femaleName, 81, 19) * 0.01; factors.push(`Court Cards Love Spread: 81%`);
-        score += nameBasedScore(maleName, femaleName, 82, 18) * 0.01; factors.push(`Wheel of Fortune Love Spread: 82%`);
-        score += nameBasedScore(maleName, femaleName, 85, 15) * 0.01; factors.push(`Destiny Card Match: 85%`);
-
-        // 56-69: Spiritual & Energy-Based (1% each)
-        score += dobBasedScore(maleDOB, femaleDOB, 80, 20) * 0.01; factors.push(`Chakra Compatibility Assessment: 80%`);
-        score += nameBasedScore(maleName, femaleName, 75, 25) * 0.01; factors.push(`Aura Color Compatibility: 75%`);
-        score += nameBasedScore(maleName, femaleName, 80, 20) * 0.01; factors.push(`Gaia Energy Love Match: 80%`);
-        score += nameBasedScore(maleName, femaleName, 81, 19) * 0.01; factors.push(`Crystal Healing Match: 81%`);
-        score += nameBasedScore(maleName, femaleName, 82, 18) * 0.01; factors.push(`Reiki Love Energy Alignment: 82%`);
-        score += nameBasedScore(maleName, femaleName, 83, 17) * 0.01; factors.push(`Feng Shui Bedroom Test: 83%`);
-        score += nameBasedScore(maleName, femaleName, 79, 21) * 0.01; factors.push(`Angel Number Compatibility: 79%`);
-        score += nameBasedScore(maleName, femaleName, 78, 22) * 0.01; factors.push(`Heart Chakra Balance Score: 78%`);
-        score += nameBasedScore(maleName, femaleName, 77, 23) * 0.01; factors.push(`Soul Frequency Matching: 77%`);
-        score += nameBasedScore(maleName, femaleName, 76, 24) * 0.01; factors.push(`Energy Vibration Harmony: 76%`);
-        score += dobBasedScore(maleDOB, femaleDOB, 75, 25) * 0.01; factors.push(`Past Life Connection Index: 75%`);
-        score += dobBasedScore(maleDOB, femaleDOB, 80, 20) * 0.01; factors.push(`Akashic Record Love Score: 80%`);
-        score += dobBasedScore(maleDOB, femaleDOB, 79, 21) * 0.01; factors.push(`Karmic Cycles: 79%`);
-        score += dobBasedScore(maleDOB, femaleDOB, 85, 15) * 0.01; factors.push(`Divine Spark Alignment: 85%`);
-
-        // 70-84: Cultural & Traditional (1% each)
-        score += astroBasedScore(maleDOB, femaleDOB, ['Rat','Ox','Tiger','Rabbit','Dragon','Snake','Horse','Goat','Monkey','Rooster','Dog','Pig'], { 'Rat': { 'Dragon': 95, 'Monkey': 95, 'Rat': 85, 'default': 80 }, 'Ox': { 'Snake': 90, 'Rooster': 90, 'Ox': 80, 'default': 75 } }, 80) * 0.01; factors.push(`Chinese Zodiac Compatibility: 80%`);
-        score += dobBasedScore(maleDOB, femaleDOB, 75, 25) * 0.01; factors.push(`Vedic Kundli Matching: 75%`);
-        score += dobBasedScore(maleDOB, femaleDOB, 76, 24) * 0.01; factors.push(`Bazi Four Pillars Compatibility: 76%`);
-        score += nameBasedScore(maleName, femaleName, 75, 25) * 0.01; factors.push(`I Ching Relationship Hexagram: 75%`);
-        score += astroBasedScore(maleDOB, femaleDOB, ['Aries','Taurus','Gemini','Cancer','Leo','Virgo','Libra','Scorpio','Sagittarius','Capricorn','Aquarius','Pisces'], { 'Aries': { 'Leo': 95, 'Sagittarius': 95, 'Aries': 85, 'default': 80 }, 'Taurus': { 'Virgo': 90, 'Capricorn': 90, 'Taurus': 80, 'default': 75 } }, 80) * 0.01; factors.push(`Western Astrology Compatibility: 80%`);
-        score += dobBasedScore(maleDOB, femaleDOB, 80, 20) * 0.01; factors.push(`Mayan Tzolk’in Love Chart: 80%`);
-        score += astroBasedScore(maleDOB, femaleDOB, ['Birch','Rowan','Ash','Alder','Willow','Hawthorn','Oak','Holly','Hazel','Vine','Ivy','Reed'], { 'Birch': { 'Birch': 88, 'default': 78 } }, 78) * 0.01; factors.push(`Celtic Tree Compatibility: 78%`);
-        score += dobBasedScore(maleDOB, femaleDOB, 82, 18) * 0.01; factors.push(`African Astrology Love Index: 82%`);
-        score += astroBasedScore(maleDOB, femaleDOB, ['Anubis','Isis','Osiris','Horus','Bastet','Thoth','Sekhmet','Ra','Amun','Ptah','Hathor','Set'], { 'Anubis': { 'Anubis': 90, 'default': 80 } }, 80) * 0.01; factors.push(`Egyptian Astrology Compatibility: 80%`);
-        score += dobBasedScore(maleDOB, femaleDOB, 83, 17) * 0.01; factors.push(`Native American Zodiac Match: 83%`);
-        score += dobBasedScore(maleDOB, femaleDOB, 79, 21) * 0.01; factors.push(`Tibetan Astrology Love Score: 79%`);
-        score += dobBasedScore(maleDOB, femaleDOB, 78, 22) * 0.01; factors.push(`Japanese Zodiac Love Compatibility: 78%`);
-        score += astroBasedScore(maleDOB, femaleDOB, ['Mesha','Vrishabha','Mithuna','Karka','Simha','Kanya','Tula','Vrishchika','Dhanu','Makara','Kumbha','Meena'], { 'Mesha': { 'Simha': 95, 'Dhanu': 95, 'Mesha': 85, 'default': 80 }, 'Vrishabha': { 'Kanya': 90, 'Makara': 90, 'Vrishabha': 80, 'default': 75 } }, 80) * 0.01; factors.push(`Hindu Rashi: 80%`);
-        score += dobBasedScore(maleDOB, femaleDOB, 75, 25) * 0.01; factors.push(`Hindu Astrology: 75%`);
-        score += nameBasedScore(maleName, femaleName, 85, 15) * 0.01; factors.push(`Bollywood Love Vibe: 85%`);
-
-        // 85-97: AI & Hybrid Online Tools (1% each)
-        score += nameBasedScore(maleName, femaleName, 75, 25) * 0.01; factors.push(`Online Love Calculator: 75%`);
-        score += nameBasedScore(maleName, femaleName, 80, 20) * 0.01; factors.push(`CountingTools Love Calculator: 80%`);
-        score += nameBasedScore(maleName, femaleName, 81, 19) * 0.01; factors.push(`Couplesuite Love Compatibility Calculator: 81%`);
-        score += nameBasedScore(maleName, femaleName, 82, 18) * 0.01; factors.push(`Discover Oracle Compatibility Calculator: 82%`);
-        score += nameBasedScore(maleName, femaleName, 83, 17) * 0.01; factors.push(`AI-Powered Love Predictor: 83%`);
-        score += nameBasedScore(maleName, femaleName, 79, 21) * 0.01; factors.push(`Relationship Probability Index: 79%`);
-        score += nameBasedScore(maleName, femaleName, 78, 22) * 0.01; factors.push(`Affinity Score Calculator: 78%`);
-        score += nameBasedScore(maleName, femaleName, 77, 23) * 0.01; factors.push(`Secret Whisper Love Test: 77%`);
-        score += nameBasedScore(maleName, femaleName, 76, 24) * 0.01; factors.push(`Digital Synastry Analyzer: 76%`);
-        score += nameBasedScore(maleName, femaleName, 75, 25) * 0.01; factors.push(`Virtual Love Analytics: 75%`);
-        score += nameBasedScore(maleName, femaleName, 80, 20) * 0.01; factors.push(`Machine Learning Love Score: 80%`);
-        score += nameBasedScore(maleName, femaleName, 81, 19) * 0.01; factors.push(`Algorithmic Heart Match: 81%`);
-        score += nameBasedScore(maleName, femaleName, 85, 15) * 0.01; factors.push(`Social Media Chemistry: 85%`);
-
-        // 98-110: Games & Recreational (2% for FLAMES, 1% others)
-        const flames = calculateFLAMES(maleName, femaleName);
-        score += flames.score * 0.02; factors.push(`FLAMES: ${flames.score}% (${flames.result})`);
-        score += nameBasedScore(maleName, femaleName, 80, 20) * 0.01; factors.push(`Love Calculator by Name: 80%`);
-        score += dobBasedScore(maleDOB, femaleDOB, 81, 19) * 0.01; factors.push(`Love Calculator by Date of Birth: 81%`);
-        score += nameBasedScore(maleName, femaleName, 82, 18) * 0.01; factors.push(`Friendship-Love-Game: 82%`);
-        score += nameBasedScore(maleName, femaleName, 83, 17) * 0.01; factors.push(`Crush Calculator: 83%`);
-        score += nameBasedScore(maleName, femaleName, 79, 21) * 0.01; factors.push(`Emoji Love Percentage: 79%`);
-        score += nameBasedScore(maleName, femaleName, 78, 22) * 0.01; factors.push(`Heart Reaction Test: 78%`);
-        score += nameBasedScore(maleName, femaleName, 77, 23) * 0.01; factors.push(`Social Media Match Meter: 77%`);
-        score += nameBasedScore(maleName, femaleName, 76, 24) * 0.01; factors.push(`Google Search Love Score: 76%`);
-        score += nameBasedScore(maleName, femaleName, 75, 25) * 0.01; factors.push(`Bing Love Predictor: 75%`);
-        score += nameBasedScore(maleName, femaleName, 80, 20) * 0.01; factors.push(`Social Poll Love Score: 80%`);
-        score += nameBasedScore(maleName, femaleName, 81, 19) * 0.01; factors.push(`Meme Compatibility Test: 81%`);
-        score += nameBasedScore(maleName, femaleName, 85, 15) * 0.01; factors.push(`Meme Soulmate Score: 85%`);
-
-        // 111-115: Miscellaneous (2% each, high impact)
-        score += nameBasedScore(maleName, femaleName, 80, 20) * 0.02; factors.push(`Relationship Counter: 80%`);
-        score += dobBasedScore(maleDOB, femaleDOB, 85, 15) * 0.02; factors.push(`Love Horoscope: 85%`);
-        score += nameBasedScore(maleName, femaleName, 90, 10) * 0.02; factors.push(`Opposites Attract Index: 90%`);
-        score += nameBasedScore(maleName, femaleName, 85, 15) * 0.02; factors.push(`Compatibility Signs Checklist: 85%`);
-        score += dobBasedScore(maleDOB, femaleDOB, 80, 20) * 0.02; factors.push(`Biorhythms: 80%`);
-        score += 90 * 0.02; factors.push(`Islamic Harmony: 90%`);
-        score += 95 * 0.02; factors.push(`Sikh Equality: 95%`);
-        score += nameBasedScore(maleName, femaleName, 85, 15) * 0.02; factors.push(`Mystic Essence: 85%`);
-        score += nameBasedScore(maleName, femaleName, 90, 10) * 0.02; factors.push(`Eternal Flame Score: 90%`);
-
-        // Love Synergy Bonus (up to 10%)
-        const synergyBonus = calculateSynergyBonus(maleName, femaleName, maleDOB, femaleDOB);
-        score += synergyBonus * 0.01; factors.push(`Love Synergy Bonus: ${synergyBonus}%`);
-
-        // Normalize
-        score = Math.min(Math.max(Math.round(score), 0), 100);
-
-        // Results
-        const maleContext = inferCulturalContext(maleName);
-        const femaleContext = inferCulturalContext(femaleName);
-        const details = generateDetails(score, maleName, femaleName, maleContext, femaleContext, factors, flames.result);
-        const tips = generateTips(score, maleContext, femaleContext, factors, flames.result);
-
-        percentageDiv.textContent = `${score}%`;
-        loveMeterFill.style.width = `${score}%`;
-        if (score > 90) loveMeterFill.classList.add('high');
-        detailsDiv.innerHTML = details;
-        tipsDiv.innerHTML = tips;
-        resultsDiv.style.display = 'block';
-
-        // Save to history
-        saveToHistory(score, maleName, femaleName, factors);
-
-        toggleLoader(false);
-      } catch (error) {
-        toggleLoader(false);
-        showError(error.message);
-      }
-    }
-
-    // Numerology
-    function calculateNumerology(maleName, femaleName) {
-      const values = { a:1,b:2,c:3,d:4,e:5,f:6,g:7,h:8,i:9,j:1,k:2,l:3,m:4,n:5,o:6,p:7,q:8,r:9,s:1,t:2,u:3,v:4,w:5,x:6,y:7,z:8 };
-      const sumMale = maleName.toLowerCase().split('').reduce((sum, c) => sum + (values[c] || 0), 0) % 9 || 9;
-      const sumFemale = femaleName.toLowerCase().split('').reduce((sum, c) => sum + (values[c] || 0), 0) % 9 || 9;
-      const diff = Math.abs(sumMale - sumFemale);
-      return Math.min(100 - diff * 5, 100); // Boosted for higher scores
-    }
-
-    // Generate details
-    function generateDetails(score, maleName, femaleName, maleContext, femaleContext, factors, flamesResult) {
-      let text = `${maleName} and ${femaleName}, your love spark is ${score}%! `;
-      if (score > 90) text += 'A cosmic inferno that burns eternal!';
-      else if (score > 75) text += 'A blazing flame ready to light the stars!';
-      else text += 'A glowing spark waiting to ignite.';
-      text += ` Your vibes—${maleContext.desc} meets ${femaleContext.desc}—create a legendary bond.<br><br>Top Factors:<ul>`;
-      factors.slice(0, 10).forEach(f => text += `<li>${f}</li>`);
-      text += `</ul><p>Your FLAMES vibe: <strong>${flamesResult}</strong>! Check all 110 methods below!</p>`;
-      return text;
-    }
-
-    // Generate tips
-    function generateTips(score, maleContext, femaleContext, factors, flamesResult) {
-      let tips = 'Tips: ';
-      if (score < 75) tips += 'Build trust with deep chats. ';
-      tips += 'Grow your spark with shared adventures!';
-      if (factors.some(f => f.includes('Zodiac') && parseInt(f.split(': ')[1]) < 80)) {
-        tips += ' Sync energies with quality time.';
-      }
-      if (maleContext.vibe === 'egalitarian' || femaleContext.vibe === 'egalitarian') {
-        tips += ' Keep it equal for max harmony.';
-      }
-      tips += ` Your FLAMES vibe (${flamesResult}) suggests: `;
-      if (flamesResult === 'Lovers' || flamesResult === 'Marriage') tips += 'Lean into romance!';
-      else if (flamesResult === 'Friends' || flamesResult === 'Siblings') tips += 'Build a strong foundation.';
-      else if (flamesResult === 'Affection') tips += 'Show small gestures of love.';
-      else tips += 'Work through challenges together.';
-      return tips;
-    }
-
-    // Save to history
-    function saveToHistory(score, maleName, femaleName, factors) {
-      const history = JSON.parse(localStorage.getItem('loveSparkHistory') || '[]');
-      history.unshift({ score, maleName, femaleName, factors, date: new Date().toLocaleString() });
-      localStorage.setItem('loveSparkHistory', JSON.stringify(history.slice(0, 5)));
-      updateHistory();
-    }
-
-    // Update history
-    function updateHistory() {
-      const historyList = document.getElementById('history-list');
-      const history = JSON.parse(localStorage.getItem('loveSparkHistory') || '[]');
-      historyList.innerHTML = history.length ? history.map(h => 
-        `<p><strong>${h.score}%</strong> - ${h.maleName} & ${h.femaleName} (${h.date})</p>`
-      ).join('') : '<p>No sparks yet!</p>';
-      document.getElementById('history').style.display = history.length ? 'block' : 'none';
-    }
-
-    // Clear history
-    function clearHistory() {
-      localStorage.removeItem('loveSparkHistory');
-      updateHistory();
-    }
-
-    // Share result
-    function shareResult() {
-      const percentage = document.getElementById('percentage').textContent;
-      const details = document.getElementById('details').textContent.split('! ')[0];
-      const text = `${details}! Score: ${percentage}`;
-      if (navigator.share) {
-        navigator.share({ title: 'Love Spark', text });
-      } else {
-        prompt('Copy this to share:', text);
-      }
-    }
-
-    // Search functionality
-    document.getElementById('search').addEventListener('input', debounce(function(e) {
-      const query = e.target.value.toLowerCase();
-      const sections = document.querySelectorAll('section');
-      sections.forEach(section => {
-        const text = section.textContent.toLowerCase();
-        section.style.display = text.includes(query) ? 'block' : 'none';
-      });
-    }, 300));
 
     // Initial load
     window.addEventListener('load', () => {
       try {
         createStarfield();
-        toggleLoader(false);
-        document.querySelector('.details').classList.add('expanded');
-        updateHistory();
       } catch (e) {
         console.error('Load error:', e);
-        showError('Failed to load content. Please refresh.');
-        toggleLoader(false);
       }
     });
-
-    // Optimize resize
-    window.addEventListener('resize', debounce(() => {
-      console.log('Resized');
-    }, 100));
 
     // Progressive enhancement
     document.documentElement.classList.add('js-enabled');
