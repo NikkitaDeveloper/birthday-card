@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Love Spark - Deleted</title>
+  <title>Love Spark - Cosmic Deletion</title>
   <style>
     /* Reset */
     * {
@@ -14,8 +15,8 @@
 
     /* General */
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      font-family: 'Orbitron', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0a0a1a;
       color: #fff;
       min-height: 100vh;
       display: flex;
@@ -23,6 +24,7 @@
       justify-content: center;
       text-align: center;
       overflow: hidden;
+      perspective: 1000px;
       position: relative;
     }
 
@@ -41,79 +43,145 @@
       position: absolute;
       background: rgba(255, 255, 255, 0.8);
       border-radius: 50%;
-      animation: twinkle 4s infinite;
+      animation: twinkle 3s infinite;
+    }
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: linear-gradient(45deg, #ff4081, #d81b60);
+      border-radius: 50%;
+      animation: float 5s linear infinite;
     }
 
     @keyframes twinkle {
-      0%, 100% { opacity: 0.3; }
-      50% { opacity: 1; }
+      0%, 100% { opacity: 0.2; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes float {
+      0% { opacity: 1; transform: translateY(0) rotate(0deg); }
+      100% { opacity: 0; transform: translateY(-100vh) rotate(360deg); }
     }
 
     /* Container */
     .container {
-      max-width: 600px;
-      padding: 20px;
+      max-width: 700px;
+      padding: 30px;
       background: rgba(255, 255, 255, 0.05);
-      border-radius: 10px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-      transform: perspective(600px) rotateX(0deg);
-      transition: transform 0.3s ease;
+      border-radius: 15px;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 10px 50px rgba(255, 64, 129, 0.3);
+      transform: rotateX(10deg) rotateY(10deg);
+      transition: transform 0.5s ease;
+      position: relative;
+      z-index: 1;
     }
 
     .container:hover {
-      transform: perspective(600px) rotateX(2deg);
+      transform: rotateX(0deg) rotateY(0deg) translateZ(20px);
+    }
+
+    /* Holographic Heart */
+    .hologram {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 20px;
+      animation: pulse 2s ease infinite;
+    }
+
+    .heart {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik01MCA4NUwzMC4zMDE4IDY1LjMwMTgJQTIwIDIwIDAgMCAxIDIwIDQ1QzIwIDI4LjQzMTUgMzMuNDMxNSAxNSAyMCAxNUM2LjU2ODQ5IDE1IDIwIDI4LjQzMTUgMjAgNDVBMjAgMjAgMCAwIDEgMzAuMzAxOCA2NS4zMDE4TDUwIDg1TDY5LjY5ODIgNjUuMzAxOEEyMCAyMCAwIDAgMCA4MCA0NUM4MCAyOC40MzE1IDY2LjU2ODUgMTUgODAgMTVDOTMuNDMxNSAxNSA4MCAyOC40MzE1IDgwIDQ1QTIwIDIwIDAgMCAwIDY5LjY5ODIgNjUuMzAxOEw1MCA4NSBaIiBzdHJva2U9IiNmZjQwODEiIHN0cm9rZS13aWR0aD0iNSIgZmlsbD0iZmZmZmZmMTkiLz4KPC9zdmc+') no-repeat center;
+      transform: rotateY(0deg) translateZ(50px);
+      animation: spin 10s linear infinite;
+    }
+
+    .heart:nth-child(2) {
+      transform: rotateY(90deg) translateZ(50px);
+      opacity: 0.7;
+    }
+
+    .heart:nth-child(3) {
+      transform: rotateX(90deg) translateZ(50px);
+      opacity: 0.5;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    @keyframes spin {
+      0% { transform: rotateY(0deg) translateZ(50px); }
+      100% { transform: rotateY(360deg) translateZ(50px); }
     }
 
     /* Content */
     h1 {
-      font-size: 2.5em;
+      font-size: 3em;
       color: #ff4081;
-      text-shadow: 0 0 10px rgba(255, 64, 129, 0.5);
+      text-shadow: 0 0 15px rgba(255, 64, 129, 0.7), 0 0 30px rgba(255, 64, 129, 0.5);
       margin-bottom: 10px;
+      animation: glow 2s ease infinite;
     }
 
     p {
-      font-size: 1.2em;
-      color: #ccc;
-      line-height: 1.5;
+      font-size: 1.3em;
+      color: #e0e0e0;
+      line-height: 1.6;
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
     }
 
-    .icon {
-      font-size: 3em;
-      color: #ff4081;
-      margin-bottom: 20px;
-      animation: fade 2s ease infinite;
+    .tagline {
+      font-size: 1em;
+      color: #ff80ab;
+      margin-top: 10px;
+      font-style: italic;
     }
 
-    @keyframes fade {
-      0%, 100% { opacity: 0.7; }
-      50% { opacity: 1; }
+    @keyframes glow {
+      0%, 100% { text-shadow: 0 0 15px rgba(255, 64, 129, 0.7); }
+      50% { text-shadow: 0 0 30px rgba(255, 64, 129, 1); }
     }
 
     /* Responsive */
     @media (max-width: 600px) {
+      .container {
+        padding: 20px;
+      }
+
       h1 {
-        font-size: 2em;
+        font-size: 2.2em;
       }
 
       p {
-        font-size: 1em;
+        font-size: 1.1em;
       }
 
-      .icon {
-        font-size: 2.5em;
+      .hologram {
+        width: 80px;
+        height: 80px;
       }
     }
 
     /* Accessibility */
     @media (prefers-reduced-motion: reduce) {
-      .star, .container, .icon {
+      .star, .particle, .container, .hologram, .heart, h1 {
         animation: none;
         transition: none;
       }
+
+      .container {
+        transform: none;
+      }
     }
   </style>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <!-- Starfield -->
@@ -121,24 +189,39 @@
 
   <!-- Content -->
   <div class="container">
-    <div class="icon">💔</div>
-    <h1>Love Spark is Gone</h1>
-    <p>The cosmic flames of Love Spark have faded. This page has been deleted, and the love calculator is no longer here. Check back later for new sparks or explore the universe elsewhere.</p>
+    <div class="hologram">
+      <div class="heart"></div>
+      <div class="heart"></div>
+      <div class="heart"></div>
+    </div>
+    <h1>Love Spark Vanished</h1>
+    <p>The cosmic flames of Love Spark have been extinguished. This love calculator has been deleted, leaving only echoes in the universe. Seek new sparks among the stars.</p>
+    <p class="tagline">In the spirit of equality, all flames fade equal.</p>
   </div>
 
   <script>
-    // Create starfield
+    // Create starfield and particles
     function createStarfield() {
       const starfield = document.getElementById('starfield');
-      for (let i = 0; i < 50; i++) {
+      // Stars
+      for (let i = 0; i < 100; i++) {
         const star = document.createElement('div');
         star.className = 'star';
         star.style.width = `${Math.random() * 2 + 1}px`;
         star.style.height = star.style.width;
         star.style.left = `${Math.random() * 100}%`;
         star.style.top = `${Math.random() * 100}%`;
-        star.style.animationDelay = `${Math.random() * 4}s`;
+        star.style.animationDelay = `${Math.random() * 3}s`;
         starfield.appendChild(star);
+      }
+      // Particles
+      for (let i = 0; i < 20; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        particle.style.animationDelay = `${Math.random() * 5}s`;
+        starfield.appendChild(particle);
       }
     }
 
@@ -146,6 +229,20 @@
     window.onerror = function(msg, url, lineNo, columnNo, error) {
       console.error('Error: ' + msg + '\nLine: ' + lineNo + '\nColumn: ' + columnNo);
     };
+
+    // Mouse interaction for 3D effect
+    document.addEventListener('mousemove', (e) => {
+      const container = document.querySelector('.container');
+      const xAxis = (window.innerWidth / 2 - e.pageX) / 50;
+      const yAxis = (window.innerHeight / 2 - e.pageY) / 50;
+      container.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg) translateZ(20px)`;
+    });
+
+    // Reset transform on mouse leave
+    document.addEventListener('mouseleave', () => {
+      const container = document.querySelector('.container');
+      container.style.transform = 'rotateX(10deg) rotateY(10deg)';
+    });
 
     // Initial load
     window.addEventListener('load', () => {
