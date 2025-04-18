@@ -1,9 +1,10 @@
- <!DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Love Spark - Cosmic Love Compatibilitoy</title>
+  <title>Love Spark - Cosmic Love Compatibility</title>
   <style>
     /* Reset */
     * {
@@ -274,13 +275,13 @@
       <!-- Form -->
       <div class="form">
         <label for="male-name">Male Name *</label>
-        <input type="text" id="male-name" value="Binod Meena" required aria-required="true">
+        <input type="text" id="male-name" placeholder="Enter male name here" required aria-required="true">
         
         <label for="male-dob">Male Date of Birth (Optional)</label>
         <input type="date" id="male-dob">
         
         <label for="female-name">Female Name *</label>
-        <input type="text" id="female-name" value="Riya Sharma" required aria-required="true">
+        <input type="text" id="female-name" placeholder="Enter female name here" required aria-required="true">
         
         <label for="female-dob">Female Date of Birth (Optional)</label>
         <input type="date" id="female-dob">
@@ -310,20 +311,29 @@
       <section id="methodology">
         <h2 onclick="toggleSection(this)">How Love Spark Calculates Love</h2>
         <div class="details">
-          <p>Love Spark weaves a tapestry of cosmic and cultural wisdom:</p>
+          <p>Love Spark weaves a tapestry of cosmic, cultural, and mystical wisdom:</p>
           <ul>
-            <li><strong>Numerology</strong>: Name vibrations align your energies.</li>
+            <li><strong>Numerology</strong>: Name vibrations align energies.</li>
             <li><strong>Western Zodiac</strong>: Star signs shape chemistry.</li>
             <li><strong>Hindu Rashi</strong>: Moon signs enhance emotional bonds.</li>
             <li><strong>Hindu Astrology</strong>: Nakshatras and planetary alignments.</li>
+            <li><strong>Vedic Gunas</strong>: Compatibility via 36 qualities.</li>
             <li><strong>Egyptian Astrology</strong>: Ancient signs like Anubis.</li>
             <li><strong>Chinese Astrology</strong>: Animal signs guide harmony.</li>
+            <li><strong>Celtic Astrology</strong>: Tree signs reflect nature’s bond.</li>
             <li><strong>Tarot Compatibility</strong>: Archetypes reveal destiny.</li>
-            <li><strong>Biorhythms</strong>: Physical, emotional cycles align.</li>
+            <li><strong>Biorhythms</strong>: Cycles align physical, emotional states.</li>
+            <li><strong>Myers-Briggs</strong>: Personality types match dynamics.</li>
+            <li><strong>Aura Matching</strong>: Energy fields sync vibes.</li>
+            <li><strong>Karmic Cycles</strong>: Past-life connections influence love.</li>
             <li><strong>Islam</strong>: Spiritual harmony and respect.</li>
             <li><strong>Sikhism</strong>: Equality and shared purpose.</li>
+            <li><strong>Chakra Alignment</strong>: Energy centers balance love.</li>
+            <li><strong>Elemental Harmony</strong>: Fire, water, air, earth synergy.</li>
+            <li><strong>Synastry</strong>: Astrological chart interplay.</li>
+            <li><strong>Love Languages</strong>: Expression styles strengthen bonds.</li>
             <li><strong>Cultural Context</strong>: Surnames hint at traditions.</li>
-            <li><strong>Other Mystics</strong>: Aura, karma, synastry, and beyond.</li>
+            <li><strong>Mystic Essence</strong>: Intuition, dreams, and cosmic ties.</li>
           </ul>
         </div>
       </section>
@@ -424,7 +434,7 @@
 
         // 1. Numerology
         const numScore = calculateNumerology(maleName, femaleName);
-        score += numScore * 0.13;
+        score += numScore * 0.06;
         factors.push(`Numerology: ${numScore}%`);
 
         // 2. Western Zodiac
@@ -432,7 +442,7 @@
         if (maleDOB && femaleDOB) {
           zodiacScore = calculateZodiac(maleDOB, femaleDOB);
         }
-        score += zodiacScore * 0.1;
+        score += zodiacScore * 0.05;
         factors.push(`Zodiac: ${zodiacScore}%`);
 
         // 3. Hindu Rashi
@@ -440,7 +450,7 @@
         if (maleDOB && femaleDOB) {
           rashiScore = calculateRashi(maleDOB, femaleDOB);
         }
-        score += rashiScore * 0.1;
+        score += rashiScore * 0.05;
         factors.push(`Rashi: ${rashiScore}%`);
 
         // 4. Hindu Astrology
@@ -448,54 +458,122 @@
         if (maleDOB && femaleDOB) {
           hinduAstroScore = calculateHinduAstro(maleDOB, femaleDOB);
         }
-        score += hinduAstroScore * 0.1;
+        score += hinduAstroScore * 0.05;
         factors.push(`Hindu Astrology: ${hinduAstroScore}%`);
 
-        // 5. Egyptian Astrology
+        // 5. Vedic Gunas
+        let vedicScore = 62;
+        if (maleDOB && femaleDOB) {
+          vedicScore = calculateVedicGunas(maleDOB, femaleDOB);
+        }
+        score += vedicScore * 0.05;
+        factors.push(`Vedic Gunas: ${vedicScore}%`);
+
+        // 6. Egyptian Astrology
         let egyptianScore = 70;
         if (maleDOB && femaleDOB) {
           egyptianScore = calculateEgyptianAstro(maleDOB, femaleDOB);
         }
-        score += egyptianScore * 0.09;
+        score += egyptianScore * 0.05;
         factors.push(`Egyptian Astrology: ${egyptianScore}%`);
 
-        // 6. Chinese Astrology
+        // 7. Chinese Astrology
         let chineseScore = 68;
         if (maleDOB && femaleDOB) {
           chineseScore = calculateChineseAstro(maleDOB, femaleDOB);
         }
-        score += chineseScore * 0.09;
+        score += chineseScore * 0.05;
         factors.push(`Chinese Astrology: ${chineseScore}%`);
 
-        // 7. Tarot Compatibility
+        // 8. Celtic Astrology
+        let celticScore = 66;
+        if (maleDOB && femaleDOB) {
+          celticScore = calculateCelticAstro(maleDOB, femaleDOB);
+        }
+        score += celticScore * 0.05;
+        factors.push(`Celtic Astrology: ${celticScore}%`);
+
+        // 9. Tarot Compatibility
         const tarotScore = calculateTarot(maleName, femaleName);
-        score += tarotScore * 0.08;
+        score += tarotScore * 0.04;
         factors.push(`Tarot: ${tarotScore}%`);
 
-        // 8. Biorhythms
+        // 10. Biorhythms
         let bioScore = 65;
         if (maleDOB && femaleDOB) {
           bioScore = calculateBiorhythm(maleDOB, femaleDOB);
         }
-        score += bioScore * 0.08;
+        score += bioScore * 0.04;
         factors.push(`Biorhythms: ${bioScore}%`);
 
-        // 9. Islamic Harmony
+        // 11. Myers-Briggs
+        const mbtiScore = calculateMyersBriggs(maleName, femaleName);
+        score += mbtiScore * 0.04;
+        factors.push(`Myers-Briggs: ${mbtiScore}%`);
+
+        // 12. Aura Matching
+        const auraScore = calculateAura(maleName, femaleName);
+        score += auraScore * 0.04;
+        factors.push(`Aura Matching: ${auraScore}%`);
+
+        // 13. Karmic Cycles
+        let karmicScore = 64;
+        if (maleDOB && femaleDOB) {
+          karmicScore = calculateKarmicCycles(maleDOB, femaleDOB);
+        }
+        score += karmicScore * 0.04;
+        factors.push(`Karmic Cycles: ${karmicScore}%`);
+
+        // 14. Islamic Harmony
         const islamScore = calculateIslamicHarmony();
-        score += islamScore * 0.06;
+        score += islamScore * 0.04;
         factors.push(`Islamic Harmony: ${islamScore}%`);
 
-        // 10. Sikh Equality
+        // 15. Sikh Equality
         const sikhScore = calculateSikhEquality();
-        score += sikhScore * 0.06;
+        score += sikhScore * 0.04;
         factors.push(`Sikh Equality: ${sikhScore}%`);
 
-        // 11. Cultural Context
+        // 16. Chakra Alignment
+        let chakraScore = 67;
+        if (maleDOB && femaleDOB) {
+          chakraScore = calculateChakraAlignment(maleDOB, femaleDOB);
+        }
+        score += chakraScore * 0.04;
+        factors.push(`Chakra Alignment: ${chakraScore}%`);
+
+        // 17. Elemental Harmony
+        let elementalScore = 69;
+        if (maleDOB && femaleDOB) {
+          elementalScore = calculateElementalHarmony(maleDOB, femaleDOB);
+        }
+        score += elementalScore * 0.04;
+        factors.push(`Elemental Harmony: ${elementalScore}%`);
+
+        // 18. Synastry
+        let synastryScore = 63;
+        if (maleDOB && femaleDOB) {
+          synastryScore = calculateSynastry(maleDOB, femaleDOB);
+        }
+        score += synastryScore * 0.04;
+        factors.push(`Synastry: ${synastryScore}%`);
+
+        // 19. Love Languages
+        const loveLangScore = calculateLoveLanguages(maleName, femaleName);
+        score += loveLangScore * 0.04;
+        factors.push(`Love Languages: ${loveLangScore}%`);
+
+        // 20. Cultural Context
         const maleContext = inferCulturalContext(maleName);
         const femaleContext = inferCulturalContext(femaleName);
         const contextScore = (maleContext.score + femaleContext.score) / 2;
-        score += contextScore * 0.11;
+        score += contextScore * 0.06;
         factors.push(`Cultural Spark: ${contextScore}%`);
+
+        // 21. Mystic Essence
+        const mysticScore = calculateMysticEssence(maleName, femaleName);
+        score += mysticScore * 0.04;
+        factors.push(`Mystic Essence: ${mysticScore}%`);
 
         // Normalize
         score = Math.min(Math.max(Math.round(score), 0), 100);
@@ -561,6 +639,11 @@
       return maleDOB && femaleDOB ? 75 + Math.random() * 15 : 60;
     }
 
+    // Vedic Gunas
+    function calculateVedicGunas(maleDOB, femaleDOB) {
+      return maleDOB && femaleDOB ? 60 + Math.random() * 20 : 62;
+    }
+
     // Egyptian Astrology
     function calculateEgyptianAstro(maleDOB, femaleDOB) {
       const signs = ['Anubis','Isis','Osiris','Horus','Bastet','Thoth','Sekhmet','Ra','Amun','Ptah','Hathor','Set'];
@@ -585,6 +668,16 @@
       return compat[maleAnimal]?.[femaleAnimal] || compat[maleAnimal]?.default || 68;
     }
 
+    // Celtic Astrology
+    function calculateCelticAstro(maleDOB, femaleDOB) {
+      const signs = ['Birch','Rowan','Ash','Alder','Willow','Hawthorn','Oak','Holly','Hazel','Vine','Ivy','Reed'];
+      const maleDate = new Date(maleDOB);
+      const femaleDate = new Date(femaleDOB);
+      const maleSign = signs[Math.floor((maleDate.getMonth() + maleDate.getDate() / 30) % 12)];
+      const femaleSign = signs[Math.floor((femaleDate.getMonth() + femaleDate.getDate() / 30) % 12)];
+      return maleSign === femaleSign ? 78 : 66;
+    }
+
     // Tarot Compatibility
     function calculateTarot(maleName, femaleName) {
       const seed = maleName.length + femaleName.length;
@@ -599,6 +692,23 @@
       return 60 + ((daysDiff % 33) / 33) * 40;
     }
 
+    // Myers-Briggs
+    function calculateMyersBriggs(maleName, femaleName) {
+      const seed = maleName.length + femaleName.length;
+      return 65 + (seed % 30);
+    }
+
+    // Aura Matching
+    function calculateAura(maleName, femaleName) {
+      const sum = maleName.length + femaleName.length;
+      return 60 + (sum % 35);
+    }
+
+    // Karmic Cycles
+    function calculateKarmicCycles(maleDOB, femaleDOB) {
+      return maleDOB && femaleDOB ? 62 + Math.random() * 20 : 64;
+    }
+
     // Islamic Harmony
     function calculateIslamicHarmony() {
       return 80;
@@ -607,6 +717,38 @@
     // Sikh Equality
     function calculateSikhEquality() {
       return 85;
+    }
+
+    // Chakra Alignment
+    function calculateChakraAlignment(maleDOB, femaleDOB) {
+      return maleDOB && femaleDOB ? 65 + Math.random() * 20 : 67;
+    }
+
+    // Elemental Harmony
+    function calculateElementalHarmony(maleDOB, femaleDOB) {
+      const elements = ['Fire','Earth','Air','Water'];
+      const maleDate = new Date(maleDOB);
+      const femaleDate = new Date(femaleDOB);
+      const maleElement = elements[Math.floor((maleDate.getMonth() + maleDate.getDate() / 30) % 4)];
+      const femaleElement = elements[Math.floor((femaleDate.getMonth() + femaleDate.getDate() / 30) % 4)];
+      return maleElement === femaleElement ? 79 : 69;
+    }
+
+    // Synastry
+    function calculateSynastry(maleDOB, femaleDOB) {
+      return maleDOB && femaleDOB ? 60 + Math.random() * 25 : 63;
+    }
+
+    // Love Languages
+    function calculateLoveLanguages(maleName, femaleName) {
+      const seed = maleName.length + femaleName.length;
+      return 62 + (seed % 33);
+    }
+
+    // Mystic Essence
+    function calculateMysticEssence(maleName, femaleName) {
+      const sum = maleName.length + femaleName.length;
+      return 60 + (sum % 36);
     }
 
     // Generate details
