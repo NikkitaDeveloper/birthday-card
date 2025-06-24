@@ -1,259 +1,115 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Love Spark - Cosmic Deletion</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shivani Relationship Analysis</title>
   <style>
-    /* Reset */
-    * {
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
+      background: #f4f4f4;
+      color: #333;
     }
-
-    /* General */
-    body {
-      font-family: 'Orbitron', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #0a0a1a;
-      color: #fff;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      overflow: hidden;
-      perspective: 1000px;
-      position: relative;
-    }
-
-    /* Starfield */
-    .starfield {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    .star {
-      position: absolute;
-      background: rgba(255, 255, 255, 0.8);
-      border-radius: 50%;
-      animation: twinkle 3s infinite;
-    }
-
-    .particle {
-      position: absolute;
-      width: 4px;
-      height: 4px;
-      background: linear-gradient(45deg, #ff4081, #d81b60);
-      border-radius: 50%;
-      animation: float 5s linear infinite;
-    }
-
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.2; transform: scale(0.8); }
-      50% { opacity: 1; transform: scale(1); }
-    }
-
-    @keyframes float {
-      0% { opacity: 1; transform: translateY(0) rotate(0deg); }
-      100% { opacity: 0; transform: translateY(-100vh) rotate(360deg); }
-    }
-
-    /* Container */
     .container {
-      max-width: 700px;
-      padding: 30px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 15px;
-      backdrop-filter: blur(15px);
-      box-shadow: 0 10px 50px rgba(255, 64, 129, 0.3);
-      transform: rotateX(10deg) rotateY(10deg);
-      transition: transform 0.5s ease;
-      position: relative;
-      z-index: 1;
+      max-width: 900px;
+      margin: auto;
+      padding: 2rem;
+      background: #fff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-
-    .container:hover {
-      transform: rotateX(0deg) rotateY(0deg) translateZ(20px);
+    h1, h2 {
+      color: #2c3e50;
     }
-
-    /* Holographic Heart */
-    .hologram {
-      position: relative;
-      width: 100px;
-      height: 100px;
-      margin: 0 auto 20px;
-      animation: pulse 2s ease infinite;
+    h2 {
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 0.3rem;
+      margin-top: 2rem;
     }
-
-    .heart {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik01MCA4NUwzMC4zMDE4IDY1LjMwMTgJQTIwIDIwIDAgMCAxIDIwIDQ1QzIwIDI4LjQzMTUgMzMuNDMxNSAxNSAyMCAxNUM2LjU2ODQ5IDE1IDIwIDI4LjQzMTUgMjAgNDVBMjAgMjAgMCAwIDEgMzAuMzAxOCA2NS4zMDE4TDUwIDg1TDY5LjY5ODIgNjUuMzAxOEEyMCAyMCAwIDAgMCA4MCA0NUM4MCAyOC40MzE1IDY2LjU2ODUgMTUgODAgMTVDOTMuNDMxNSAxNSA4MCAyOC40MzE1IDgwIDQ1QTIwIDIwIDAgMCAwIDY5LjY5ODIgNjUuMzAxOEw1MCA4NSBaIiBzdHJva2U9IiNmZjQwODEiIHN0cm9rZS13aWR0aD0iNSIgZmlsbD0iZmZmZmZmMTkiLz4KPC9zdmc+') no-repeat center;
-      transform: rotateY(0deg) translateZ(50px);
-      animation: spin 10s linear infinite;
-    }
-
-    .heart:nth-child(2) {
-      transform: rotateY(90deg) translateZ(50px);
-      opacity: 0.7;
-    }
-
-    .heart:nth-child(3) {
-      transform: rotateX(90deg) translateZ(50px);
-      opacity: 0.5;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-    }
-
-    @keyframes spin {
-      0% { transform: rotateY(0deg) translateZ(50px); }
-      100% { transform: rotateY(360deg) translateZ(50px); }
-    }
-
-    /* Content */
-    h1 {
-      font-size: 3em;
-      color: #ff4081;
-      text-shadow: 0 0 15px rgba(255, 64, 129, 0.7), 0 0 30px rgba(255, 64, 129, 0.5);
-      margin-bottom: 10px;
-      animation: glow 2s ease infinite;
-    }
-
-    p {
-      font-size: 1.3em;
-      color: #e0e0e0;
+    ul, p {
       line-height: 1.6;
-      text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
     }
-
-    .tagline {
-      font-size: 1em;
-      color: #ff80ab;
-      margin-top: 10px;
-      font-style: italic;
+    .section {
+      margin-bottom: 2rem;
     }
-
-    @keyframes glow {
-      0%, 100% { text-shadow: 0 0 15px rgba(255, 64, 129, 0.7); }
-      50% { text-shadow: 0 0 30px rgba(255, 64, 129, 1); }
+    .verdict {
+      background: #ecf9ec;
+      border-left: 5px solid #2ecc71;
+      padding: 1rem;
+      font-weight: bold;
     }
-
-    /* Responsive */
-    @media (max-width: 600px) {
-      .container {
-        padding: 20px;
-      }
-
-      h1 {
-        font-size: 2.2em;
-      }
-
-      p {
-        font-size: 1.1em;
-      }
-
-      .hologram {
-        width: 80px;
-        height: 80px;
-      }
+    .red-flag {
+      background: #fdecea;
+      border-left: 5px solid #e74c3c;
+      padding: 1rem;
     }
-
-    /* Accessibility */
-    @media (prefers-reduced-motion: reduce) {
-      .star, .particle, .container, .hologram, .heart, h1 {
-        animation: none;
-        transition: none;
-      }
-
-      .container {
-        transform: none;
-      }
+    .yellow-flag {
+      background: #fff9e6;
+      border-left: 5px solid #f1c40f;
+      padding: 1rem;
     }
   </style>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- Starfield -->
-  <div class="starfield" id="starfield"></div>
-
-  <!-- Content -->
   <div class="container">
-    <div class="hologram">
-      <div class="heart"></div>
-      <div class="heart"></div>
-      <div class="heart"></div>
-    </div>
-    <h1>Love Spark Vanished</h1>
-    <p>The cosmic flames of Love Spark have been extinguished. This love calculator has been deleted, leaving only echoes in the universe. Seek new sparks among the stars.</p>
-    <p class="tagline">In the spirit of equality, all flames fade equal.</p>
+    <h1>Chat Relationship Analysis: Shivani, Yogesh & Avdesh</h1><div class="section">
+  <h2>Chat Timeline</h2>
+  <ul>
+    <li>Shivani & Avdesh: March 29 – April 10, 2025</li>
+    <li>Shivani & Yogesh: June 16 – June 18, 2025</li>
+  </ul>
+</div>
+
+<div class="section">
+  <h2>Message Count</h2>
+  <ul>
+    <li>Avdesh: 1,759 messages</li>
+    <li>Shivani (Avdesh chat): 1,531 messages</li>
+    <li>Yogesh: 1,454 messages</li>
+    <li>Shivani (Yogesh chat): 1,097 messages</li>
+  </ul>
+</div>
+
+<div class="section">
+  <h2>Behavior & Emotional Tone</h2>
+  <p><strong>Avdesh:</strong> Possessive, abusive, threatening, manipulative. Pressured Shivani emotionally and physically.</p>
+  <p><strong>Yogesh:</strong> Emotionally intense but protective and caring. Never abused Shivani.</p>
+  <p><strong>Shivani:</strong> Calm, caring, but unclear with boundaries. Replied even after saying goodbye.</p>
+</div>
+
+<div class="section">
+  <h2>Physical Intimacy vs Respect</h2>
+  <p><strong>Avdesh:</strong> Involved physically but later used guilt, shame, and emotional control.</p>
+  <p><strong>Yogesh:</strong> Also intimate but never used it against her emotionally.</p>
+  <p><strong>Conclusion:</strong> Respect matters more than closeness — Yogesh respected boundaries.</p>
+</div>
+
+<div class="section">
+  <h2>Hidden Red Flags</h2>
+  <div class="red-flag">
+    <p><strong>Avdesh:</strong> Manipulative love, emotional blackmail, jealousy, pressuring for photos, no care.</p>
   </div>
+  <div class="yellow-flag">
+    <p><strong>Yogesh:</strong> Protective but aggressive toward others (never to Shivani).</p>
+  </div>
+  <div class="yellow-flag">
+    <p><strong>Shivani:</strong> Emotionally inconsistent, unclear rejection, allowed toxic boys to return.</p>
+  </div>
+</div>
 
-  <script>
-    // Create starfield and particles
-    function createStarfield() {
-      const starfield = document.getElementById('starfield');
-      // Stars
-      for (let i = 0; i < 100; i++) {
-        const star = document.createElement('div');
-        star.className = 'star';
-        star.style.width = `${Math.random() * 2 + 1}px`;
-        star.style.height = star.style.width;
-        star.style.left = `${Math.random() * 100}%`;
-        star.style.top = `${Math.random() * 100}%`;
-        star.style.animationDelay = `${Math.random() * 3}s`;
-        starfield.appendChild(star);
-      }
-      // Particles
-      for (let i = 0; i < 20; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.left = `${Math.random() * 100}%`;
-        particle.style.top = `${Math.random() * 100}%`;
-        particle.style.animationDelay = `${Math.random() * 5}s`;
-        starfield.appendChild(particle);
-      }
-    }
+<div class="section">
+  <h2>Pros and Cons</h2>
+  <ul>
+    <li><strong>Yogesh:</strong> + Loyal, + Responsive, + Caring, – Overprotective, – Emotional outbursts</li>
+    <li><strong>Avdesh:</strong> – Controlling, – Abusive, – Threatening, + Shows emotion (but toxic)</li>
+    <li><strong>Shivani:</strong> + Tried leaving, – Sent mixed signals, – Didn't fully close toxic bonds</li>
+  </ul>
+</div>
 
-    // Error logging
-    window.onerror = function(msg, url, lineNo, columnNo, error) {
-      console.error('Error: ' + msg + '\nLine: ' + lineNo + '\nColumn: ' + columnNo);
-    };
+<div class="verdict">
+  Final Verdict: Yogesh is the better emotional partner. Avdesh showed severe red flags. Shivani deserves emotional safety, not guilt or pressure.
+</div>
 
-    // Mouse interaction for 3D effect
-    document.addEventListener('mousemove', (e) => {
-      const container = document.querySelector('.container');
-      const xAxis = (window.innerWidth / 2 - e.pageX) / 50;
-      const yAxis = (window.innerHeight / 2 - e.pageY) / 50;
-      container.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg) translateZ(20px)`;
-    });
-
-    // Reset transform on mouse leave
-    document.addEventListener('mouseleave', () => {
-      const container = document.querySelector('.container');
-      container.style.transform = 'rotateX(10deg) rotateY(10deg)';
-    });
-
-    // Initial load
-    window.addEventListener('load', () => {
-      try {
-        createStarfield();
-      } catch (e) {
-        console.error('Load error:', e);
-      }
-    });
-
-    // Progressive enhancement
-    document.documentElement.classList.add('js-enabled');
-  </script>
+  </div>
 </body>
 </html>
