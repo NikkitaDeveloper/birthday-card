@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Final Relationship Documentary – Shivani, Yogesh & Avdesh</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Lora:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
       padding: 0;
-      background: linear-gradient(135deg, #2c3e50, #1a252f);
+      background: linear-gradient(135deg, #1e3a8a, #0f172a);
       color: #333;
       font-family: 'Lora', serif;
       line-height: 1.8;
@@ -26,23 +26,24 @@
       justify-content: flex-end;
     }
     .language-switcher select {
-      padding: 0.5rem 1rem;
+      padding: 0.5rem 1.5rem;
       font-size: 1rem;
       border: none;
       border-radius: 25px;
-      background: #3498db;
+      background: #1e3a8a;
       color: #fff;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: background 0.3s, transform 0.3s;
     }
     .language-switcher select:hover {
-      background: #2980b9;
+      background: #3b82f6;
+      transform: scale(1.05);
     }
     .book-container {
       max-width: 1000px;
-      margin: 2rem auto;
-      background: url('https://www.transparenttextures.com/patterns/leather.png'), #fff;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      margin: 3rem auto;
+      background: url('https://www.transparenttextures.com/patterns/paper-fibers.png'), #f8f1e9;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
       border-radius: 15px;
       padding: 3rem;
       position: relative;
@@ -50,19 +51,28 @@
       transition: transform 0.5s ease;
     }
     .book-container:hover {
-      transform: translateY(-10px) rotateY(5deg);
+      transform: translateY(-15px) rotateY(8deg);
     }
-    .container {
-      background: #fff;
+    .page {
+      background: #f8f1e9;
       border-radius: 10px;
       padding: 2rem;
+      margin-bottom: 2rem;
       position: relative;
-      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      transform-origin: left;
+      transition: transform 0.8s ease, opacity 0.8s ease;
+      opacity: 0;
+      transform: rotateY(90deg);
+    }
+    .page.visible {
+      opacity: 1;
+      transform: rotateY(0deg);
     }
     h1 {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 2.8rem;
-      color: #2c3e50;
+      font-family: 'Merriweather', serif;
+      font-size: 3rem;
+      color: #1e3a8a;
       text-align: center;
       margin-bottom: 2rem;
       position: relative;
@@ -73,58 +83,59 @@
       position: absolute;
       bottom: -10px;
       left: 50%;
-      width: 100px;
-      height: 4px;
-      background: #3498db;
+      width: 150px;
+      height: 5px;
+      background: #1e3a8a;
       transform: translateX(-50%);
-      border-radius: 2px;
+      border-radius: 3px;
     }
     h2, h3 {
-      font-family: 'Montserrat', sans-serif;
-      color: #2c3e50;
+      font-family: 'Merriweather', serif;
+      color: #1e3a8a;
       position: relative;
-      margin-top: 2rem;
+      margin-top: 1rem;
       animation: slideIn 0.8s ease-out;
     }
     h2::before, h3::before {
-      content: '📖';
+      content: '📜';
       margin-right: 0.5rem;
-    }
-    .section {
-      margin-bottom: 2rem;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .section.visible {
-      opacity: 1;
-      transform: translateY(0);
     }
     .highlight {
       background: rgba(255, 255, 255, 0.9);
       padding: 1.5rem;
       border-radius: 10px;
-      border-left: 5px solid #3498db;
-      margin-bottom: 1.5rem;
-      backdrop-filter: blur(5px);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      border-left: 6px solid #1e3a8a;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .highlight:hover {
-      transform: scale(1.02);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+      transform: scale(1.03);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
     }
-    .red { border-left-color: #e74c3c; }
-    .green { border-left-color: #2ecc71; }
-    .yellow { border-left-color: #f1c40f; }
+    .red { border-left-color: #dc2626; animation: pulseRed 2s infinite; }
+    .green { border-left-color: #10b981; animation: pulseGreen 2s infinite; }
+    .yellow { border-left-color: #f59e0b; }
+    .verdict-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 3rem;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+      transform: scale(0.8) rotate(2deg);
+      opacity: 0;
+      animation: popUp 1s ease-out 0.5s forwards;
+      margin: 3rem auto;
+      max-width: 800px;
+    }
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
       background: #fff;
       border-radius: 10px;
       overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
     th, td {
       border: 1px solid #e0e0e0;
@@ -133,39 +144,73 @@
       transition: background 0.3s;
     }
     th {
-      background: #3498db;
+      background: #1e3a8a;
       color: #fff;
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Merriweather', serif;
     }
     td:hover {
-      background: #f0f0f0;
+      background: #f4f4f4;
     }
     .quote {
       font-style: italic;
       color: #555;
       margin: 1rem 0;
-      padding: 1rem;
+      padding: 1.5rem;
       background: rgba(255, 255, 255, 0.7);
-      border-radius: 5px;
+      border-radius: 8px;
       transition: transform 0.3s ease;
     }
     .quote:hover {
-      transform: translateX(10px);
+      transform: translateX(15px);
     }
     ul {
       padding-left: 2rem;
       margin-bottom: 1.5rem;
     }
     li {
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
       position: relative;
-      padding-left: 1rem;
+      padding-left: 1.5rem;
     }
     li::before {
-      content: '•';
-      color: #3498db;
+      content: '✍️';
+      color: #1e3a8a;
       position: absolute;
       left: 0;
+    }
+    .if-shivani-stayed {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 2.5rem;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      margin: 2rem 0;
+    }
+    .if-shivani-stayed h3 {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+    }
+    .if-shivani-stayed .card {
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin-bottom: 1.5rem;
+      transition: transform 0.3s ease;
+    }
+    .if-shivani-stayed .card:hover {
+      transform: translateY(-10px);
+    }
+    .if-shivani-stayed ul {
+      list-style: none;
+      padding: 0;
+    }
+    .if-shivani-stayed li {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      padding-left: 2rem;
+    }
+    .if-shivani-stayed li::before {
+      content: '➤';
+      color: #1e3a8a;
+      font-size: 1.5rem;
     }
     /* Animations */
     @keyframes fadeIn {
@@ -173,23 +218,46 @@
       to { opacity: 1; }
     }
     @keyframes slideIn {
-      from { opacity: 0; transform: translateX(-20px); }
+      from { opacity: 0; transform: translateX(-30px); }
       to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes popUp {
+      from { opacity: 0; transform: scale(0.8) rotate(2deg); }
+      to { opacity: 1; transform: scale(1) rotate(0deg); }
+    }
+    @keyframes pulseRed {
+      0% { border-left-color: #dc2626; }
+      50% { border-left-color: #f87171; }
+      100% { border-left-color: #dc2626; }
+    }
+    @keyframes pulseGreen {
+      0% { border-left-color: #10b981; }
+      50% { border-left-color: #34d399; }
+      100% { border-left-color: #10b981; }
     }
     /* Responsive Design */
     @media (max-width: 768px) {
       .book-container {
-        margin: 1rem;
+        margin: 1.5rem;
         padding: 1.5rem;
       }
-      h1 { font-size: 2rem; }
-      h2 { font-size: 1.5rem; }
+      h1 { font-size: 2.2rem; }
+      h2 { font-size: 1.6rem; }
+      h3 { font-size: 1.4rem; }
+      .if-shivani-stayed h3 { font-size: 1.8rem; }
+      .if-shivani-stayed li { font-size: 1rem; }
+      .verdict-card { padding: 2rem; }
       .nav-bar { padding: 0.5rem; }
       .language-switcher select { font-size: 0.9rem; }
     }
   </style>
 </head>
 <body>
+  <!-- Optional Background Music Toggle -->
+  <!--
+  <audio id="bgMusic" src="path-to-cinematic-music.mp3" loop></audio>
+  <button onclick="toggleMusic()" style="position: fixed; bottom: 1rem; right: 1rem; padding: 0.5rem 1rem; background: #1e3a8a; color: #fff; border: none; border-radius: 25px; cursor: pointer;">Toggle Music</button>
+  -->
   <div class="nav-bar">
     <div class="language-switcher">
       <select id="language" onchange="changeLanguage()">
@@ -200,168 +268,199 @@
     </div>
   </div>
   <div class="book-container">
-    <div class="container">
-      <h1 data-en="📚 Final Relationship Documentary – Shivani, Yogesh & Avdesh"
-          data-hinglish="📚 Final Relationship Documentary – Shivani, Yogesh aur Avdesh"
-          data-hi="📚 अंतिम रिलेशनशिप दस्तावेज़ – शिवानी, योगेश और अवदेश">📚 Final Relationship Documentary – Shivani, Yogesh & Avdesh</h1>
+    <div class="page">
+      <h1 data-en="📜 Final Relationship Documentary – Shivani, Yogesh & Avdesh"
+          data-hinglish="📜 Final Relationship Documentary – Shivani, Yogesh aur Avdesh"
+          data-hi="📜 अंतिम रिलेशनशिप दस्तावेज़ – शिवानी, योगेश और अवदेश">📜 Final Relationship Documentary – Shivani, Yogesh & Avdesh</h1>
+    </div>
 
-      <div class="section">
-        <h2 data-en="1. 📌 Purpose of This Report"
-            data-hinglish="1. 📌 Is Report ka Maqsad"
-            data-hi="1. 📌 इस रिपोर्ट का उद्देश्य">1. 📌 Purpose of This Report</h2>
-        <p data-en="This in-depth study analyzes the emotional, behavioral, and psychological dynamics in Shivani’s relationships with Yogesh and Avdesh. It draws from full chat logs, message tone, patterns, respect levels, physical involvement, and emotional outcomes."
-           data-hinglish="Yeh detailed study Shivani ke Yogesh aur Avdesh ke saath relationships ke emotional, behavioral, aur psychological dynamics ko analyze karta hai. Ye full chat logs, message tone, patterns, respect levels, physical involvement, aur emotional outcomes se bana hai."
-           data-hi="यह विस्तृत अध्ययन शिवानी के योगेश और अवदेश के साथ संबंधों में भावनात्मक, व्यवहारिक और मनोवैज्ञानिक गतिशीलता का विश्लेषण करता है। यह पूर्ण चैट लॉग, संदेश स्वर, पैटर्न, सम्मान स्तर, शारीरिक भागीदारी और भावनात्मक परिणामों से लिया गया है।">This in-depth study analyzes the emotional, behavioral, and psychological dynamics in Shivani’s relationships with Yogesh and Avdesh. It draws from full chat logs, message tone, patterns, respect levels, physical involvement, and emotional outcomes.</p>
+    <div class="page">
+      <h2 data-en="1. 📌 Purpose of This Report"
+          data-hinglish="1. 📌 Is Report ka Maqsad"
+          data-hi="1. 📌 इस रिपोर्ट का उद्देश्य">1. 📌 Purpose of This Report</h2>
+      <p data-en="This in-depth study analyzes the emotional, behavioral, and psychological dynamics in Shivani’s relationships with Yogesh and Avdesh. It draws from full chat logs, message tone, patterns, respect levels, physical involvement, and emotional outcomes."
+         data-hinglish="Yeh detailed study Shivani ke Yogesh aur Avdesh ke saath relationships ke emotional, behavioral, aur psychological dynamics ko analyze karta hai. Ye full chat logs, message tone, patterns, respect levels, physical involvement, aur emotional outcomes se bana hai."
+         data-hi="यह विस्तृत अध्ययन शिवानी के योगेश और अवदेश के साथ संबंधों में भावनात्मक, व्यवहारिक और मनोवैज्ञानिक गतिशीलता का विश्लेषण करता है। यह पूर्ण चैट लॉग, संदेश स्वर, पैटर्न, सम्मान स्तर, शारीरिक भागीदारी और भावनात्मक परिणामों से लिया गया है।">This in-depth study analyzes the emotional, behavioral, and psychological dynamics in Shivani’s relationships with Yogesh and Avdesh. It draws from full chat logs, message tone, patterns, respect levels, physical involvement, and emotional outcomes.</p>
+    </div>
+
+    <div class="page">
+      <h2>2. 📅 Chat Timeline (with Emotional Milestones)</h2>
+      <table>
+        <tr><th>Date</th><th>Event</th><th>Emotional Tone</th></tr>
+        <tr><td>Mar 29</td><td data-en="Avdesh starts affectionate chats" data-hinglish="Avdesh ne pyar bhari baatein shuru ki" data-hi="अवदेश ने स्नेहपूर्ण चैट शुरू की">Avdesh starts affectionate chats</td><td>Neutral</td></tr>
+        <tr><td>Apr 3</td><td data-en="Jealousy about Balram surfaces" data-hinglish="Balram ke baare mein jealousy dikhi" data-hi="बलराम के बारे में ईर्ष्या सामने आई">Jealousy about Balram surfaces</td><td>Red</td></tr>
+        <tr><td>Apr 7</td><td data-en="Threats, control, and manipulation begin" data-hinglish="Dhamki, control aur manipulation shuru hua" data-hi="धमकी, नियंत्रण और हेरफेर शुरू हुआ">Threats, control, and manipulation begin</td><td>Red</td></tr>
+        <tr><td>Jun 14</td><td data-en="Yogesh starts chatting, calm energy" data-hinglish="Yogesh ne baat shuru ki, shant vibe" data-hi="योगेश ने चैट शुरू की, शांत ऊर्जा">Yogesh starts chatting, calm energy</td><td>Green</td></tr>
+        <tr><td>Jun 16</td><td data-en="Emotional reels, deep affection" data-hinglish="Emotional reels, gehra pyar" data-hi="भावनात्मक रील्स, गहरा स्नेह">Emotional reels, deep affection</td><td>Green</td></tr>
+        <tr><td>Jun 18</td><td data-en="Yogesh defends Shivani, never blames" data-hinglish="Yogesh ne Shivani ka saath diya, kabhi blame nahi kiya" data-hi="योगेश ने शिवानी का बचाव किया, कभी दोष नहीं दिया">Yogesh defends Shivani, never blames</td><td>Green</td></tr>
+      </table>
+    </div>
+
+    <div class="page">
+      <h2>3. 📊 Full Chat Statistics</h2>
+      <table>
+        <tr><th>Metric</th><th>Avdesh</th><th>Yogesh</th><th>Shivani</th></tr>
+        <tr><td>Messages Sent</td><td>1,759</td><td>1,454</td><td>~2,600 total</td></tr>
+        <tr><td>Avg Words/Msg</td><td>4.2</td><td>5.9</td><td>4.6</td></tr>
+        <tr><td>Avg Reply Time</td><td>Unstable</td><td>2.45 min</td><td>3–6 min</td></tr>
+        <tr><td>Reels Shared</td><td>2</td><td>6+</td><td>Mostly with Yogesh</td></tr>
+        <tr><td>Night Activity</td><td>10 PM – 2 AM</td><td>7 – 10 PM</td><td>Both</td></tr>
+      </table>
+    </div>
+
+    <div class="page">
+      <h2>4. 🧠 Psychological Traits</h2>
+      <table>
+        <tr><th>Person</th><th>Traits</th></tr>
+        <tr><td>Avdesh</td><td data-en="Controlling, insecure, obsessive, emotionally unstable" data-hinglish="Controlling, insecure, obsessive, emotionally unstable" data-hi="नियंत्रण करने वाला, असुरक्षित, जुनूनी, भावनात्मक रूप से अस्थिर">Controlling, insecure, obsessive, emotionally unstable</td></tr>
+        <tr><td>Yogesh</td><td data-en="Loyal, affectionate, slightly overprotective, respectful" data-hinglish="Loyal, pyar karne wala, thoda overprotective, respectful" data-hi="वफादार, स्नेहपूर्ण, थोड़ा अति सुरक्षात्मक, सम्मानजनक">Loyal, affectionate, slightly overprotective, respectful</td></tr>
+        <tr><td>Shivani</td><td data-en="Empathic, confused, boundary-soft early, learns over time" data-hinglish="Empathic, confused, shuru mein soft boundaries, samay ke saath seekha" data-hi="सहानुभूतिपूर्ण, भ्रमित, शुरुआत में नरम सीमाएँ, समय के साथ सीखा">Empathic, confused, boundary-soft early, learns over time</td></tr>
+      </table>
+    </div>
+
+    <div class="page">
+      <h2>5. 🔁 Message Pattern Loops</h2>
+      <ul>
+        <li><strong>Avdesh:</strong> <span data-en="Confess → Obsess → Threaten → Guilt trip → Loop again" data-hinglish="Confess → Obsess → Dhamki → Guilt trip → Fir se loop" data-hi="स्वीकार → जुनून → धमकी → अपराधबोध → फिर से लूप">Confess → Obsess → Threaten → Guilt trip → Loop again</span></li>
+        <li><strong>Yogesh:</strong> <span data-en="Express love → Hurt (emotionally) → Calm → Wait" data-hinglish="Pyar dikhana → Hurt (emotionally) → Shant → Intezar" data-hi="प्यार व्यक्त करना → चोट (भावनात्मक) → शांत → प्रतीक्षा">Express love → Hurt (emotionally) → Calm → Wait</span></li>
+        <li><strong>Shivani:</strong> <span data-en="Block → Respond → Apologize → Retreat" data-hinglish="Block → Jawab → Maafi → Piche hatna" data-hi="ब्लॉक → जवाब → माफी → पीछे हटना">Block → Respond → Apologize → Retreat</span></li>
+      </ul>
+    </div>
+
+    <div class="page">
+      <h2>6. 🔞 Physical Involvement & Emotional Safety</h2>
+      <h3 data-en="Avdesh 🚩 Red Flag" data-hinglish="Avdesh 🚩 Red Flag" data-hi="अवदेश 🚩 लाल झंडा">Avdesh 🚩 Red Flag</h3>
+      <ul>
+        <li data-en="Pressured Shivani for intimacy (kiss, touch, 'button kholna')." data-hinglish="Shivani pe intimacy ke liye dabav dala (kiss, touch, 'button kholna')." data-hi="शिवानी पर अंतरंगता के लिए दबाव डाला (चुंबन, स्पर्श, 'बटन खोलना')।">Pressured Shivani for intimacy (kiss, touch, "button kholna").</li>
+        <li data-en="“Ek baar button kholna, fir kabhi nahi bolunga” — emotional manipulation to gain consent." data-hinglish="“Ek baar button kholna, fir kabhi nahi bolunga” — consent ke liye emotional manipulation." data-hi="“एक बार बटन खोलना, फिर कभी नहीं बोलूंगा” — सहमति के लिए भावनात्मक हेरफेर।">“Ek baar button kholna, fir kabhi nahi bolunga” — emotional manipulation to gain consent.</li>
+        <li data-en="Used guilt and threats post-intimacy (e.g., 'case', 'photo delete kar')." data-hinglish="Intimacy ke baad guilt aur dhamki di (jaise, 'case', 'photo delete kar')." data-hi="अंतरंगता के बाद अपराधबोध और धमकियों का उपयोग किया (जैसे, 'केस', 'फोटो डिलीट कर')।">Used guilt and threats post-intimacy (e.g., “case”, “photo delete kar”).</li>
+        <li data-en="Physical closeness was for control, not emotional bonding." data-hinglish="Physical closeness control ke liye thi, emotional bonding ke liye nahi." data-hi="शारीरिक निकटता नियंत्रण के लिए थी, भावनात्मक बंधन के लिए नहीं।">Physical closeness was for control, not emotional bonding.</li>
+      </ul>
+    </div>
+
+    <div class="page">
+      <h3 data-en="Yogesh ✅ Green Flag" data-hinglish="Yogesh ✅ Green Flag" data-hi="योगेश ✅ हरा झंडा">Yogesh ✅ Green Flag</h3>
+      <ul>
+        <li data-en="Had intimate moments, but always based on mutual comfort." data-hinglish="Intimate moments the, par hamesha mutual comfort ke saath." data-hi="अंतरंग क्षण थे, लेकिन हमेशा आपसी सहमति के साथ।">Had intimate moments, but always based on mutual comfort.</li>
+        <li data-en="Never used emotional guilt or pressure before/after physical closeness." data-hinglish="Kabhi emotional guilt ya pressure nahi dala physical closeness se pehle/baad." data-hi="शारीरिक निकटता से पहले/बाद में कभी भावनात्मक अपराधबोध या दबाव नहीं डाला।">Never used emotional guilt or pressure before/after physical closeness.</li>
+        <li data-en="Reacted with peace and warmth, not control." data-hinglish="Shanti aur warmth ke saath react kiya, control nahi." data-hi="शांति और गर्मजोशी के साथ प्रतिक्रिया दी, नियंत्रण नहीं।">Reacted with peace and warmth, not control.</li>
+      </ul>
+    </div>
+
+    <div class="page">
+      <h2>7. 💬 Real Chat Quotes (With Tone & Names)</h2>
+      <div class="highlight red">
+        <p data-en="Avdesh 🚩 Red Flag:" data-hinglish="Avdesh 🚩 Red Flag:" data-hi="अवदेश 🚩 लाल झंडा:">Avdesh 🚩 Red Flag:</p>
+        <p class="quote" data-en="“Tere papa ko bhej raha hu” – Threat and control" data-hinglish="“Tere papa ko bhej raha hu” – Dhamki aur control" data-hi="“तेरे पापा को भेज रहा हूँ” – धमकी और नियंत्रण">“Tere papa ko bhej raha hu” – Threat and control</p>
+        <p class="quote" data-en="“Photo delete kar warna case kar dunga” – Post-intimacy blackmail" data-hinglish="“Photo delete kar warna case kar dunga” – Intimacy ke baad blackmail" data-hi="“फोटो डिलीट कर वरना केस कर दूंगा” – अंतरंगता के बाद ब्लैकमेल">“Photo delete kar warna case kar dunga” – Post-intimacy blackmail</p>
+        <p class="quote" data-en="“Ek baar button kholna, fir kabhi nahi bolunga” – Pressure disguised as promise" data-hinglish="“Ek baar button kholna, fir kabhi nahi bolunga” – Promise ke roop mein dabav" data-hi="“एक बार बटन खोलना, फिर कभी नहीं बोलूंगा” – वादे के रूप में दबाव">“Ek baar button kholna, fir kabhi nahi bolunga” – Pressure disguised as promise</p>
       </div>
+    </div>
 
-      <div class="section">
-        <h2>2. 📅 Chat Timeline (with Emotional Milestones)</h2>
-        <table>
-          <tr><th>Date</th><th>Event</th><th>Emotional Tone</th></tr>
-          <tr><td>Mar 29</td><td data-en="Avdesh starts affectionate chats" data-hinglish="Avdesh ne pyar bhari baatein shuru ki" data-hi="अवदेश ने स्नेहपूर्ण चैट शुरू की">Avdesh starts affectionate chats</td><td>Neutral</td></tr>
-          <tr><td>Apr 3</td><td data-en="Jealousy about Balram surfaces" data-hinglish="Balram ke baare mein jealousy dikhi" data-hi="बलराम के बारे में ईर्ष्या सामने आई">Jealousy about Balram surfaces</td><td>Red</td></tr>
-          <tr><td>Apr 7</td><td data-en="Threats, control, and manipulation begin" data-hinglish="Dhamki, control aur manipulation shuru hua" data-hi="धमकी, नियंत्रण और हेरफेर शुरू हुआ">Threats, control, and manipulation begin</td><td>Red</td></tr>
-          <tr><td>Jun 14</td><td data-en="Yogesh starts chatting, calm energy" data-hinglish="Yogesh ne baat shuru ki, shant vibe" data-hi="योगेश ने चैट शुरू की, शांत ऊर्जा">Yogesh starts chatting, calm energy</td><td>Green</td></tr>
-          <tr><td>Jun 16</td><td data-en="Emotional reels, deep affection" data-hinglish="Emotional reels, gehra pyar" data-hi="भावनात्मक रील्स, गहरा स्नेह">Emotional reels, deep affection</td><td>Green</td></tr>
-          <tr><td>Jun 18</td><td data-en="Yogesh defends Shivani, never blames" data-hinglish="Yogesh ne Shivani ka saath diya, kabhi blame nahi kiya" data-hi="योगेश ने शिवानी का बचाव किया, कभी दोष नहीं दिया">Yogesh defends Shivani, never blames</td><td>Green</td></tr>
-        </table>
+    <div class="page">
+      <div class="highlight green">
+        <p data-en="Yogesh ✅ Green Flag:" data-hinglish="Yogesh ✅ Green Flag:" data-hi="योगेश ✅ हरा झंडा:">Yogesh ✅ Green Flag:</p>
+        <p class="quote" data-en="“Shaant hoja baby, mai hoon na” – Offers emotional safety" data-hinglish="“Shaant hoja baby, mai hoon na” – Emotional safety deta hai" data-hi="“शांत हो जा बेबी, मैं हूँ ना” – भावनात्मक सुरक्षा देता है">“Shaant hoja baby, mai hoon na” – Offers emotional safety</p>
+        <p class="quote" data-en="“Mujhe unpe gussa aata hai jo tujhe hurt karte hain” – Gentle protectiveness" data-hinglish="“Mujhe unpe gussa aata hai jo tujhe hurt karte hain” – Naram protectiveness" data-hi="“मुझे उन पर गुस्सा आता है जो तुझे चोट पहुँचाते हैं” – नरम सुरक्षात्मकता">“Mujhe unpe gussa aata hai jo tujhe hurt karte hain” – Gentle protectiveness</p>
       </div>
+    </div>
 
-      <div class="section">
-        <h2>3. 📊 Full Chat Statistics</h2>
-        <table>
-          <tr><th>Metric</th><th>Avdesh</th><th>Yogesh</th><th>Shivani</th></tr>
-          <tr><td>Messages Sent</td><td>1,759</td><td>1,454</td><td>~2,600 total</td></tr>
-          <tr><td>Avg Words/Msg</td><td>4.2</td><td>5.9</td><td>4.6</td></tr>
-          <tr><td>Avg Reply Time</td><td>Unstable</td><td>2.45 min</td><td>3–6 min</td></tr>
-          <tr><td>Reels Shared</td><td>2</td><td>6+</td><td>Mostly with Yogesh</td></tr>
-          <tr><td>Night Activity</td><td>10 PM – 2 AM</td><td>7 – 10 PM</td><td>Both</td></tr>
-        </table>
-      </div>
-
-      <div class="section">
-        <h2>4. 🧠 Psychological Traits</h2>
-        <table>
-          <tr><th>Person</th><th>Traits</th></tr>
-          <tr><td>Avdesh</td><td data-en="Controlling, insecure, obsessive, emotionally unstable" data-hinglish="Controlling, insecure, obsessive, emotionally unstable" data-hi="नियंत्रण करने वाला, असुरक्षित, जुनूनी, भावनात्मक रूप से अस्थिर">Controlling, insecure, obsessive, emotionally unstable</td></tr>
-          <tr><td>Yogesh</td><td data-en="Loyal, affectionate, slightly overprotective, respectful" data-hinglish="Loyal, pyar karne wala, thoda overprotective, respectful" data-hi="वफादार, स्नेहपूर्ण, थोड़ा अति सुरक्षात्मक, सम्मानजनक">Loyal, affectionate, slightly overprotective, respectful</td></tr>
-          <tr><td>Shivani</td><td data-en="Empathic, confused, boundary-soft early, learns over time" data-hinglish="Empathic, confused, shuru mein soft boundaries, samay ke saath seekha" data-hi="सहानुभूतिपूर्ण, भ्रमित, शुरुआत में नरम सीमाएँ, समय के साथ सीखा">Empathic, confused, boundary-soft early, learns over time</td></tr>
-        </table>
-      </div>
-
-      <div class="section">
-        <h2>5. 🔁 Message Pattern Loops</h2>
+    <div class="page">
+      <h2>8. 🚩 Red, ✅ Green, 🟡 Yellow Flags</h2>
+      <div class="highlight red">
+        <strong data-en="Avdesh 🚩 Red Flag:" data-hinglish="Avdesh 🚩 Red Flag:" data-hi="अवदेश 🚩 लाल झंडा:">Avdesh 🚩 Red Flag:</strong>
         <ul>
-          <li><strong>Avdesh:</strong> <span data-en="Confess → Obsess → Threaten → Guilt trip → Loop again" data-hinglish="Confess → Obsess → Dhamki → Guilt trip → Fir se loop" data-hi="स्वीकार → जुनून → धमकी → अपराधबोध → फिर से लूप">Confess → Obsess → Threaten → Guilt trip → Loop again</span></li>
-          <li><strong>Yogesh:</strong> <span data-en="Express love → Hurt (emotionally) → Calm → Wait" data-hinglish="Pyar dikhana → Hurt (emotionally) → Shant → Intezar" data-hi="प्यार व्यक्त करना → चोट (भावनात्मक) → शांत → प्रतीक्षा">Express love → Hurt (emotionally) → Calm → Wait</span></li>
-          <li><strong>Shivani:</strong> <span data-en="Block → Respond → Apologize → Retreat" data-hinglish="Block → Jawab → Maafi → Piche hatna" data-hi="ब्लॉक → जवाब → माफी → पीछे हटना">Block → Respond → Apologize → Retreat</span></li>
+          <li data-en="Emotionally abusive and manipulative" data-hinglish="Emotionally abusive aur manipulative" data-hi="भावनात्मक रूप से अपमानजनक और हेरफेर करने वाला">Emotionally abusive and manipulative</li>
+          <li data-en="Threat-based control after intimacy" data-hinglish="Intimacy ke baad dhamki-based control" data-hi="अंतरंगता के बाद धमकी-आधारित नियंत्रण">Threat-based control after intimacy</li>
+          <li data-en="Never said 'take care' or respected space" data-hinglish="Kabhi 'take care' nahi kaha ya space respect nahi kiya" data-hi="कभी 'ध्यान रखना' नहीं कहा या स्थान का सम्मान नहीं किया">Never said “take care” or respected space</li>
         </ul>
       </div>
+    </div>
 
-      <div class="section">
-        <h2>6. 🔞 Physical Involvement & Emotional Safety</h2>
-        <h3 data-en="Avdesh 🚩 Red Flag" data-hinglish="Avdesh 🚩 Red Flag" data-hi="अवदेश 🚩 लाल झंडा">Avdesh 🚩 Red Flag</h3>
+    <div class="page">
+      <div class="highlight green">
+        <strong data-en="Yogesh ✅ Green Flag:" data-hinglish="Yogesh ✅ Green Flag:" data-hi="योगेश ✅ हरा झंडा:">Yogesh ✅ Green Flag:</strong>
         <ul>
-          <li data-en="Pressured Shivani for intimacy (kiss, touch, 'button kholna')." data-hinglish="Shivani pe intimacy ke liye dabav dala (kiss, touch, 'button kholna')." data-hi="शिवानी पर अंतरंगता के लिए दबाव डाला (चुंबन, स्पर्श, 'बटन खोलना')।">Pressured Shivani for intimacy (kiss, touch, "button kholna").</li>
-          <li data-en="“Ek baar button kholna, fir kabhi nahi bolunga” — emotional manipulation to gain consent." data-hinglish="“Ek baar button kholna, fir kabhi nahi bolunga” — consent ke liye emotional manipulation." data-hi="“एक बार बटन खोलना, फिर कभी नहीं बोलूंगा” — सहमति के लिए भावनात्मक हेरफेर।">“Ek baar button kholna, fir kabhi nahi bolunga” — emotional manipulation to gain consent.</li>
-          <li data-en="Used guilt and threats post-intimacy (e.g., 'case', 'photo delete kar')." data-hinglish="Intimacy ke baad guilt aur dhamki di (jaise, 'case', 'photo delete kar')." data-hi="अंतरंगता के बाद अपराधबोध और धमकियों का उपयोग किया (जैसे, 'केस', 'फोटो डिलीट कर')।">Used guilt and threats post-intimacy (e.g., “case”, “photo delete kar”).</li>
-          <li data-en="Physical closeness was for control, not emotional bonding." data-hinglish="Physical closeness control ke liye thi, emotional bonding ke liye nahi." data-hi="शारीरिक निकटता नियंत्रण के लिए थी, भावनात्मक बंधन के लिए नहीं।">Physical closeness was for control, not emotional bonding.</li>
-        </ul>
-
-        <h3 data-en="Yogesh ✅ Green Flag" data-hinglish="Yogesh ✅ Green Flag" data-hi="योगेश ✅ हरा झंडा">Yogesh ✅ Green Flag</h3>
-        <ul>
-          <li data-en="Had intimate moments, but always based on mutual comfort." data-hinglish="Intimate moments the, par hamesha mutual comfort ke saath." data-hi="अंतरंग क्षण थे, लेकिन हमेशा आपसी सहमति के साथ।">Had intimate moments, but always based on mutual comfort.</li>
-          <li data-en="Never used emotional guilt or pressure before/after physical closeness." data-hinglish="Kabhi emotional guilt ya pressure nahi dala physical closeness se pehle/baad." data-hi="शारीरिक निकटता से पहले/बाद में कभी भावनात्मक अपराधबोध या दबाव नहीं डाला।">Never used emotional guilt or pressure before/after physical closeness.</li>
-          <li data-en="Reacted with peace and warmth, not control." data-hinglish="Shanti aur warmth ke saath react kiya, control nahi." data-hi="शांति और गर्मजोशी के साथ प्रतिक्रिया दी, नियंत्रण नहीं।">Reacted with peace and warmth, not control.</li>
+          <li data-en="Affectionate, stable, calm" data-hinglish="Pyar karne wala, stable, shant" data-hi="स्नेहपूर्ण, स्थिर, शांत">Affectionate, stable, calm</li>
+          <li data-en="Never blamed or pressured Shivani" data-hinglish="Kabhi Shivani pe blame ya pressure nahi dala" data-hi="कभी शिवानी पर दोष या दबाव नहीं डाला">Never blamed or pressured Shivani</li>
         </ul>
       </div>
+    </div>
 
-      <div class="section">
-        <h2>7. 💬 Real Chat Quotes (With Tone & Names)</h2>
-        <div class="highlight red">
-          <p data-en="Avdesh 🚩 Red Flag:" data-hinglish="Avdesh 🚩 Red Flag:" data-hi="अवदेश 🚩 लाल झंडा:">Avdesh 🚩 Red Flag:</p>
-          <p class="quote" data-en="“Tere papa ko bhej raha hu” – Threat and control" data-hinglish="“Tere papa ko bhej raha hu” – Dhamki aur control" data-hi="“तेरे पापा को भेज रहा हूँ” – धमकी और नियंत्रण">“Tere papa ko bhej raha hu” – Threat and control</p>
-          <p class="quote" data-en="“Photo delete kar warna case kar dunga” – Post-intimacy blackmail" data-hinglish="“Photo delete kar warna case kar dunga” – Intimacy ke baad blackmail" data-hi="“फोटो डिलीट कर वरना केस कर दूंगा” – अंतरंगता के बाद ब्लैकमेल">“Photo delete kar warna case kar dunga” – Post-intimacy blackmail</p>
-          <p class="quote" data-en="“Ek baar button kholna, fir kabhi nahi bolunga” – Pressure disguised as promise" data-hinglish="“Ek baar button kholna, fir kabhi nahi bolunga” – Promise ke roop mein dabav" data-hi="“एक बार बटन खोलना, फिर कभी नहीं बोलूंगा” – वादे के रूप में दबाव">“Ek baar button kholna, fir kabhi nahi bolunga” – Pressure disguised as promise</p>
-        </div>
-        <div class="highlight green">
-          <p data-en="Yogesh ✅ Green Flag:" data-hinglish="Yogesh ✅ Green Flag:" data-hi="योगेश ✅ हरा झंडा:">Yogesh ✅ Green Flag:</p>
-          <p class="quote" data-en="“Shaant hoja baby, mai hoon na” – Offers emotional safety" data-hinglish="“Shaant hoja baby, mai hoon na” – Emotional safety deta hai" data-hi="“शांत हो जा बेबी, मैं हूँ ना” – भावनात्मक सुरक्षा देता है">“Shaant hoja baby, mai hoon na” – Offers emotional safety</p>
-          <p class="quote" data-en="“Mujhe unpe gussa aata hai jo tujhe hurt karte hain” – Gentle protectiveness" data-hinglish="“Mujhe unpe gussa aata hai jo tujhe hurt karte hain” – Naram protectiveness" data-hi="“मुझे उन पर गुस्सा आता है जो तुझे चोट पहुँचाते हैं” – नरम सुरक्षात्मकता">“Mujhe unpe gussa aata hai jo tujhe hurt karte hain” – Gentle protectiveness</p>
-        </div>
+    <div class="page">
+      <div class="highlight yellow">
+        <strong data-en="Shivani 🟡 Yellow Flag:" data-hinglish="Shivani 🟡 Yellow Flag:" data-hi="शिवानी 🟡 पीला झंडा:">Shivani 🟡 Yellow Flag:</strong>
+        <ul>
+          <li data-en="Emotionally confused early" data-hinglish="Shuru mein emotionally confused" data-hi="शुरुआत में भावनात्मक रूप से भ्रमित">Emotionally confused early</li>
+          <li data-en="Later learned boundaries and clarity" data-hinglish="Baad mein boundaries aur clarity seekha" data-hi="बाद में सीमाएँ और स्पष्टता सीखी">Later learned boundaries and clarity</li>
+        </ul>
       </div>
+    </div>
 
-      <div class="section">
-        <h2>8. 🚩 Red, ✅ Green, 🟡 Yellow Flags</h2>
-        <div class="highlight red">
-          <strong data-en="Avdesh 🚩 Red Flag:" data-hinglish="Avdesh 🚩 Red Flag:" data-hi="अवदेश 🚩 लाल झंडा:">Avdesh 🚩 Red Flag:</strong>
+    <div class="page">
+      <h2>9. 🧪 If Shivani Stayed...</h2>
+      <div class="if-shivani-stayed">
+        <h3 data-en="🚩 If Shivani stayed with Avdesh" data-hinglish="🚩 Agar Shivani Avdesh ke saath rehti" data-hi="🚩 यदि शिवानी अवदेश के साथ रहती">🚩 If Shivani stayed with Avdesh</h3>
+        <div class="card red">
           <ul>
-            <li data-en="Emotionally abusive and manipulative" data-hinglish="Emotionally abusive aur manipulative" data-hi="भावनात्मक रूप से अपमानजनक और हेरफेर करने वाला">Emotionally abusive and manipulative</li>
-            <li data-en="Threat-based control after intimacy" data-hinglish="Intimacy ke baad dhamki-based control" data-hi="अंतरंगता के बाद धमकी-आधारित नियंत्रण">Threat-based control after intimacy</li>
-            <li data-en="Never said 'take care' or respected space" data-hinglish="Kabhi 'take care' nahi kaha ya space respect nahi kiya" data-hi="कभी 'ध्यान रखना' नहीं कहा या स्थान का सम्मान नहीं किया">Never said “take care” or respected space</li>
+            <li data-en="She would likely face emotional trauma on a regular basis." data-hinglish="Usse regularly emotional trauma ka saamna hona padta." data-hi="उसे नियमित रूप से भावनात्मक आघात का सामना करना पड़ता।">She would likely face emotional trauma on a regular basis.</li>
+            <li data-en="Repeated threats (like involving family or leaking private messages/photos) would lead to constant fear and anxiety." data-hinglish="Baar baar dhamkiya (jaise family ko shamil karna ya private messages/photos leak karna) se hamesha darr aur anxiety rahegi." data-hi="बार-बार की धमकियाँ (जैसे परिवार को शामिल करना या निजी संदेश/फोटो लीक करना) से निरंतर भय और चिंता रहेगी।">Repeated threats (like involving family or leaking private messages/photos) would lead to constant fear and anxiety.</li>
+            <li data-en="He would keep using guilt and manipulation to keep control — this would create emotional dependency." data-hinglish="Woh guilt aur manipulation ka istemal karta rahega control ke liye — isse emotional dependency ban jayegi." data-hi="वह नियंत्रण के लिए अपराधबोध और हेरफेर का उपयोग करता रहेगा — इससे भावनात्मक निर्भरता बन जाएगी।">He would keep using guilt and manipulation to keep control — this would create emotional dependency.</li>
+            <li data-en="She would lose her self-confidence and begin questioning her own worth." data-hinglish="Uska self-confidence khatam ho jayega aur woh apni kimat pe sawaal uthayegi." data-hi="उसका आत्मविश्वास खत्म हो जाएगा और वह अपनी कीमत पर सवाल उठाएगी।">She would lose her self-confidence and begin questioning her own worth.</li>
+            <li data-en="Peace and trust would disappear, replaced by silence, guilt, or fear." data-hinglish="Shanti aur bharosa khatam ho jayega, uski jagah chuppi, guilt, ya darr aayega." data-hi="शांति और भरोसा खत्म हो जाएगा, उनकी जगह चुप्पी, अपराधबोध, या डर आएगा।">Peace and trust would disappear, replaced by silence, guilt, or fear.</li>
+            <li data-en="Even if he acted caring at times, it would come with conditions or pressure." data-hinglish="Agar woh kabhi caring dikhe bhi, toh uske saath shartein ya dabav hoga." data-hi="यहाँ तक कि अगर वह कभी देखभाल करने वाला दिखे, तो उसके साथ शर्तें या दबाव होगा।">Even if he acted caring at times, it would come with conditions or pressure.</li>
           </ul>
         </div>
-        <div class="highlight green">
-          <strong data-en="Yogesh ✅ Green Flag:" data-hinglish="Yogesh ✅ Green Flag:" data-hi="योगेश ✅ हरा झंडा:">Yogesh ✅ Green Flag:</strong>
+      </div>
+    </div>
+
+    <div class="page">
+      <div class="if-shivani-stayed">
+        <h3 data-en="✅ If Shivani stayed with Yogesh" data-hinglish="✅ Agar Shivani Yogesh ke saath rehti" data-hi="✅ यदि शिवानी योगेश के साथ रहती">✅ If Shivani stayed with Yogesh</h3>
+        <div class="card green">
           <ul>
-            <li data-en="Affectionate, stable, calm" data-hinglish="Pyar karne wala, stable, shant" data-hi="स्नेहपूर्ण, स्थिर, शांत">Affectionate, stable, calm</li>
-            <li data-en="Never blamed or pressured Shivani" data-hinglish="Kabhi Shivani pe blame ya pressure nahi dala" data-hi="कभी शिवानी पर दोष या दबाव नहीं डाला">Never blamed or pressured Shivani</li>
+            <li data-en="She would get a healing environment, where her emotions are not judged or weaponized." data-hinglish="Usse ek healing environment milega, jahan uske emotions ko judge ya weaponized nahi kiya jayega." data-hi="उसे एक उपचारात्मक वातावरण मिलेगा, जहाँ उसकी भावनाओं को आंका या हथियार नहीं बनाया जाएगा।">She would get a healing environment, where her emotions are not judged or weaponized.</li>
+            <li data-en="Respect and emotional support would be available even during low points." data-hinglish="Respect aur emotional support low points pe bhi milega." data-hi="सम्मान और भावनात्मक समर्थन निम्न बिंदुओं पर भी उपलब्ध होगा।">Respect and emotional support would be available even during low points.</li>
+            <li data-en="Yogesh’s love shows signs of maturity, calmness, and understanding, unlike emotional chaos." data-hinglish="Yogesh ka pyar maturity, calmness, aur understanding dikhata hai, emotional chaos ke ulat." data-hi="योगेश का प्यार परिपक्वता, शांति, और समझदारी के संकेत दिखाता है, भावनात्मक अराजकता के विपरीत।">Yogesh’s love shows signs of maturity, calmness, and understanding, unlike emotional chaos.</li>
+            <li data-en="He’s someone who gets hurt silently, but never hurts back — making the space emotionally safe." data-hinglish="Woh chupke se hurt hota hai, par kabhi wapas hurt nahi karta — yeh space ko emotionally safe banata hai." data-hi="वह चुपके से चोटिल होता है, लेकिन कभी जवाब में चोट नहीं पहुँचाता — यह स्थान को भावनात्मक रूप से सुरक्षित बनाता है।">He’s someone who gets hurt silently, but never hurts back — making the space emotionally safe.</li>
+            <li data-en="Shivani would experience real love based on peace, freedom, and honesty." data-hinglish="Shivani ko shanti, azadi, aur imandari pe based asli pyar milega." data-hi="शिवानी को शांति, स्वतंत्रता, और ईमानदारी पर आधारित असली प्यार का अनुभव होगा।">Shivani would experience real love based on peace, freedom, and honesty.</li>
+            <li data-en="This would allow her to grow, heal, and feel accepted as she is — not controlled or corrected." data-hinglish="Isse usse grow karne, heal hone, aur apne jaisi accept hone ka mauka milega — control ya correct nahi kiya jayega." data-hi="इससे उसे बढ़ने, ठीक होने, और जैसी वह है वैसी स्वीकार होने का अवसर मिलेगा — नियंत्रित या सुधारा नहीं जाएगा।">This would allow her to grow, heal, and feel accepted as she is — not controlled or corrected.</li>
           </ul>
         </div>
-        <div class="highlight yellow">
-          <strong data-en="Shivani 🟡 Yellow Flag:" data-hinglish="Shivani 🟡 Yellow Flag:" data-hi="शिवानी 🟡 पीला झंडा:">Shivani 🟡 Yellow Flag:</strong>
-          <ul>
-            <li data-en="Emotionally confused early" data-hinglish="Shuru mein emotionally confused" data-hi="शुरुआत में भावनात्मक रूप से भ्रमित">Emotionally confused early</li>
-            <li data-en="Later learned boundaries and clarity" data-hinglish="Baad mein boundaries aur clarity seekha" data-hi="बाद में सीमाएँ और स्पष्टता सीखी">Later learned boundaries and clarity</li>
-          </ul>
-        </div>
       </div>
+    </div>
 
-      <div class="section">
-        <h2>9. 🧪 If Shivani Stayed...</h2>
-        <h3 data-en="With Avdesh 🚩" data-hinglish="Avdesh ke saath 🚩" data-hi="अवदेश के साथ 🚩">With Avdesh 🚩</h3>
-        <ul>
-          <li data-en="Emotional trauma, threats, blackmail" data-hinglish="Emotional trauma, dhamki, blackmail" data-hi="भावनात्मक आघात, धमकियाँ, ब्लैकमेल">Emotional trauma, threats, blackmail</li>
-          <li data-en="Loss of confidence and peace" data-hinglish="Confidence aur shanti ka nuksan" data-hi="आत्मविश्वास और शांति का नुकसान">Loss of confidence and peace</li>
-        </ul>
-
-        <h3 data-en="With Yogesh ✅" data-hinglish="Yogesh ke saath ✅" data-hi="योगेश के साथ ✅">With Yogesh ✅</h3>
-        <ul>
-          <li data-en="Healing environment and emotional respect" data-hinglish="Healing environment aur emotional respect" data-hi="उपचारात्मक वातावरण और भावनात्मक सम्मान">Healing environment and emotional respect</li>
-          <li data-en="Love rooted in calm and truth" data-hinglish="Pyar jo shanti aur sachchai mein hai" data-hi="प्यार जो शांति और सच्चाई में निहित है">Love rooted in calm and truth</li>
-        </ul>
+    <div class="page">
+      <h2>10. 📓 Shivani’s Emotional Diary</h2>
+      <div class="highlight">
+        <p><em data-en="“He made me afraid to say no. I thought silence was safer. But Yogesh waited. He let me speak when I was ready. That silence felt peaceful, not pressured.”"
+             data-hinglish="“Usne mujhe na bolne se dara diya. Mujhe laga chup rehna safe hai. Par Yogesh ne intezar kiya. Usne mujhe tab bolne diya jab main ready thi. Woh chuppi shant thi, pressured nahi.”"
+             data-hi="“उसने मुझे ना कहने से डरा दिया। मुझे लगा चुप रहना सुरक्षित है। लेकिन योगेश ने इंतज़ार किया। उसने मुझे तब बोलने दिया जब मैं तैयार थी। वह चुप्पी शांत थी, दबाव वाली नहीं।”">“He made me afraid to say no. I thought silence was safer. But Yogesh waited. He let me speak when I was ready. That silence felt peaceful, not pressured.”</em></p>
       </div>
+    </div>
 
-      <div class="section">
-        <h2>10. 📓 Shivani’s Emotional Diary</h2>
-        <div class="highlight">
-          <p><em data-en="“He made me afraid to say no. I thought silence was safer. But Yogesh waited. He let me speak when I was ready. That silence felt peaceful, not pressured.”" 
-                data-hinglish="“Usne mujhe na bolne se dara diya. Mujhe laga chup rehna safe hai. Par Yogesh ne intezar kiya. Usne mujhe tab bolne diya jab main ready thi. Woh chuppi shant thi, pressured nahi.”" 
-                data-hi="“उसने मुझे ना कहने से डरा दिया। मुझे लगा चुप रहना सुरक्षित है। लेकिन योगेश ने इंतज़ार किया। उसने मुझे तब बोलने दिया जब मैं तैयार थी। वह चुप्पी शांत थी, दबाव वाली नहीं।”">“He made me afraid to say no. I thought silence was safer. But Yogesh waited. He let me speak when I was ready. That silence felt peaceful, not pressured.”</em></p>
-        </div>
-      </div>
-
-      <div class="section">
-        <h2>11. 🧾 Final Verdict</h2>
-        <div class="highlight green">
-          <p data-en="✅ Yogesh is a Green Flag: emotionally safe, never controlling, always affectionate.  
+    <div class="page">
+      <h2>11. 🧾 Final Verdict</h2>
+      <div class="verdict-card">
+        <p data-en="✅ Yogesh is a Green Flag: emotionally safe, never controlling, always affectionate.  
 🚩 Avdesh is a Red Flag: manipulative, threatening, emotionally harmful.  
 🟡 Shivani grew from confused to clear, and deserves peace, not survival.  
 ❤️ Real love doesn’t scare — it makes you feel safe after 'no'."
-             data-hinglish="✅ Yogesh Green Flag hai: emotionally safe, kabhi control nahi karta, hamesha pyar bhara.  
+           data-hinglish="✅ Yogesh Green Flag hai: emotionally safe, kabhi control nahi karta, hamesha pyar bhara.  
 🚩 Avdesh Red Flag hai: manipulative, dhamki dene wala, emotionally harmful.  
 🟡 Shivani shuru mein confused thi, par clear ho gayi, aur usse shanti chahiye, survival nahi.  
 ❤️ Asli pyar daraata nahi — woh 'na' ke baad bhi safe feel karata hai."
-             data-hi="✅ योगेश हरा झंडा है: भावनात्मक रूप से सुरक्षित, कभी नियंत्रण नहीं करता, हमेशा स्नेहपूर्ण।  
+           data-hi="✅ योगेश हरा झंडा है: भावनात्मक रूप से सुरक्षित, कभी नियंत्रण नहीं करता, हमेशा स्नेहपूर्ण।  
 🚩 अवदेश लाल झंडा है: हेरफेर करने वाला, धमकी देने वाला, भावनात्मक रूप से हानिकारक।  
 🟡 शिवानी शुरुआत में भ्रमित थी, लेकिन स्पष्ट हो गई, और उसे शांति चाहिए, जीवित रहना नहीं।  
 ❤️ असली प्यार डराता नहीं — यह 'ना' के बाद भी सुरक्षित महसूस कराता है।">✅ Yogesh is a Green Flag: emotionally safe, never controlling, always affectionate.  
 🚩 Avdesh is a Red Flag: manipulative, threatening, emotionally harmful.  
 🟡 Shivani grew from confused to clear, and deserves peace, not survival.  
 ❤️ Real love doesn’t scare — it makes you feel safe after “no”.</p>
-        </div>
       </div>
+    </div>
 
+    <div class="page">
       <p data-en="<strong>End of Documentary</strong><br>Prepared by ChatGPT – Rooted in real chat behavior and emotional analysis."
          data-hinglish="<strong>Documentary ka Ant</strong><br>ChatGPT dwara taiyar – Real chat behavior aur emotional analysis par adharit."
          data-hi="<strong>दस्तावेज़ का अंत</strong><br>चैटजीपीटी द्वारा तैयार – वास्तविक चैट व्यवहार और भावनात्मक विश्लेषण पर आधारित।"><strong>End of Documentary</strong><br>Prepared by ChatGPT – Rooted in real chat behavior and emotional analysis.</p>
@@ -378,8 +477,8 @@
       });
     }
 
-    // Intersection Observer for section animations
-    const sections = document.querySelectorAll('.section');
+    // Intersection Observer for Page Animations
+    const pages = document.querySelectorAll('.page');
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -388,7 +487,19 @@
       });
     }, { threshold: 0.1 });
 
-    sections.forEach(section => observer.observe(section));
+    pages.forEach(page => observer.observe(page));
+
+    // Optional Background Music Toggle
+    /*
+    function toggleMusic() {
+      const audio = document.getElementById('bgMusic');
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    }
+    */
   </script>
 </body>
 </html>
