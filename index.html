@@ -3,77 +3,69 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Chat# — One-file IDE (chat# / HTML / CSS / JS)</title>
+<title>Chat# Studio — One-file IDE with Debugger</title>
 <style>
-  :root{
-    --bg:#0b1020; --panel:#0f1724; --muted:#93a3c7; --accent:#22c55e; --glass: rgba(255,255,255,0.03);
-    --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
-  }
+  :root{--bg:#071021;--panel:#0f1724;--muted:#9fb3d9;--accent:#22c55e;--err:#ff7b7b;--mono:ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace}
   *{box-sizing:border-box}
-  body{margin:0;background:linear-gradient(180deg,#071021 0%, #071822 100%);font-family:Inter,system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;color:#e6eef8}
+  body{margin:0;background:linear-gradient(180deg,#031018,#071021);font-family:Inter,system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;color:#dbeeff}
   header{display:flex;align-items:center;gap:12px;padding:12px 16px;background:linear-gradient(90deg, rgba(255,255,255,0.02), transparent);border-bottom:1px solid rgba(255,255,255,0.03)}
-  header h1{font-size:16px;margin:0;color:#fff}
+  header h1{font-size:15px;margin:0;color:#fff}
   .toolbar{margin-left:auto;display:flex;gap:8px;align-items:center}
-  button{background:var(--glass);border:1px solid rgba(255,255,255,0.04);color:var(--muted);padding:8px 10px;border-radius:8px;cursor:pointer;font-weight:600}
-  select, input[type="file"]{background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,0.03);padding:8px;border-radius:8px}
-  main{display:grid;grid-template-columns:1fr 420px;gap:12px;padding:12px;height:calc(100vh - 64px)}
+  button{background:transparent;border:1px solid rgba(255,255,255,0.05);color:var(--muted);padding:8px 10px;border-radius:8px;cursor:pointer;font-weight:700}
+  select{background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,0.03);padding:8px;border-radius:8px}
+  main{display:grid;grid-template-columns:1fr 460px;gap:12px;padding:12px;height:calc(100vh - 64px)}
   .editor-panel{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);display:flex;flex-direction:column;gap:8px}
   .controls{display:flex;gap:8px;align-items:center}
-  .files{display:flex;gap:6px;align-items:center}
-  textarea{width:100%;height:calc(100% - 140px);resize:none;background:transparent;border:1px solid rgba(255,255,255,0.03);color:#cfe8ff;padding:12px;border-radius:8px;font-family:var(--mono);font-size:13px;line-height:1.5;overflow:auto}
+  textarea{width:100%;height:calc(100% - 170px);resize:none;background:transparent;border:1px solid rgba(255,255,255,0.03);color:#cfe8ff;padding:12px;border-radius:8px;font-family:var(--mono);font-size:13px;line-height:1.5;overflow:auto}
   .right{display:flex;flex-direction:column;gap:8px}
   .preview{flex:1;background:#000;border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.03)}
   iframe#preview{width:100%;height:100%;border:0;background:#fff}
   .console{height:220px;background:#071020;border-radius:8px;padding:10px;overflow:auto;border:1px solid rgba(255,255,255,0.03);font-family:var(--mono);font-size:13px;color:#9be6a0}
-  .console .err{color:#ff7b7b}
+  .console .err{color:var(--err)}
   .small{font-size:12px;color:var(--muted)}
   .help{padding:12px;border-radius:8px;background:linear-gradient(90deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));border:1px solid rgba(255,255,255,0.02);max-height:160px;overflow:auto;font-size:13px;color:var(--muted)}
   footer{padding:8px 16px;color:var(--muted);font-size:12px;text-align:center}
-  .chip{background:rgba(255,255,255,0.02);padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,0.02);color:var(--muted)}
-  /* responsive */
-  @media (max-width:1000px){
-    main{grid-template-columns:1fr;grid-template-rows:auto 360px}
-    .preview{height:200px}
-  }
+  .btn-group{display:flex;gap:6px}
+  @media (max-width:1000px){ main{grid-template-columns:1fr;grid-template-rows:auto 360px} .preview{height:200px}}
 </style>
 </head>
 <body>
-
 <header>
-  <h1>Chat# Studio — One-file IDE (chat# / HTML/CSS/JS)</h1>
+  <h1>Chat# Studio — IDE + Debugger (single file)</h1>
   <div class="toolbar">
-    <div class="chip" id="langLabel">language: <strong style="color:var(--accent)">&nbsp;chat#&nbsp;</strong></div>
     <select id="langSelect" title="Choose language">
-      <option value="chat#">chat# (o1) — interpreted</option>
+      <option value="chat#">chat# (interpreter)</option>
       <option value="html">HTML</option>
       <option value="css">CSS</option>
       <option value="js">JS</option>
-      <option value="python">Python (editor only)</option>
-      <option value="cpp">C / C++ (editor only)</option>
-      <option value="csharp">C# (editor only)</option>
     </select>
-    <div style="width:8px"></div>
-    <button id="runBtn">Run ▶</button>
-    <button id="clearBtn">Clear ✖</button>
-    <button id="downloadBtn">Download ⤓</button>
-    <button id="themeBtn">Theme</button>
+    <div class="btn-group">
+      <button id="runBtn">Run ▶</button>
+      <button id="debugBtn">Debug ▶</button>
+      <button id="stepBtn">Step ⏭</button>
+      <button id="pauseBtn">Pause ⏸</button>
+      <button id="stopBtn">Stop ⛔</button>
+    </div>
+    <button id="errorBtn">Find Errors 🔍</button>
+    <button id="clearBtn">Clear</button>
+    <button id="downloadBtn">Download</button>
   </div>
 </header>
 
 <main>
   <div class="editor-panel">
     <div class="controls">
-      <div class="files small">File: <strong id="fileName">main.chat</strong></div>
+      <div class="small">File: <strong id="fileName">main.chat</strong></div>
       <div style="flex:1"></div>
-      <div class="small">Fast — dynamic typing · interpreted</div>
+      <div class="small">Stateful env · Step debugger for chat#</div>
     </div>
 
     <textarea id="editor" spellcheck="false"></textarea>
 
     <div style="display:flex;gap:8px;align-items:center">
-      <div class="small">Tips: write chat# and press Run. For HTML/CSS/JS use their tabs and Run to preview.</div>
+      <div class="small">Tip: use <code>print(...)</code>, <code>fn name(args){}</code>, <code>while(cond){}</code>, <code>if(cond){}</code>. Use Step to step statements.</div>
       <div style="flex:1"></div>
-      <div class="small">Built-in functions: <code>print(...)</code>, <code>range(n)</code>, <code>fn name(args){}</code>, <code>while(condition){}</code>, <code>if(cond){}</code></div>
+      <div class="small">Ctrl+Enter = Run</div>
     </div>
   </div>
 
@@ -85,29 +77,26 @@
     <div class="console" id="console"></div>
 
     <div class="help" id="help">
-      <strong>chat# Quick Reference</strong>
-      <div>• Variables: <code>let x = 5</code> or <code>x = 5</code></div>
-      <div>• Print: <code>print("hello", x)</code></div>
-      <div>• Function: <code>fn add(a,b){ return a+b }</code></div>
-      <div>• If / else: <code>if (a>0){ ... } else { ... }</code></div>
-      <div>• Loops: <code>while (i&lt;10){ i = i + 1 }</code> or <code>for (let i=0;i&lt;5;i++){}</code></div>
-      <div style="margin-top:8px">• <strong>Note:</strong> chat# is transpiled to JS and executed — fast & dynamic. Python / C / C++ / C# editors are for editing & download; run them with proper compilers or online runners.</div>
+      <strong>Debugger & Error Finder</strong>
+      <div>- Click <em>Find Errors</em> to run static checks (parens/braces/quotes balancing).</div>
+      <div>- Use <em>Debug</em> to prepare the stepper. Then use <em>Step</em> to execute line-by-line.</div>
+      <div>- <em>Pause</em> stops automatic stepping. <em>Stop</em> aborts execution and resets env.</div>
+      <div style="margin-top:8px">chat# implements simple JS-like syntax and is transpiled to JS. The stepper executes statements sequentially in a persistent environment object so you can inspect variables via console prints.</div>
     </div>
   </div>
 </main>
 
 <footer>
-  <span>Made with ❤️ — Chat# (o1) quick IDE — single-file. Save & share your snippets. — <em>Local only; no network required</em></span>
+  <span>Single-file — offline — Chat# (o1) IDE + Debugger</span>
 </footer>
 
 <script>
 /* ---------- Samples ---------- */
 const samples = {
-  "chat#": `# Chat# sample
-print("Hello from chat#")
+  "chat#": `# Chat# sample - try stepping
 let x = 0
 while (x < 5) {
-  print("count:", x)
+  print("x:", x)
   x = x + 1
 }
 fn add(a,b) {
@@ -115,169 +104,229 @@ fn add(a,b) {
 }
 print("add:", add(2,3))`,
 
-  "html": `<!-- HTML file -->
-<h1 style="color:#22c55e">Hello from HTML</h1>
-<p id="p">This preview runs inside an iframe. Use CSS & JS tabs too.</p>`,
+  "html": `<h1 style="color:#22c55e">Hello from HTML</h1>
+<p id="p">Preview area</p>`,
 
-  "css": `/* CSS file */
-body{font-family:system-ui, -apple-system, "Segoe UI"; background:linear-gradient(180deg,#0f1724,#071021); color:#cfe8ff}
-h1{font-size:28px}`,
-  
-  "js": `// JS file: try console.log or modify DOM
-console.log("Hello from JS")
-document.getElementById("p") && (document.getElementById("p").textContent = "Text changed by JS")`,
+  "css": `body{font-family:system-ui; background:#071021; color:#cfe8ff}`,  
 
-  "python": `# Python editor (offline)
-print("This editor is for editing Python. To run, use an external runner or Pyodide.)")`,
-
-  "cpp": `// C++ editor (offline)
-#include <iostream>
-int main(){ std::cout << "Hello C++" << std::endl; return 0; }`,
-
-  "csharp": `// C# editor (offline)
-using System;
-class P{ static void Main(){ Console.WriteLine("Hello C#"); } }`
+  "js": `console.log("Hello from JS"); document.getElementById("p") && (document.getElementById("p").textContent = "Changed by JS");`
 };
 
-/* ---------- UI & helpers ---------- */
+/* ---------- UI ---------- */
 const editor = document.getElementById('editor');
 const langSelect = document.getElementById('langSelect');
-const langLabel = document.getElementById('langLabel');
+const fileNameEl = document.getElementById('fileName');
 const runBtn = document.getElementById('runBtn');
+const debugBtn = document.getElementById('debugBtn');
+const stepBtn = document.getElementById('stepBtn');
+const pauseBtn = document.getElementById('pauseBtn');
+const stopBtn = document.getElementById('stopBtn');
+const errorBtn = document.getElementById('errorBtn');
 const clearBtn = document.getElementById('clearBtn');
 const downloadBtn = document.getElementById('downloadBtn');
 const preview = document.getElementById('preview');
 const consoleEl = document.getElementById('console');
-const fileNameEl = document.getElementById('fileName');
-const helpEl = document.getElementById('help');
-const themeBtn = document.getElementById('themeBtn');
 
 let currentLang = 'chat#';
-let docNames = { 'chat#':'main.chat', 'html':'index.html','css':'styles.css','js':'app.js','python':'main.py','cpp':'main.cpp','csharp':'main.cs' };
+let running = false, debugging = false, paused = false, stopped = false;
+let stepQueue = [], stepIndex = 0, stepTimer = null;
+let env = {}; // persistent environment for stepper
 
-/* set default content */
 function loadSample(lang){
   editor.value = samples[lang] || '';
-  fileNameEl.textContent = docNames[lang] || 'main.txt';
+  fileNameEl.textContent = (lang === 'chat#') ? 'main.chat' : (lang === 'html' ? 'index.html' : (lang === 'css' ? 'styles.css' : 'app.js'));
+  clearConsole();
+  if(lang !== 'html') preview.srcdoc = blankPreview();
 }
 loadSample(currentLang);
 
-/* switch language */
 langSelect.addEventListener('change', ()=>{
   currentLang = langSelect.value;
-  langLabel.innerHTML = 'language: <strong style="color:var(--accent)">&nbsp;' + currentLang + '&nbsp;</strong>';
   loadSample(currentLang);
-  clearConsole();
-  updatePreviewBlank();
 });
 
-/* console helpers */
-function appendConsole(msg,cls){
-  const pre = document.createElement('div');
-  pre.textContent = msg;
-  if(cls) pre.classList.add(cls);
-  consoleEl.appendChild(pre);
+/* ---------- Console helpers ---------- */
+function appendConsole(msg, cls){
+  const d = document.createElement('div');
+  d.textContent = msg;
+  if(cls) d.classList.add(cls);
+  consoleEl.appendChild(d);
   consoleEl.scrollTop = consoleEl.scrollHeight;
 }
 function clearConsole(){ consoleEl.innerHTML = ''; }
-function updatePreviewBlank(){ preview.srcdoc = '<!doctype html><meta charset="utf-8"><body style="background:#071021;color:#cfe8ff;display:flex;align-items:center;justify-content:center"><div style="max-width:600px;padding:20px;text-align:center;"><strong>Preview</strong><p class="small">Run HTML/CSS/JS to load preview here.</p></div></body>' }
+function blankPreview(){ return '<!doctype html><meta charset="utf-8"><body style="background:#071021;color:#cfe8ff;display:flex;align-items:center;justify-content:center"><div style="max-width:600px;padding:20px;text-align:center;"><strong>Preview</strong><p class="small">Run HTML/CSS/JS to load preview here.</p></div></body>'; }
 
-/* Download file */
-downloadBtn.addEventListener('click', ()=>{
-  const content = editor.value;
-  const name = docNames[currentLang] || 'file.txt';
-  const blob = new Blob([content], {type: 'text/plain;charset=utf-8'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url; a.download = name;
-  a.click();
-  URL.revokeObjectURL(url);
-});
+/* ---------- Error Finder (simple static checks) ---------- */
+function findErrors(code){
+  const errs = [];
+  // simple balance checks for (), {}, [], quotes
+  const pairs = {'(':')','{':'}','[':']'};
+  const stack = [];
+  for(let i=0;i<code.length;i++){
+    const ch = code[i];
+    if(ch==='"'||ch==="'"){
+      const q = ch;
+      let j = i+1, closed=false;
+      while(j<code.length){
+        if(code[j]===q && code[j-1] !== '\\'){ closed=true; break; }
+        j++;
+      }
+      if(!closed) errs.push('Unclosed quote at pos '+i);
+      i=j;
+      continue;
+    }
+    if(pairs[ch]) stack.push({ch,pos:i});
+    else if(Object.values(pairs).includes(ch)){
+      const top = stack.pop();
+      if(!top || pairs[top.ch] !== ch) errs.push('Mismatched '+ch+' at pos '+i);
+    }
+  }
+  if(stack.length) errs.push('Unclosed '+stack[stack.length-1].ch+' at pos '+stack[stack.length-1].pos);
+  return errs;
+}
 
-/* Clear editor & console */
-clearBtn.addEventListener('click', ()=>{
-  editor.value = '';
-  clearConsole();
-});
-
-/* simple theme toggle */
-let dark = true;
-themeBtn.addEventListener('click', ()=>{
-  dark = !dark;
-  document.body.style.filter = dark ? 'none' : 'invert(0.98) hue-rotate(180deg)';
-});
-
-/* ---------- chat# transpiler & runtime ---------- */
-/*
-  chat# design (simple):
-  - JS-like but friendlier. We transpile to JS:
-    * print(...) -> __print(...)
-    * fn name(a,b){ } -> function name(a,b){ }
-    * for (let ...), while, if, else, return work as written
-    * range(n) -> helper range(n) returns array
-    * and/or/not -> && / || / !
-    * comments starting with # or // are removed
-  - The transpiler performs small regex replacements; not a full parser,
-    but enough for friendly code.
+/* ---------- chat# transpiler (improved) ---------- */
+/* Goals:
+   - Convert simple chat# into JS.
+   - Make assignments go into env so stepper can track variables.
+   - Support fn -> function, print -> __print, comments (# or //), basic boolean words.
+   - Split into executable statements for stepper.
 */
-function transpileChat(code){
-  // remove # comments
-  code = code.split('\\n').map(l=>{
-    const idx = l.indexOf('#');
-    if(idx>=0) return l.slice(0,idx);
-    return l;
+function transpileChatToStatements(code){
+  // remove // and # comments (line)
+  const lines = code.split('\\n').map(l=>{
+    const idx1 = l.indexOf('//');
+    const idx2 = l.indexOf('#');
+    let idx = -1;
+    if(idx1>=0) idx = idx1;
+    if(idx2>=0 && (idx<0 || idx2<idx)) idx = idx2;
+    return (idx>=0)? l.slice(0,idx) : l;
   }).join('\\n');
 
-  // convert 'fn name(a,b){' -> 'function name(a,b){'
-  code = code.replace(/\\bfn\\s+(\\w+)\\s*\\(/g, 'function $1(');
+  // basic replacements
+  let js = lines;
+  js = js.replace(/\\bfn\\s+(\\w+)\\s*\\(/g, 'function $1(');
+  js = js.replace(/\\bprint\\s*\\(/g, '__print(');
+  js = js.replace(/\\band\\b/g,'&&').replace(/\\bor\\b/g,'||').replace(/\\bnot\\b/g,'!');
+  js = js.replace(/\\belif\\b/g,'else if');
 
-  // map print -> __print
-  code = code.replace(/\\bprint\\s*\\(/g, '__print(');
+  // Normalize semicolons/newlines for splitting
+  // We'll split by semicolons or newlines keeping braces blocks intact.
+  // But before splitting we want to rewrite variable definitions and top-level assignments to go into env
+  // Replace "let x = " or "var x = " -> "env.x = "
+  js = js.replace(/\\b(let|var)\\s+([a-zA-Z_$][\\w$]*)\\s*=\\s*/g, function(m,p1,p2){ return 'env.'+p2+' = '; });
 
-  // map boolean words (if used)
-  code = code.replace(/\\band\\b/g,'&&').replace(/\\bor\\b/g,'||').replace(/\\bnot\\b/g,'!');
+  // Replace bare assignments at line start: x = -> env.x =
+  js = js.replace(/^\\s*([a-zA-Z_$][\\w$]*)\\s*=/gm, function(m,p1){ return m.replace(p1, 'env.'+p1); });
 
-  // allow 'elif' to be used like python -> 'else if'
-  code = code.replace(/\\belif\\b/g,'else if');
-
-  // keep let/var as is; remove stray leading/trailing whitespace lines
-  return code;
-}
-
-/* utilities used in runtime */
-function range(n){
-  const a = []; for(let i=0;i<n;i++) a.push(i); return a;
-}
-
-/* execute chat# code by transpiling to JS and using a safe runner */
-function runChat(code){
-  clearConsole();
-  const js = transpileChat(code);
-  // final wrapper: __print + range available
-  const wrapped = `
-    (function(__print, range){
-      try{
-        ${js}
-      }catch(e){
-        __print("Error: " + e);
+  // Allow 'return' inside functions - don't rewrite them.
+  // Now convert into statements array while preserving blocks.
+  const stmts = [];
+  let i=0;
+  const n = js.length;
+  let current = '';
+  let depth = 0;
+  let inString = false;
+  let strChar = '';
+  while(i<n){
+    const ch = js[i];
+    current += ch;
+    if(inString){
+      if(ch===strChar && js[i-1] !== '\\') { inString=false; strChar=''; }
+      i++; continue;
+    } else {
+      if(ch==='\"' || ch==="'"){ inString=true; strChar=ch; i++; continue;}
+      if(ch === '{') { depth++; i++; continue; }
+      if(ch === '}') { depth = Math.max(0, depth-1); i++; continue; }
+      if((ch === ';' || ch === '\\n') && depth===0){
+        // end of statement
+        const s = current.trim();
+        if(s) stmts.push(s);
+        current = '';
+        i++; continue;
       }
-    })
-  `;
-  try{
-    const fn = eval(wrapped);
-    fn(__print, range);
-  } catch(e){
-    appendConsole('Fatal: ' + e, 'err');
+      i++;
+    }
+  }
+  if(current.trim()) stmts.push(current.trim());
+  // final pass: remove trailing semicolons
+  return stmts.map(s => s.replace(/;\\s*$/,''));
+}
+
+/* ---------- Stepper / Runner for chat# ---------- */
+function prepareStepper(statements){
+  env = env || {};
+  stepQueue = statements.slice();
+  stepIndex = 0;
+  debugging = true;
+  paused = false;
+  stopped = false;
+  appendConsole('Debugger ready: ' + stepQueue.length + ' statements');
+}
+
+function runStepperAuto(delay=200){
+  if(stopped) return;
+  if(paused) { appendConsole('Paused'); return; }
+  if(stepIndex >= stepQueue.length){
+    appendConsole('Finished stepping');
+    debugging = false;
+    return;
+  }
+  const stmt = stepQueue[stepIndex++];
+  executeStatement(stmt);
+  if(!stopped && !paused){
+    stepTimer = setTimeout(()=> runStepperAuto(delay), delay);
   }
 }
 
-/* captured print to output pane */
-function __print(...args){
-  // convert objects nicely
-  const s = args.map(a=> {
-    try{ return (typeof a === 'object') ? JSON.stringify(a) : String(a); } catch(e){ return String(a); }
-  }).join(' ');
-  appendConsole(s);
+function executeStatement(stmt){
+  try{
+    // For safety we create a Function that receives env and __print
+    const wrapped = new Function('env','__print',
+      // we run the statement inside a function scope with env reachable via 'env'
+      // note: statements may reference env.* when we rewrote assignments
+      'with(env){ ' + stmt + ' }'
+    );
+    wrapped(env, __print);
+    appendConsole('> ' + stmt);
+  }catch(e){
+    appendConsole('Runtime Error: ' + e, 'err');
+    // stop on error
+    debugging = false;
+    stopped = true;
+    if(stepTimer) clearTimeout(stepTimer);
+  }
+}
+
+/* ---------- chat# full run (non-debug) ---------- */
+function runChatFull(code){
+  clearConsole();
+  try{
+    const stmts = transpileChatToStatements(code);
+    // build combined code
+    const combined = stmts.join('\\n');
+    // create a wrapper that provides env and __print
+    const wrapped = new Function('env','__print','range',
+      'with(env){ ' + combined + ' }'
+    );
+    // reset env only for full run (unless you want persistent)
+    env = {};
+    wrapped(env, __print, function(n){ const a=[]; for(let i=0;i<n;i++) a.push(i); return a; });
+  }catch(e){
+    appendConsole('Error: ' + e, 'err');
+  }
+}
+
+/* ---------- JS runner (non-debug) ---------- */
+function runJSFull(code){
+  clearConsole();
+  try{
+    // run inside function with __print
+    const fn = new Function('__print', code);
+    fn(__print);
+  }catch(e){
+    appendConsole('JS Error: ' + e, 'err');
+  }
 }
 
 /* ---------- HTML/CSS/JS preview runner ---------- */
@@ -286,83 +335,144 @@ function runHTMLCSSJS(){
   const html = (currentLang === 'html') ? editor.value : samples['html'];
   const css = (currentLang === 'css') ? editor.value : samples['css'];
   const js = (currentLang === 'js') ? editor.value : samples['js'];
-
-  // Build srcdoc: capture console.log and window.onerror and post to parent
-  const src = `
-  <!doctype html><html><head><meta charset="utf-8"><style>${css}</style></head><body>
-  ${html}
-  <script>
-    (function(){
-      function send(type, msg){ parent.postMessage({type:type, msg:String(msg)}, '*'); }
-      console.log = function(){ send('log', Array.from(arguments).join(' ')); }
-      console.error = function(){ send('error', Array.from(arguments).join(' ')); }
-      window.onerror = function(msg, src, line){ send('error', msg + ' (line:' + line + ')'); }
-      try{
-        ${js}
-      }catch(e){
-        send('error', e);
-      }
-    })();
-  <\/script></body></html>
-  `;
-
+  const src = `<!doctype html><html><head><meta charset="utf-8"><style>${css}</style></head><body>${html}
+<script>
+  (function(){
+    function send(type,msg){ parent.postMessage({type:type,msg:String(msg)}, '*'); }
+    console.log = function(){ send('log', Array.from(arguments).join(' ')); }
+    console.error = function(){ send('error', Array.from(arguments).join(' ')); }
+    window.onerror = function(msg,src,line){ send('error', msg + ' (line:' + line + ')'); }
+    try{ ${js} }catch(e){ send('error', e); }
+  })();
+<\/script></body></html>`;
   preview.srcdoc = src;
 }
 
-/* receive messages from preview iframe */
-window.addEventListener('message', (ev)=>{
-  if(!ev.data || !ev.data.type) return;
-  if(ev.data.type === 'log') appendConsole(ev.data.msg);
-  if(ev.data.type === 'error') appendConsole(ev.data.msg, 'err');
+/* ---------- event wiring ---------- */
+runBtn.addEventListener('click', ()=>{
+  clearConsole();
+  if(currentLang === 'chat#'){
+    const code = editor.value;
+    // quick static checks
+    const errs = findErrors(code);
+    if(errs.length){
+      appendConsole('Static Errors found:', 'err'); errs.forEach(e=>appendConsole(' - '+e,'err')); return;
+    }
+    // normal full run
+    runChatFull(code);
+  } else if(currentLang === 'js'){
+    runJSFull(editor.value);
+  } else {
+    runHTMLCSSJS();
+  }
 });
 
-/* ---------- JS runner (run inside page) ---------- */
-function runJS(code){
+debugBtn.addEventListener('click', ()=>{
+  if(currentLang !== 'chat#' && currentLang !== 'js'){
+    appendConsole('Debugger currently supports chat# and JS only.', 'err'); return;
+  }
   clearConsole();
+  const code = editor.value;
+  const errs = findErrors(code);
+  if(errs.length){ appendConsole('Static Errors found:', 'err'); errs.forEach(e=>appendConsole(' - '+e,'err')); return; }
+  if(currentLang === 'chat#'){
+    const stmts = transpileChatToStatements(code);
+    prepareStepper(stmts);
+    // auto-run with short delay
+    stepIndex = 0;
+    stopped = false;
+    paused = false;
+    runStepperAuto(200);
+  } else {
+    // for JS, produce simple statements by splitting semicolons/newlines (best-effort)
+    const parts = editor.value.split(/;|\\n/).map(s=>s.trim()).filter(Boolean);
+    prepareStepper(parts);
+    stepIndex = 0; env = {}; stopped=false; paused=false;
+    runStepperAuto(200);
+  }
+});
+
+stepBtn.addEventListener('click', ()=>{
+  if(!debugging){
+    // prepare if not prepared
+    const code = editor.value;
+    const errs = findErrors(code);
+    if(errs.length){ appendConsole('Static Errors found:', 'err'); errs.forEach(e=>appendConsole(' - '+e,'err')); return; }
+    if(currentLang === 'chat#'){
+      prepareStepper(transpileChatToStatements(code));
+    } else if(currentLang === 'js'){
+      const parts = editor.value.split(/;|\\n/).map(s=>s.trim()).filter(Boolean);
+      prepareStepper(parts);
+    } else {
+      appendConsole('Step supports only chat# and JS', 'err'); return;
+    }
+  }
+  if(stopped) { appendConsole('Stopped. Reset debugger to step again.'); return; }
+  if(stepIndex < stepQueue.length){
+    const stmt = stepQueue[stepIndex++];
+    executeStatement(stmt);
+  } else appendConsole('No more statements.');
+});
+
+pauseBtn.addEventListener('click', ()=>{
+  paused = !paused;
+  appendConsole(paused ? 'Paused' : 'Resumed');
+  if(!paused && debugging && !stopped) runStepperAuto(200);
+});
+
+stopBtn.addEventListener('click', ()=>{
+  stopped = true; debugging = false; paused = false;
+  env = {};
+  if(stepTimer) clearTimeout(stepTimer);
+  appendConsole('Execution stopped and env reset.');
+});
+
+errorBtn.addEventListener('click', ()=>{
+  clearConsole();
+  const code = editor.value;
+  const errs = findErrors(code);
+  if(errs.length){ appendConsole('Static Errors found:', 'err'); errs.forEach(e=>appendConsole(' - '+e,'err')); }
+  else appendConsole('No static errors found.');
+});
+
+clearBtn.addEventListener('click', ()=>{ editor.value=''; clearConsole(); preview.srcdoc = blankPreview(); });
+
+downloadBtn.addEventListener('click', ()=>{
+  const text = editor.value;
+  const name = fileNameEl.textContent || 'file.txt';
+  const blob = new Blob([text], {type:'text/plain;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = name; a.click(); URL.revokeObjectURL(url);
+});
+
+/* receive messages from iframe */
+window.addEventListener('message', (ev)=>{
+  if(ev.data && ev.data.type){
+    if(ev.data.type === 'log') appendConsole(ev.data.msg);
+    if(ev.data.type === 'error') appendConsole(ev.data.msg,'err');
+  }
+});
+
+/* __print used by transpiled chat# */
+function __print(...args){
   try{
-    // create a wrapped function with __print mapping to our console
-    const wrapped = new Function('__print', code);
-    wrapped(__print);
+    const s = args.map(a=> {
+      if(typeof a === 'object') return JSON.stringify(a);
+      return String(a);
+    }).join(' ');
+    appendConsole(s);
   }catch(e){
-    appendConsole('Error: ' + e, 'err');
+    appendConsole('Print error: '+e, 'err');
   }
 }
 
-/* ---------- Runner selector ---------- */
-runBtn.addEventListener('click', ()=>{
-  const code = editor.value;
-  if(currentLang === 'chat#'){
-    runChat(code);
-    // also clear preview (chat# outputs in console)
-    updatePreviewBlank();
-  } else if(currentLang === 'html' || currentLang === 'css' || currentLang === 'js'){
-    // for convenience, if user presses Run in any of these, assemble from three editors.
-    // If current file is only one of them, we used samples for other parts.
-    // We will adopt editor content for the active file and use samples for others:
-    const html = (currentLang === 'html') ? editor.value : samples['html'];
-    const css = (currentLang === 'css') ? editor.value : samples['css'];
-    const js = (currentLang === 'js') ? editor.value : samples['js'];
-    // set the other editors' content in samples so next user switches will preserve (lightweight)
-    samples['html'] = html; samples['css'] = css; samples['js'] = js;
-    runHTMLCSSJS();
-  } else if(currentLang === 'js'){
-    runJS(code);
-  } else {
-    clearConsole();
-    appendConsole('Note: Running ' + currentLang + ' is not supported inside this single-file IDE. You can edit & download the code and run it with proper compilers or online runners.', 'err');
-  }
-});
-
-/* keyboard shortcut: Ctrl+Enter to run */
-editor.addEventListener('keydown', (e)=>{
-  if(e.key === 'Enter' && (e.ctrlKey || e.metaKey)){
-    e.preventDefault(); runBtn.click();
-  }
+/* keyboard shortcut */
+editor.addEventListener('keydown',(e)=>{
+  if(e.key === 'Enter' && (e.ctrlKey || e.metaKey)){ e.preventDefault(); runBtn.click(); }
 });
 
 /* initial preview */
-updatePreviewBlank();
-
+preview.srcdoc = blankPreview();
 </script>
 </body>
 </html>
