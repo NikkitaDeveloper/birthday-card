@@ -27,4 +27,342 @@
   .console{height:220px;background:#071020;border-radius:8px;padding:10px;overflow:auto;border:1px solid rgba(255,255,255,0.03);font-family:var(--mono);font-size:13px;color:#9be6a0}
   .console .err{color:#ff7b7b}
   .small{font-size:12px;color:var(--muted)}
-  .help{padding:12px;border-radius:8px;background:linear-gradient(90deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005
+  .help{padding:12px;border-radius:8px;background:linear-gradient(90deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));border:1px solid rgba(255,255,255,0.02);max-height:160px;overflow:auto;font-size:13px;color:var(--muted)}
+  footer{padding:8px 16px;color:var(--muted);font-size:12px;text-align:center}
+  .chip{background:rgba(255,255,255,0.02);padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,0.02);color:var(--muted)}
+  /* responsive */
+  @media (max-width:1000px){
+    main{grid-template-columns:1fr;grid-template-rows:auto 360px}
+    .preview{height:200px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Chat# Studio — One-file IDE (chat# / HTML/CSS/JS)</h1>
+  <div class="toolbar">
+    <div class="chip" id="langLabel">language: <strong style="color:var(--accent)">&nbsp;chat#&nbsp;</strong></div>
+    <select id="langSelect" title="Choose language">
+      <option value="chat#">chat# (o1) — interpreted</option>
+      <option value="html">HTML</option>
+      <option value="css">CSS</option>
+      <option value="js">JS</option>
+      <option value="python">Python (editor only)</option>
+      <option value="cpp">C / C++ (editor only)</option>
+      <option value="csharp">C# (editor only)</option>
+    </select>
+    <div style="width:8px"></div>
+    <button id="runBtn">Run ▶</button>
+    <button id="clearBtn">Clear ✖</button>
+    <button id="downloadBtn">Download ⤓</button>
+    <button id="themeBtn">Theme</button>
+  </div>
+</header>
+
+<main>
+  <div class="editor-panel">
+    <div class="controls">
+      <div class="files small">File: <strong id="fileName">main.chat</strong></div>
+      <div style="flex:1"></div>
+      <div class="small">Fast — dynamic typing · interpreted</div>
+    </div>
+
+    <textarea id="editor" spellcheck="false"></textarea>
+
+    <div style="display:flex;gap:8px;align-items:center">
+      <div class="small">Tips: write chat# and press Run. For HTML/CSS/JS use their tabs and Run to preview.</div>
+      <div style="flex:1"></div>
+      <div class="small">Built-in functions: <code>print(...)</code>, <code>range(n)</code>, <code>fn name(args){}</code>, <code>while(condition){}</code>, <code>if(cond){}</code></div>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="preview" id="previewWrap">
+      <iframe id="preview" sandbox="allow-scripts"></iframe>
+    </div>
+
+    <div class="console" id="console"></div>
+
+    <div class="help" id="help">
+      <strong>chat# Quick Reference</strong>
+      <div>• Variables: <code>let x = 5</code> or <code>x = 5</code></div>
+      <div>• Print: <code>print("hello", x)</code></div>
+      <div>• Function: <code>fn add(a,b){ return a+b }</code></div>
+      <div>• If / else: <code>if (a>0){ ... } else { ... }</code></div>
+      <div>• Loops: <code>while (i&lt;10){ i = i + 1 }</code> or <code>for (let i=0;i&lt;5;i++){}</code></div>
+      <div style="margin-top:8px">• <strong>Note:</strong> chat# is transpiled to JS and executed — fast & dynamic. Python / C / C++ / C# editors are for editing & download; run them with proper compilers or online runners.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <span>Made with ❤️ — Chat# (o1) quick IDE — single-file. Save & share your snippets. — <em>Local only; no network required</em></span>
+</footer>
+
+<script>
+/* ---------- Samples ---------- */
+const samples = {
+  "chat#": `# Chat# sample
+print("Hello from chat#")
+let x = 0
+while (x < 5) {
+  print("count:", x)
+  x = x + 1
+}
+fn add(a,b) {
+  return a + b
+}
+print("add:", add(2,3))`,
+
+  "html": `<!-- HTML file -->
+<h1 style="color:#22c55e">Hello from HTML</h1>
+<p id="p">This preview runs inside an iframe. Use CSS & JS tabs too.</p>`,
+
+  "css": `/* CSS file */
+body{font-family:system-ui, -apple-system, "Segoe UI"; background:linear-gradient(180deg,#0f1724,#071021); color:#cfe8ff}
+h1{font-size:28px}`,
+  
+  "js": `// JS file: try console.log or modify DOM
+console.log("Hello from JS")
+document.getElementById("p") && (document.getElementById("p").textContent = "Text changed by JS")`,
+
+  "python": `# Python editor (offline)
+print("This editor is for editing Python. To run, use an external runner or Pyodide.)")`,
+
+  "cpp": `// C++ editor (offline)
+#include <iostream>
+int main(){ std::cout << "Hello C++" << std::endl; return 0; }`,
+
+  "csharp": `// C# editor (offline)
+using System;
+class P{ static void Main(){ Console.WriteLine("Hello C#"); } }`
+};
+
+/* ---------- UI & helpers ---------- */
+const editor = document.getElementById('editor');
+const langSelect = document.getElementById('langSelect');
+const langLabel = document.getElementById('langLabel');
+const runBtn = document.getElementById('runBtn');
+const clearBtn = document.getElementById('clearBtn');
+const downloadBtn = document.getElementById('downloadBtn');
+const preview = document.getElementById('preview');
+const consoleEl = document.getElementById('console');
+const fileNameEl = document.getElementById('fileName');
+const helpEl = document.getElementById('help');
+const themeBtn = document.getElementById('themeBtn');
+
+let currentLang = 'chat#';
+let docNames = { 'chat#':'main.chat', 'html':'index.html','css':'styles.css','js':'app.js','python':'main.py','cpp':'main.cpp','csharp':'main.cs' };
+
+/* set default content */
+function loadSample(lang){
+  editor.value = samples[lang] || '';
+  fileNameEl.textContent = docNames[lang] || 'main.txt';
+}
+loadSample(currentLang);
+
+/* switch language */
+langSelect.addEventListener('change', ()=>{
+  currentLang = langSelect.value;
+  langLabel.innerHTML = 'language: <strong style="color:var(--accent)">&nbsp;' + currentLang + '&nbsp;</strong>';
+  loadSample(currentLang);
+  clearConsole();
+  updatePreviewBlank();
+});
+
+/* console helpers */
+function appendConsole(msg,cls){
+  const pre = document.createElement('div');
+  pre.textContent = msg;
+  if(cls) pre.classList.add(cls);
+  consoleEl.appendChild(pre);
+  consoleEl.scrollTop = consoleEl.scrollHeight;
+}
+function clearConsole(){ consoleEl.innerHTML = ''; }
+function updatePreviewBlank(){ preview.srcdoc = '<!doctype html><meta charset="utf-8"><body style="background:#071021;color:#cfe8ff;display:flex;align-items:center;justify-content:center"><div style="max-width:600px;padding:20px;text-align:center;"><strong>Preview</strong><p class="small">Run HTML/CSS/JS to load preview here.</p></div></body>' }
+
+/* Download file */
+downloadBtn.addEventListener('click', ()=>{
+  const content = editor.value;
+  const name = docNames[currentLang] || 'file.txt';
+  const blob = new Blob([content], {type: 'text/plain;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = name;
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+/* Clear editor & console */
+clearBtn.addEventListener('click', ()=>{
+  editor.value = '';
+  clearConsole();
+});
+
+/* simple theme toggle */
+let dark = true;
+themeBtn.addEventListener('click', ()=>{
+  dark = !dark;
+  document.body.style.filter = dark ? 'none' : 'invert(0.98) hue-rotate(180deg)';
+});
+
+/* ---------- chat# transpiler & runtime ---------- */
+/*
+  chat# design (simple):
+  - JS-like but friendlier. We transpile to JS:
+    * print(...) -> __print(...)
+    * fn name(a,b){ } -> function name(a,b){ }
+    * for (let ...), while, if, else, return work as written
+    * range(n) -> helper range(n) returns array
+    * and/or/not -> && / || / !
+    * comments starting with # or // are removed
+  - The transpiler performs small regex replacements; not a full parser,
+    but enough for friendly code.
+*/
+function transpileChat(code){
+  // remove # comments
+  code = code.split('\\n').map(l=>{
+    const idx = l.indexOf('#');
+    if(idx>=0) return l.slice(0,idx);
+    return l;
+  }).join('\\n');
+
+  // convert 'fn name(a,b){' -> 'function name(a,b){'
+  code = code.replace(/\\bfn\\s+(\\w+)\\s*\\(/g, 'function $1(');
+
+  // map print -> __print
+  code = code.replace(/\\bprint\\s*\\(/g, '__print(');
+
+  // map boolean words (if used)
+  code = code.replace(/\\band\\b/g,'&&').replace(/\\bor\\b/g,'||').replace(/\\bnot\\b/g,'!');
+
+  // allow 'elif' to be used like python -> 'else if'
+  code = code.replace(/\\belif\\b/g,'else if');
+
+  // keep let/var as is; remove stray leading/trailing whitespace lines
+  return code;
+}
+
+/* utilities used in runtime */
+function range(n){
+  const a = []; for(let i=0;i<n;i++) a.push(i); return a;
+}
+
+/* execute chat# code by transpiling to JS and using a safe runner */
+function runChat(code){
+  clearConsole();
+  const js = transpileChat(code);
+  // final wrapper: __print + range available
+  const wrapped = `
+    (function(__print, range){
+      try{
+        ${js}
+      }catch(e){
+        __print("Error: " + e);
+      }
+    })
+  `;
+  try{
+    const fn = eval(wrapped);
+    fn(__print, range);
+  } catch(e){
+    appendConsole('Fatal: ' + e, 'err');
+  }
+}
+
+/* captured print to output pane */
+function __print(...args){
+  // convert objects nicely
+  const s = args.map(a=> {
+    try{ return (typeof a === 'object') ? JSON.stringify(a) : String(a); } catch(e){ return String(a); }
+  }).join(' ');
+  appendConsole(s);
+}
+
+/* ---------- HTML/CSS/JS preview runner ---------- */
+function runHTMLCSSJS(){
+  clearConsole();
+  const html = (currentLang === 'html') ? editor.value : samples['html'];
+  const css = (currentLang === 'css') ? editor.value : samples['css'];
+  const js = (currentLang === 'js') ? editor.value : samples['js'];
+
+  // Build srcdoc: capture console.log and window.onerror and post to parent
+  const src = `
+  <!doctype html><html><head><meta charset="utf-8"><style>${css}</style></head><body>
+  ${html}
+  <script>
+    (function(){
+      function send(type, msg){ parent.postMessage({type:type, msg:String(msg)}, '*'); }
+      console.log = function(){ send('log', Array.from(arguments).join(' ')); }
+      console.error = function(){ send('error', Array.from(arguments).join(' ')); }
+      window.onerror = function(msg, src, line){ send('error', msg + ' (line:' + line + ')'); }
+      try{
+        ${js}
+      }catch(e){
+        send('error', e);
+      }
+    })();
+  <\/script></body></html>
+  `;
+
+  preview.srcdoc = src;
+}
+
+/* receive messages from preview iframe */
+window.addEventListener('message', (ev)=>{
+  if(!ev.data || !ev.data.type) return;
+  if(ev.data.type === 'log') appendConsole(ev.data.msg);
+  if(ev.data.type === 'error') appendConsole(ev.data.msg, 'err');
+});
+
+/* ---------- JS runner (run inside page) ---------- */
+function runJS(code){
+  clearConsole();
+  try{
+    // create a wrapped function with __print mapping to our console
+    const wrapped = new Function('__print', code);
+    wrapped(__print);
+  }catch(e){
+    appendConsole('Error: ' + e, 'err');
+  }
+}
+
+/* ---------- Runner selector ---------- */
+runBtn.addEventListener('click', ()=>{
+  const code = editor.value;
+  if(currentLang === 'chat#'){
+    runChat(code);
+    // also clear preview (chat# outputs in console)
+    updatePreviewBlank();
+  } else if(currentLang === 'html' || currentLang === 'css' || currentLang === 'js'){
+    // for convenience, if user presses Run in any of these, assemble from three editors.
+    // If current file is only one of them, we used samples for other parts.
+    // We will adopt editor content for the active file and use samples for others:
+    const html = (currentLang === 'html') ? editor.value : samples['html'];
+    const css = (currentLang === 'css') ? editor.value : samples['css'];
+    const js = (currentLang === 'js') ? editor.value : samples['js'];
+    // set the other editors' content in samples so next user switches will preserve (lightweight)
+    samples['html'] = html; samples['css'] = css; samples['js'] = js;
+    runHTMLCSSJS();
+  } else if(currentLang === 'js'){
+    runJS(code);
+  } else {
+    clearConsole();
+    appendConsole('Note: Running ' + currentLang + ' is not supported inside this single-file IDE. You can edit & download the code and run it with proper compilers or online runners.', 'err');
+  }
+});
+
+/* keyboard shortcut: Ctrl+Enter to run */
+editor.addEventListener('keydown', (e)=>{
+  if(e.key === 'Enter' && (e.ctrlKey || e.metaKey)){
+    e.preventDefault(); runBtn.click();
+  }
+});
+
+/* initial preview */
+updatePreviewBlank();
+
+</script>
+</body>
+</html>
